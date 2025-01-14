@@ -3,8 +3,10 @@ package com.farukayata.e_commerce2.ui.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.data.entity.Commerce_Products
 import com.farukayata.e_commerce2.databinding.CardDesignBinding
 import com.farukayata.e_commerce2.databinding.FragmentHomeBinding
@@ -19,7 +21,8 @@ class EcommorceAdapter (var mContext: Context,var commerceProductListesi : List<
     inner class CardDesignTutucu(var tasarim: CardDesignBinding) : RecyclerView.ViewHolder(tasarim.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardDesignTutucu {
-        val binding = CardDesignBinding.inflate(LayoutInflater.from(mContext), parent, false)
+        val binding:CardDesignBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext),R.layout.card_design, parent, false)
+        //yukarıyıda revize ettil cardesign xml kısmını düzenledikten sonra
         return CardDesignTutucu(binding)
     }
 
@@ -30,7 +33,10 @@ class EcommorceAdapter (var mContext: Context,var commerceProductListesi : List<
         t.imageViewProductCard.setImageResource(mContext.resources.getIdentifier(product.image, "drawable", mContext.packageName))
         //drawble kulladık çünkü burda api den değil localde drawblede olan resimleri kullancaz
 
-        t.textViewProdutcPrice.text = "${product.price} TL"
+        t.commoreceNesnesi = product
+
+        //t.textViewProdutcPrice.text = "${product.price} TL"
+        //xml de düzenledik zaten gerek kalmadı
 
         t.cardViewEcommorceProduct.setOnClickListener {//karta tıklanndığı zaman kullanmak için
             val gecis = HomeFragmentDirections.detailGecis(product = product) //!!!!!! = karşısı emin dilim
