@@ -5,6 +5,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 //viewmodel kısımlarına burdan başladım
+//şu anda bi nesne olmadığı için bağımlılık yok
 class ProductsDataSource {
     suspend fun productsYukle(): List<Commerce_Products> =
         withContext(Dispatchers.IO) {

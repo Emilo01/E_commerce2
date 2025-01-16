@@ -13,8 +13,9 @@ import com.farukayata.e_commerce2.data.entity.Commerce_Products
 import com.farukayata.e_commerce2.databinding.FragmentHomeBinding
 import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.HomePageViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
