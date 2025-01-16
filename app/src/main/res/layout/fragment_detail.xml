@@ -5,9 +5,8 @@
 
     <data>
         <variable
-            name="commoreceNesnesi"
-            type="com.farukayata.e_commerce2.data.entity.Commerce_Products" />
-
+            name="product"
+            type="com.farukayata.e_commerce2.model.Product" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,14 +16,13 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarDetailPage"
-            app:title="@{commoreceNesnesi.title}"
+            app:title="@{product.title}"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,19 +32,17 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/textViewProductPrice"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarDetailPage"
+            app:layout_constraintTop_toBottomOf="@id/toolbarDetailPage"
             tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textViewProductPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{commoreceNesnesi.price+" tl"}'
+            android:text='@{String.format("%.2f TL", product.price)}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewProduct" />
     </androidx.constraintlayout.widget.ConstraintLayout>

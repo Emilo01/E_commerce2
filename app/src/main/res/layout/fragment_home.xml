@@ -8,7 +8,7 @@
             name="homePageToolbarTitle"
             type="String" />
         <variable
-            name="commorceAdapter"
+            name="commerceAdapter"
             type="com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter" />
 
     </data>
@@ -27,13 +27,12 @@
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/CommerceRecycleView"
-            android:adapter="@{commorceAdapter}"
+            android:adapter="@{commerceAdapter}"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2"
             android:orientation="vertical"
@@ -41,9 +40,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbarHomePage"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintTop_toBottomOf="@id/toolbarHomePage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,5 +1,56 @@
 package com.farukayata.e_commerce2.ui.adapter
 
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.farukayata.e_commerce2.R
+import com.farukayata.e_commerce2.databinding.CardDesignBinding
+import com.farukayata.e_commerce2.model.Product
+
+class EcommorceAdapter(private val context: Context, private val productList: List<Product>)
+    : RecyclerView.Adapter<EcommorceAdapter.CardDesignViewHolder>() {
+
+    inner class CardDesignViewHolder(val binding: CardDesignBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardDesignViewHolder {
+        val binding: CardDesignBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context), R.layout.card_design, parent, false)
+        return CardDesignViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: CardDesignViewHolder, position: Int) {
+        val product = productList[position]
+        holder.binding.product = product
+        Glide.with(context).load(product.image).into(holder.binding.imageViewProductCard)
+    }
+
+    override fun getItemCount(): Int = productList.size
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -53,3 +104,5 @@ class EcommorceAdapter (var mContext: Context,var commerceProductListesi : List<
         return commerceProductListesi.size
     }
 }
+
+ */

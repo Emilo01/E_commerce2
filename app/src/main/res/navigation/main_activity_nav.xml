@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="product"
-            app:argType="com.farukayata.e_commerce2.data.entity.Commerce_Products" />
+            app:argType="com.farukayata.e_commerce2.model.Product" />
     </fragment>
 </navigation>
