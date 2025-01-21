@@ -14,9 +14,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+    //ViewModel, Repository ye ejekte ettik
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomePageViewModel by viewModels()
+    //API'den veri çekme, işleme ve fragment'a veri sağlama gibi görevler için
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
+        //Ürün listesini RecyclerView ile bağlayarak Home sayfasında görüntülettik
         viewModel.productList.observe(viewLifecycleOwner) { products ->
             val adapter = EcommorceAdapter(requireContext(), products)
             binding.commerceAdapter = adapter

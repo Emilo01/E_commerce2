@@ -10,3 +10,6 @@ data class Product (
     val image: String,
     val category: String
     ): Serializable
+
+//istersek parcelize(Intent veya Bundle ile veri aktarımı yapar) da kullana bilirdik
+//sonrası için projeyi hızlandırmak adına değiştirile bilir

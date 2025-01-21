@@ -5,6 +5,7 @@ import com.farukayata.e_commerce2.data.datasource.ProductsDataSource
 import com.farukayata.e_commerce2.network.ApiClient
 import com.farukayata.e_commerce2.network.ApiService
 import com.farukayata.e_commerce2.data.repo.ProductsRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +38,12 @@ class AppModule {
     @Singleton
     fun provideProductsRepository(pds: ProductsDataSource): ProductsRepository {
         return ProductsRepository(pds)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 }
 
