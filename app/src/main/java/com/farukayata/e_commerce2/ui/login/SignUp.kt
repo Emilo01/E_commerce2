@@ -99,7 +99,7 @@ class SignUpFragment : Fragment() {
 
          //ViewModel durumlarını gözlemleme
         lifecycleScope.launchWhenStarted { //lifecycleScope sayesinde started olunca çalışır
-            viewModel.signUpState.collect { state ->
+            viewModel.signUpState.collect { state -> //signUpState adlı Flow'u gözlemler. Flow'dan gelen her yeni durum (Response) bu blokta işler
                 when (state) {
                     is Response.Loading -> {
                         // Progress bar gösterilir

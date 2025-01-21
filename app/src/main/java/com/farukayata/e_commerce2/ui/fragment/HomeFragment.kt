@@ -1,5 +1,64 @@
 package com.farukayata.e_commerce2.ui.fragment
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.farukayata.e_commerce2.R
+import com.farukayata.e_commerce2.databinding.FragmentHomeBinding
+import com.farukayata.e_commerce2.model.Product
+import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
+import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
+import com.farukayata.e_commerce2.ui.viewmodel.HomePageViewModel
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class HomeFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeBinding
+    private val homeViewModel: HomePageViewModel by viewModels()
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // Ürün listesini RecyclerView ile bağlama
+        homeViewModel.productList.observe(viewLifecycleOwner) { products ->
+            val adapter = EcommorceAdapter(requireContext(), products) { product ->
+                // Favorilere ekleme işlemi
+                val favorite = Product(
+                    id = product.id,
+                    title = product.title,
+                    price = product.price,
+                    image = product.image
+                )
+                favoritesViewModel.addFavorite(favorite)
+            }
+            binding.commerceAdapter = adapter
+        }
+
+        // Favoriler sayfasına geçiş için butona tıklama
+        binding.buttonFavorites.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_favoritesFragment)
+        }
+
+        return binding.root
+    }
+}
+
+
+
+
+
+/*
+package com.farukayata.e_commerce2.ui.fragment
+
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,11 +91,14 @@ class HomeFragment : Fragment() {
             binding.commerceAdapter = adapter
         }
 
+
         return binding.root
     }
 }
 
 
+
+ */
 
 
 

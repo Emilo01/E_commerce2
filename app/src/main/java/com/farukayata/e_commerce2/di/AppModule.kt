@@ -6,6 +6,7 @@ import com.farukayata.e_commerce2.network.ApiClient
 import com.farukayata.e_commerce2.network.ApiService
 import com.farukayata.e_commerce2.data.repo.ProductsRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,6 +45,13 @@ class AppModule {
     @Singleton
     fun provideFirebaseAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
+    }
+
+    // FirebaseFirestore sağlama
+    @Provides
+    @Singleton
+    fun provideFirebaseFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
     }
 }
 

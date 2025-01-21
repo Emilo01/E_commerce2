@@ -37,6 +37,9 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
+            android:id="@+id/action_homeFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+        <action
             android:id="@+id/detailGecis"
             app:destination="@id/detailFragment" />
     </fragment>
@@ -51,5 +54,12 @@
             android:name="product"
             app:argType="com.farukayata.e_commerce2.model.Product" />
     </fragment>
+
+    <!-- FavoritesFragment -->
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/fragment_favorites" />
 
 </navigation>

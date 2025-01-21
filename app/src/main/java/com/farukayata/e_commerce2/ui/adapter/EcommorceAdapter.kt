@@ -1,5 +1,66 @@
 package com.farukayata.e_commerce2.ui.adapter
 
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.farukayata.e_commerce2.R
+import com.farukayata.e_commerce2.databinding.CardDesignBinding
+import com.farukayata.e_commerce2.model.Product
+import com.farukayata.e_commerce2.ui.fragment.HomeFragmentDirections
+
+class EcommorceAdapter(
+    private val context: Context,
+    private val productList: List<Product>,
+    private val onFavoriteClick: (Product) -> Unit // Favorilere ekleme için lambda
+) : RecyclerView.Adapter<EcommorceAdapter.CardDesignViewHolder>() {
+
+    inner class CardDesignViewHolder(val binding: CardDesignBinding) : RecyclerView.ViewHolder(binding.root)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardDesignViewHolder {
+        val binding: CardDesignBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context), R.layout.card_design, parent, false
+        )
+        return CardDesignViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: CardDesignViewHolder, position: Int) {
+        val product = productList[position]
+        holder.binding.product = product
+
+        Glide.with(context)
+            .load(product.image)
+            .into(holder.binding.imageViewProductCard)
+
+        // Ürüne tıklama olayını tanımladık (detail sayfasına geçiş için)
+        holder.binding.cardViewEcommorceProduct.setOnClickListener {
+            val action = HomeFragmentDirections.detailGecis(product)
+            Navigation.findNavController(it).navigate(action)
+        }
+
+        // Favorilere ekleme butonuna tıklama
+        holder.binding.buttonShop.text = "Add to Favorites" // Buton yazısını favori işlemi için değiştiriyoruz
+        holder.binding.buttonShop.setOnClickListener {
+            onFavoriteClick(product) // Lambda fonksiyonu üzerinden favorilere ekleme işlemini tetikle
+        }
+    }
+
+    override fun getItemCount(): Int = productList.size
+}
+
+
+
+
+
+
+
+
+/*
+package com.farukayata.e_commerce2.ui.adapter
+
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -49,6 +110,8 @@ class EcommorceAdapter(private val context: Context, private val productList: Li
 }
 
 
+
+ */
 
 
 
