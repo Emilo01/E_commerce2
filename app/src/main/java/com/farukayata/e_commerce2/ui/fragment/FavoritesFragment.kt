@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.farukayata.e_commerce2.databinding.FragmentFavoritesBinding
 import com.farukayata.e_commerce2.ui.adapter.FavoritesAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
@@ -33,7 +34,11 @@ class FavoritesFragment : Fragment() {
         }
 
         // RecyclerView ayarları
-        binding.recyclerViewFavorites.layoutManager = LinearLayoutManager(requireContext())
+        // yan yana olan görünüm tekli oluyor
+        //binding.recyclerViewFavorites.layoutManager = LinearLayoutManager(requireContext())
+        //artık yan yana ikili olcak
+        binding.recyclerViewFavorites.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
         binding.recyclerViewFavorites.adapter = adapter
 
         // Favori ürünleri gözlemleme

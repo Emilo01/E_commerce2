@@ -14,6 +14,8 @@ import javax.inject.Inject
 class HomePageViewModel @Inject constructor(private val repository: ProductsRepository) : ViewModel() {
     val productList = MutableLiveData<List<Product>>()
 
+    //Mutable HomeFragment'teki ürün listesinin otomatik olarak güncellenmesini sağlar.
+
     init {
         fetchProducts()
     }

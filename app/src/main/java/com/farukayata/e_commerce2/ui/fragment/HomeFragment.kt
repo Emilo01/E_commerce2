@@ -29,18 +29,26 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         // Ürün listesini RecyclerView ile bağlama
+//        homeViewModel.productList.observe(viewLifecycleOwner) { products ->
+//            val adapter = EcommorceAdapter(requireContext(), products) { product ->
+//                // Favorilere ekleme işlemi
+//                val favorite = Product(
+//                    id = product.id,
+//                    title = product.title,
+//                    price = product.price,
+//                    image = product.image
+//                )
+//                favoritesViewModel.addFavorite(favorite)
+//            }
+//            binding.commerceAdapter = adapter
+//        }
         homeViewModel.productList.observe(viewLifecycleOwner) { products ->
-            val adapter = EcommorceAdapter(requireContext(), products) { product ->
+            val adapter = EcommorceAdapter(requireContext()) { product ->
                 // Favorilere ekleme işlemi
-                val favorite = Product(
-                    id = product.id,
-                    title = product.title,
-                    price = product.price,
-                    image = product.image
-                )
-                favoritesViewModel.addFavorite(favorite)
+                favoritesViewModel.addFavorite(product)
             }
             binding.commerceAdapter = adapter
+            adapter.submitList(products) // Listeyi adaptöre bağla
         }
 
         // Favoriler sayfasına geçiş için butona tıklama

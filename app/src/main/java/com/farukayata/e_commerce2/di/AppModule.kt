@@ -13,7 +13,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@Module
+@Module //bağımlılık sağlayıcı modülü
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
@@ -52,7 +52,7 @@ class AppModule {
     @Singleton
     fun provideFirebaseFirestore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
-    }
+    }//Firestore tabanlı veri işlemleri (add, get, delete) yapmak için kullanılır
 }
 
 

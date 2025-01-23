@@ -9,6 +9,11 @@ class ProductsDataSource @Inject constructor(private val apiService: ApiService)
     suspend fun getProductsFromApi(): List<Product> {
         return apiService.getProducts()
     }
+
+    // Belirli bir kategoriye göre ürünleri getir
+    suspend fun getCategoryProducts(category: String): List<Product> {
+        return apiService.getCategoryProducts(category)
+    }
 }
 
 

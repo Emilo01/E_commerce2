@@ -22,6 +22,8 @@ class FavoritesRepository @Inject constructor(
     suspend fun getFavorites(): List<Product> {
         return try {
             favoritesCollection.get().await().toObjects(Product::class.java)
+            //Firestore'dan favori ürünleri getirir.
+            //Firestore'dan alınan belgeleri Product modeline dönüştürür
         } catch (e: Exception) {
             Log.e("FavoritesRepository", "Error fetching favorites", e) //logcatte hata vermedi
             emptyList()
@@ -32,6 +34,7 @@ class FavoritesRepository @Inject constructor(
     suspend fun addFavorite(favorite: Product) {
         try {
             favoritesCollection.document(favorite.id.toString()).set(favorite).await()
+            //set(favorite) => ürünleri favorilere ekler
             Log.d("FavoritesRepository", "Favorite added: ${favorite.title}, Price: ${favorite.price}")
         } catch (e: Exception) {
             Log.e("FavoritesRepository", "Error adding favorite", e)

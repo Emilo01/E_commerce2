@@ -8,4 +8,5 @@ data class Commerce_Products(var id: Int,
                              var price: Double) :
     Serializable {
     //serializable home dan -> detail a veri göndermede gerekli
+    //proje başta localden veri alırken burayı kullanıyordum şu ann geçersiz
 }

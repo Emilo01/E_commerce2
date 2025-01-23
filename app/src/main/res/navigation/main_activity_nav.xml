@@ -62,4 +62,24 @@
         android:label="Favorites"
         tools:layout="@layout/fragment_favorites" />
 
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.CategoryFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragment_to_categorySpecialFragment"
+            app:destination="@id/categorySpecialFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/categorySpecialFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.CategorySpecialFragment"
+        android:label="Category Special"
+        tools:layout="@layout/fragment_category_special">
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

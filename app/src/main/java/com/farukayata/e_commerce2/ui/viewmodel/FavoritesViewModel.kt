@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+//Kullanıcının favorilere eklediği ürünleri Firestore'dan almak, eklemek ve kaldırmak
+//Favorilerle ilgili durumları StateFlow ile yönetmek
+
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val repository: FavoritesRepository

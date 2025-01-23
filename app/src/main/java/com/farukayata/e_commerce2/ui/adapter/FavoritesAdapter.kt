@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.farukayata.e_commerce2.databinding.CardDesignBinding
+import com.farukayata.e_commerce2.databinding.FavoriresCardDesignBinding
 import com.farukayata.e_commerce2.model.Favorite
 import com.farukayata.e_commerce2.model.Product
 
@@ -13,10 +14,12 @@ class FavoritesAdapter(
     private val onRemoveClick: (String) -> Unit
 ) : ListAdapter<Product, FavoritesAdapter.FavoriteViewHolder>(FavoriteDiffCallback()) {
 
-    inner class FavoriteViewHolder(val binding: CardDesignBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
+    //FavoriteDiffCallback: DiffUtil ile iki listeyi karşılaştırmak ve farkları belirlemek için
+
+    inner class FavoriteViewHolder(val binding: FavoriresCardDesignBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
-        val binding = CardDesignBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = FavoriresCardDesignBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         //CardDesignBinding => favorite card design binding
         return FavoriteViewHolder(binding)
     }
@@ -25,10 +28,10 @@ class FavoritesAdapter(
         val favorite = getItem(position)
 
         holder.binding.apply {
-            textViewProductTitle.text = favorite.title // Ürün başlığı
+            textViewFavoritesTitle.text = favorite.title // Ürün başlığı
             //textviewları felann değiş adını
-            textViewProductPrice.text = String.format("%.2f TL", favorite.price) // Ürün fiyatı
-            Glide.with(imageViewProductCard.context).load(favorite.image).into(imageViewProductCard) // Ürün görseli
+            textViewFavoritesPrice.text = String.format("%.2f TL", favorite.price) // Ürün fiyatı
+            Glide.with(imageViewFavoritesCard.context).load(favorite.image).into(imageViewFavoritesCard) // Ürün görseli
 
             //Remove düğmesi
             buttonShop.text = "Remove"

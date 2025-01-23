@@ -9,6 +9,7 @@ plugins {
 
     //id("com.android.application")
     id("com.google.gms.google-services")
+    //id("kotlin-android-extensions") zaten parcelize olduğu için gerek kalmadı
 
 }
 
@@ -97,5 +98,8 @@ dependencies {
     implementation ("com.google.firebase:firebase-auth-ktx")
 
 
+    //nav
+    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
 
 }

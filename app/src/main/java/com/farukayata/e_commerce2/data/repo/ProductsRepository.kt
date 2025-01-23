@@ -10,6 +10,11 @@ class ProductsRepository @Inject constructor(private val pds: ProductsDataSource
     suspend fun productsYukle(): List<Product> {
         return pds.getProductsFromApi()
     }
+
+    // Kategoriye göre ürünleri yükle
+    suspend fun getProductsByCategory(category: String): List<Product> {
+        return pds.getCategoryProducts(category)
+    }
 }
 
 

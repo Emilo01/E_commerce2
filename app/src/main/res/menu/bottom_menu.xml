@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_navbar_icon"
+        android:title="Home" />
+    <item
+        android:id="@+id/categoryFragment"
+        android:icon="@drawable/category_navbar_icon"
+        android:title="Category" />
+    <item
+        android:id="@+id/signUpFragment"
+        android:icon="@drawable/sepet_navbar_icon"
+        android:title="Sepet" />
+    <item
+        android:id="@+id/favoritesFragment"
+        android:icon="@drawable/favorite_navbar_icon"
+        android:title="favori" />
+    <item
+        android:id="@+id/loginFragment"
+        android:icon="@drawable/profil_navbar_icon"
+        android:title="profil" />
+</menu>
