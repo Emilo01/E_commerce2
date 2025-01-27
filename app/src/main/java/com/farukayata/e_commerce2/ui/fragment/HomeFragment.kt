@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        // Activity'nin toolbar başlığını değiştir
+        (activity as AppCompatActivity).supportActionBar?.title = "HomePage"
+        //sonrası için xml kodlarında da burayı değiştire biliriz bence
 
         // Ürün listesini RecyclerView ile bağlama
 //        homeViewModel.productList.observe(viewLifecycleOwner) { products ->

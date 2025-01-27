@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.farukayata.e_commerce2.MainActivity
 import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,9 @@ class DetailFragment : Fragment() {
         binding.product = product
 
         Glide.with(this).load(product.image).into(binding.imageViewProduct)
+
+        // Toolbar başlığını ayarla
+        (activity as? MainActivity)?.supportActionBar?.title = product.title
 
         return binding.root
     }

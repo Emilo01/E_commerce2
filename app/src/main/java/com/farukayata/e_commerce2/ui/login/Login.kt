@@ -1,7 +1,9 @@
 package com.farukayata.e_commerce2.ui.auth
 
 import android.os.Bundle
+import android.text.Html
 import android.text.InputType
+import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -45,6 +47,13 @@ class LoginFragment : Fragment() {
                 if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
             )
         }
+
+        //bu kısım strig.xml kısmınnda renk katmak için ekledim fakat olmuyor
+//        // "Don't have an account? Sign up here." metnini HTML formatlı şekilde ayarla
+//        val signUpText = getString(R.string.sign_up_text)
+//        binding.textViewSignUp.text = Html.fromHtml(signUpText, Html.FROM_HTML_MODE_LEGACY)
+//        binding.textViewSignUp.movementMethod = LinkMovementMethod.getInstance()
+
 
         // Giriş butonuna tıklanma
         binding.buttonLogin.setOnClickListener {

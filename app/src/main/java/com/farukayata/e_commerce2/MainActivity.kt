@@ -46,12 +46,28 @@ class MainActivity : AppCompatActivity() {
 
         // BottomNavigation görünürlüğünü kontrol et
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            // 'destination', geçilen(mevcutta gördüpümüz fragment) fragment'in ID'sini temsil eder.
             when (destination.id) {
+                R.id.loginFragment, R.id.signUpFragment -> {
+                    hideBottomNavigationView() // Login ve Signup ekranlarında Navbar'ı gizle
+                }
+                // Belirtilen fragment'lerde BottomNavigationView görünür olacak
                 R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.loginFragment -> {
                     showBottomNavigationView()
-                } else -> {
+                    // Diğer tüm fragment'lerde BottomNavigationView gizlenecek
+                }
+                //toolbarın gözükmemesi bir güzel gözükmedi şimdilik yorum da kalsın
+//                R.id.loginFragment, R.id.signUpFragment -> {
+//                    hideBottomNavigationView()
+//                    hideToolbar() // Login ve Signup ekranlarında Toolbar'ı gizle
+//                }
+
+                else -> {
+                    //destination.id başka bir fragment'in ID'sine eşitse
                 hideBottomNavigationView()
-            }
+                    //showToolbar() // Diğer fragmentlerde Toolbar görünebilir
+
+                }
             }
         }
     }
@@ -93,6 +109,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+//    private fun showToolbar() {
+//        binding.toolbar.visibility = View.VISIBLE
+//    }
+//
+//    private fun hideToolbar() {
+//        binding.toolbar.visibility = View.GONE
+//    }
 }
 
 
