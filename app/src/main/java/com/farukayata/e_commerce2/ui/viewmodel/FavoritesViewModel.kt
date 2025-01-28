@@ -56,6 +56,7 @@ class FavoritesViewModel @Inject constructor(
                 repository.removeFavorite(productId)
                 loadFavorites() // Favoriler güncellendiğinde yeniden yükle
             } catch (e: Exception) {
+                Log.e("FavoritesViewModel", "Error removing favorite with ID: $productId", e)
                 //hatalı işlemlerde buraya loglama yapılabilir
             }
         }

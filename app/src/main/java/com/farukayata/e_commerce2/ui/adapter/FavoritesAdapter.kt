@@ -11,7 +11,8 @@ import com.farukayata.e_commerce2.model.Favorite
 import com.farukayata.e_commerce2.model.Product
 
 class FavoritesAdapter(
-    private val onRemoveClick: (String) -> Unit
+    private val onRemoveClick: (String) -> Unit,
+    private val onProductClick: (Product) -> Unit // Ürün tıklaması için lambda
 ) : ListAdapter<Product, FavoritesAdapter.FavoriteViewHolder>(FavoriteDiffCallback()) {
 
     //FavoriteDiffCallback: DiffUtil ile iki listeyi karşılaştırmak ve farkları belirlemek için
@@ -32,6 +33,11 @@ class FavoritesAdapter(
             //textviewları felann değiş adını
             textViewFavoritesPrice.text = String.format("%.2f TL", favorite.price) // Ürün fiyatı
             Glide.with(imageViewFavoritesCard.context).load(favorite.image).into(imageViewFavoritesCard) // Ürün görseli
+
+            // Ürün tıklama olayı
+            root.setOnClickListener {
+                onProductClick(favorite) // Ürün tıklandığında detail sayfasına geçişi tetikler
+            }
 
             //Remove düğmesi
             buttonShop.text = "Remove"

@@ -12,6 +12,10 @@ import com.farukayata.e_commerce2.databinding.FragmentCategorySpecialBinding
 import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.CategorySpecialViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
+
 
 @AndroidEntryPoint
 class CategorySpecialFragment : Fragment() {
@@ -19,6 +23,7 @@ class CategorySpecialFragment : Fragment() {
     private lateinit var binding: FragmentCategorySpecialBinding
     private val viewModel: CategorySpecialViewModel by viewModels()
     private val args: CategorySpecialFragmentArgs by navArgs() // Argümanları al
+    private val favoritesViewModel: FavoritesViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,11 +31,32 @@ class CategorySpecialFragment : Fragment() {
     ): View {
         binding = FragmentCategorySpecialBinding.inflate(inflater, container, false)
 
-        val adapter = EcommorceAdapter(requireContext()) { product ->
-            // Ürün detayına yönlendirme
-        }
+//        val adapter = EcommorceAdapter(requireContext()) { product ->
+//            // Ürün detayına yönlendirme
+//            val action = CategorySpecialFragmentDirections.actionCategorySpecialFragmentToDetailFragment(product)
+//            findNavController().navigate(action)
+//        }
 
-        binding.recyclerViewCategorySpecial.layoutManager = LinearLayoutManager(requireContext())
+        //ecommerce adapterımıza lamda ekleyerek bağımsız hale getirdik.
+        //ve ürünen tıklandığında geçiş mantığını artık ona ayit sayfannın fragmenttındna yöeticez
+        val adapter = EcommorceAdapter(
+            context = requireContext(),
+            onProductClick = { product ->
+                // Ürün detayına yönlendirme
+                val action = CategorySpecialFragmentDirections.actionCategorySpecialFragmentToDetailFragment(product)
+                findNavController().navigate(action)
+            },
+            onFavoriteClick = { product ->
+                // Favorilere ekleme kısmını favoriteviewmodel kullanarak yaptık
+                // isteğe bağlı categoryspecialviewmodel de addfavorite fonksiyonunu ekleye biliriz
+                favoritesViewModel.addFavorite(product)
+            }
+        )
+
+        binding.recyclerViewCategorySpecial.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        //üstteki gibi özelleştirerek kart yapısına mazgal görünüm verdik
+        //binding.recyclerViewCategorySpecial.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCategorySpecial.adapter = adapter
 
         viewModel.products.observe(viewLifecycleOwner) { products ->

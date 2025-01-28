@@ -60,8 +60,14 @@
         android:id="@+id/favoritesFragment"
         android:name="com.farukayata.e_commerce2.ui.fragment.FavoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 
+
+    <!-- categpory -->
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.farukayata.e_commerce2.ui.fragment.CategoryFragment"
@@ -72,6 +78,7 @@
             app:destination="@id/categorySpecialFragment" />
     </fragment>
 
+    <!-- specialcategory -->
     <fragment
         android:id="@+id/categorySpecialFragment"
         android:name="com.farukayata.e_commerce2.ui.fragment.CategorySpecialFragment"

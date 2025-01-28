@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.farukayata.e_commerce2.databinding.FragmentFavoritesBinding
+import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
 import com.farukayata.e_commerce2.ui.adapter.FavoritesAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,9 +31,39 @@ class FavoritesFragment : Fragment() {
 
         // FavoritesAdapter oluşturma
         //FavoriteAdapter yanında (emptyList()) vardı kaldırdık
-        val adapter = FavoritesAdapter { productId ->
-            viewModel.removeFavorite(productId)
-        }
+//        val adapter = FavoritesAdapter { productId ->
+//            viewModel.removeFavorite(productId)
+//        }
+
+
+        // FavoritesAdapter oluşturma
+        val adapter = FavoritesAdapter(
+            onRemoveClick = { productId ->
+                // Favorilerden kaldırma işlemi
+                viewModel.removeFavorite(productId)
+            },
+            onProductClick = { product ->
+                // Ürün detayına yönlendirme
+                val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(product)
+                findNavController().navigate(action)
+            }
+        )
+
+        //Ecommerce adapterı da kullana bilirdik fakat burda artık favoriteadapterı kullanmadığımız için
+        //remove gibi özellikleri kullanamayız yada ecommerceadapotere da bu özellikleri eklememiz gerekir
+        //bu yüzden üstteki gibi favorite adapterıa lambda verip favorite fragmennttı yönlendirdik
+//        val adapter = EcommorceAdapter(
+//            context = requireContext(),
+//            onProductClick = { product ->
+//                // Ürün detayına yönlendirme
+//                val action = FavoritesFragmentDirections.actionFavoritesFragmentToDetailFragment(product)
+//                findNavController().navigate(action)
+//            },
+//            onFavoriteClick = { product ->
+//                // Favorilere ekleme işlemini burada yapabilirsiniz
+//
+//            }
+//        )
 
         // RecyclerView ayarları
         // yan yana olan görünüm tekli oluyor

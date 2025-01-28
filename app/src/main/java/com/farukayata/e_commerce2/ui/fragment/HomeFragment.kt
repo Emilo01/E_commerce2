@@ -48,10 +48,26 @@ class HomeFragment : Fragment() {
 //            binding.commerceAdapter = adapter
 //        }
         homeViewModel.productList.observe(viewLifecycleOwner) { products ->
-            val adapter = EcommorceAdapter(requireContext()) { product ->
-                // Favorilere ekleme işlemi
-                favoritesViewModel.addFavorite(product)
-            }
+//            val adapter = EcommorceAdapter(requireContext()) { product ->
+//                // Favorilere ekleme işlemi
+//                favoritesViewModel.addFavorite(product)
+//            }
+
+            //ecommerce adapterımıza lamda ekleyerek bağımsız hale getirdik.
+            //ve ürünen tıklandığında geçiş mantığını artık ona ayit sayfannın fragmenttındna yöeticez
+
+            val adapter = EcommorceAdapter(
+                context = requireContext(),
+                onProductClick = { product ->
+                    // Ürün detayına geçiş
+                    val action = HomeFragmentDirections.detailGecis(product)
+                    findNavController().navigate(action)
+                },
+                onFavoriteClick = { product ->
+                    // Favorilere ekleme işlemi
+                    favoritesViewModel.addFavorite(product)
+                }
+            )
             binding.commerceAdapter = adapter
             adapter.submitList(products) // Listeyi adaptöre bağla
         }

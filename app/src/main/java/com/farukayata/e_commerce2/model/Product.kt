@@ -15,3 +15,5 @@ data class Product (
 
 //istersek parcelize(Intent veya Bundle ile veri aktarımı yapar) da kullana bilirdik
 //sonrası için projeyi hızlandırmak adına değiştirile bilir
+
+//+quatity,count-> yeni model(get - set) /-> sepet içinn ayrı bir product oluştur

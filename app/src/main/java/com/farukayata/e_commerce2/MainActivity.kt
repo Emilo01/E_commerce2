@@ -106,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.visibility = View.GONE
     }
 
+    // geri tuşuna basıldığında bir önceki fragment'e dönme işlemi
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }

@@ -15,6 +15,7 @@ import com.farukayata.e_commerce2.ui.fragment.HomeFragmentDirections
 
 class EcommorceAdapter(
     private val context: Context, //context vermek mantıklı değil ve clikği içerde tanımlamak lazım
+    private val onProductClick: (Product) -> Unit, // Ürün tıklama için lambda
     private val onFavoriteClick: (Product) -> Unit // Favorilere ekleme için lambda fonksiyonu
 ) : ListAdapter<Product, EcommorceAdapter.CardDesignViewHolder>(ProductDiffCallback()) {
 
@@ -38,8 +39,11 @@ class EcommorceAdapter(
 
         // Ürüne tıklama olayını tanımladık (detail sayfasına geçiş için)
         holder.binding.cardViewEcommorceProduct.setOnClickListener {
-            val action = HomeFragmentDirections.detailGecis(product)
-            Navigation.findNavController(it).navigate(action)
+            onProductClick(product) // Lambda ile geçişi tetikle.  artık burdasetonclick ortak olu
+
+        //yukarıda ki gibi bıraktık bu sayede sadece home için değil categoryspecial içinde kullandık
+        //val action = HomeFragmentDirections.detailGecis(product)
+        //Navigation.findNavController(it).navigate(action)
         }
 
         // Favorilere ekleme butonuna tıklama
