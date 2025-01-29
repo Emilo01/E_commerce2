@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.farukayata.e_commerce2.databinding.CardDesignBinding
 import com.farukayata.e_commerce2.databinding.FavoriresCardDesignBinding
-import com.farukayata.e_commerce2.model.Favorite
 import com.farukayata.e_commerce2.model.Product
 
 class FavoritesAdapter(

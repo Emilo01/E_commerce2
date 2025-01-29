@@ -90,6 +90,13 @@
         <action
             android:id="@+id/action_categorySpecialFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+
     </fragment>
+    <!-- CartFragment -->
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.CartFragment"
+        android:label="Sepet"
+        tools:layout="@layout/fragment_cart" />
 
 </navigation>

@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.farukayata.e_commerce2.MainActivity
 import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentDetailBinding
+import com.farukayata.e_commerce2.model.CartItem
+import com.farukayata.e_commerce2.ui.viewmodel.CartViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +21,7 @@ class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
     private val args: DetailFragmentArgs by navArgs()
+    private val cartViewModel: CartViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,22 @@ class DetailFragment : Fragment() {
 
         // Toolbar başlığını ayarla
         (activity as? MainActivity)?.supportActionBar?.title = product.title
+
+        // Sepete Ekle butonuna tıklama işlevi
+        binding.buttonAddToCart.setOnClickListener {
+            product?.let {
+                val cartItem = CartItem(
+                    id = it.id.toString(),
+                    title = it.title,
+                    price = it.price,
+                    description = it.description,
+                    image = it.image,
+                    category = it.category,
+                    count = 1 // Varsayılan olarak 1 adet
+                )
+                cartViewModel.addToCart(cartItem) // Ürünü sepete ekle
+            }
+        }
 
         return binding.root
     }

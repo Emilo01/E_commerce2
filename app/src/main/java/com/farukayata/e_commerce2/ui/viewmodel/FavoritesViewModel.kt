@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farukayata.e_commerce2.data.repo.FavoritesRepository
-import com.farukayata.e_commerce2.model.Favorite
 import com.farukayata.e_commerce2.model.Product
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -10,7 +10,7 @@
         android:icon="@drawable/category_navbar_icon"
         android:title="Category" />
     <item
-        android:id="@+id/signUpFragment"
+        android:id="@+id/cartFragment"
         android:icon="@drawable/sepet_navbar_icon"
         android:title="Sepet" />
     <item

@@ -53,6 +53,8 @@ class AppModule {
     fun provideFirebaseFirestore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }//Firestore tabanlı veri işlemleri (add, get, delete) yapmak için kullanılır
+
+
 }
 
 

@@ -1,7 +1,6 @@
 package com.farukayata.e_commerce2.data.repo
 
 import android.util.Log
-import com.farukayata.e_commerce2.model.Favorite
 import com.farukayata.e_commerce2.model.Product
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -14,9 +13,9 @@ class FavoritesRepository @Inject constructor(
 ) {
     // Kullanıcıya özgü favoriler koleksiyonu
     private val favoritesCollection
-        get() = firestore.collection("users")
+        get() = firestore.collection("users")   //-> sepettede bu şekilde yapı oluştur
             .document(firebaseAuth.currentUser?.uid ?: throw IllegalStateException("User not logged in"))
-            .collection("favorites")
+            .collection("favorites") //->cart items
 
     // Favori ürünleri al
     suspend fun getFavorites(): List<Product> {
