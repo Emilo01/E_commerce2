@@ -33,7 +33,8 @@ class EcommorceAdapter(
         val product = getItem(position)
         holder.binding.product = product
 
-        Glide.with(context)//older.binding.imageViewProductCard.context -- adapterin connnstraktırındacontext tutulmaz
+        //daha iyi performans için context yerine imageView.context ile değiştik
+        Glide.with(holder.binding.imageViewProductCard.context)//holder.binding.imageViewProductCard.context -- adapterin connnstraktırındacontext tutulmaz
             .load(product.image)
             .into(holder.binding.imageViewProductCard)
 
@@ -47,10 +48,21 @@ class EcommorceAdapter(
         }
 
         // Favorilere ekleme butonuna tıklama
-        holder.binding.buttonShop.text = "Add to Favorites" // Buton yazısını favori işlemi için değiştiriyoruz
-        holder.binding.buttonShop.setOnClickListener {
-            onFavoriteClick(product) // Lambda fonksiyonu üzerinden favorilere ekleme işlemini tetikle
+
+        holder.binding.buttonShop.apply {
+            text = if (product.isFavorite) "Added to Favorites" else "Add to Favorites" // Eğer favoriye eklendiyse UI'da göster
+
+            setOnClickListener {
+                onFavoriteClick(product)
+                product.isFavorite = true // Güncellenen UI için
+                notifyItemChanged(position) // Güncelleme yaparak yeni favori durumunu göster
+            }
         }
+
+//        holder.binding.buttonShop.text = "Add to Favorites" // Buton yazısını favori işlemi için değiştiriyoruz
+//        holder.binding.buttonShop.setOnClickListener {
+//            onFavoriteClick(product) // Lambda fonksiyonu üzerinden favorilere ekleme işlemini tetikle
+//        }
     }
 
     // DiffUtil: ListAdapter performansını optimize etmek için gerekli

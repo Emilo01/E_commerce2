@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="user"
+            type="com.farukayata.e_commerce2.model.UserProfile" />
+
+        <variable
+            name="viewModel"
+            type="com.farukayata.e_commerce2.ui.viewmodel.ProfileViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".ui.fragment.ProfileDetailFragment">
+
+        <!-- Profil Fotoğrafı
+        imagei tools yaptık revize gereke bilir
+        app:imageUrl="@{user.profileImageUrl}"
+        -->
+        <ImageView
+            android:id="@+id/imageViewProfileDetail"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="16dp"
+            tools:src="@drawable/superman"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:imageUrl="@{viewModel.userProfile.profileImageUrl}" />
+        <!--
+        Data Binding ile doğrudan ProfileViewModel’den resmi çekiyoruz.
+        -->
+
+        <!-- Fotoğrafı Güncelle Butonu -->
+        <Button
+            android:id="@+id/buttonChangeProfileImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Profile Picture"
+            app:layout_constraintTop_toBottomOf="@id/imageViewProfileDetail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Kullanıcı Adı -->
+        <EditText
+            android:id="@+id/editTextFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="First Name"
+            android:text='@{user.firstName}'
+            app:layout_constraintTop_toBottomOf="@id/buttonChangeProfileImage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Kullanıcı Soyadı -->
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Last Name"
+            android:text='@{user.lastName}'
+            app:layout_constraintTop_toBottomOf="@id/editTextFirstName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Cinsiyet -->
+        <EditText
+            android:id="@+id/editTextGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Gender"
+            android:text='@{user.gender}'
+            app:layout_constraintTop_toBottomOf="@id/editTextLastName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Adres -->
+        <EditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:text='@{user.address}'
+            app:layout_constraintTop_toBottomOf="@id/editTextGender"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Telefon Numarası -->
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:text='@{user.phoneNumber}'
+            app:layout_constraintTop_toBottomOf="@id/editTextAddress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Güncelle Butonu -->
+        <Button
+            android:id="@+id/buttonUpdate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Profile"
+            app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

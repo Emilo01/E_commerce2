@@ -99,4 +99,26 @@
         android:label="Sepet"
         tools:layout="@layout/fragment_cart" />
 
+    <!-- ProfileFragment -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.ProfileFragment"
+        android:label="Profil"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_profileDetailFragment"
+            app:destination="@id/profileDetailFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <!-- ProfileDetailFragment -->
+    <fragment
+        android:id="@+id/profileDetailFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.ProfileDetailFragment"
+        android:label="Profil Detay"
+        tools:layout="@layout/fragment_profile_detail">
+    </fragment>
+
 </navigation>

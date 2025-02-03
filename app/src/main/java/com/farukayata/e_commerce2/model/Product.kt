@@ -10,7 +10,8 @@ data class Product (
     val price: Double?= null,
     val description: String?= null,
     val image: String?= null,
-    val category: String?= null
+    val category: String?= null,
+    var isFavorite: Boolean = false
     ): Parcelable
 
 //istersek parcelize(Intent veya Bundle ile veri aktarımı yapar) da kullana bilirdik

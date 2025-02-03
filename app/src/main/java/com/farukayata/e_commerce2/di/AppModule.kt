@@ -7,6 +7,7 @@ import com.farukayata.e_commerce2.network.ApiService
 import com.farukayata.e_commerce2.data.repo.ProductsRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -54,6 +55,12 @@ class AppModule {
         return FirebaseFirestore.getInstance()
     }//Firestore tabanlı veri işlemleri (add, get, delete) yapmak için kullanılır
 
+
+    @Provides
+    @Singleton
+    fun provideFirebaseStorage(): FirebaseStorage {
+        return FirebaseStorage.getInstance()
+    }
 
 }
 

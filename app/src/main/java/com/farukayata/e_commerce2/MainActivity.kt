@@ -39,8 +39,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.homeFragment,
                 R.id.categoryFragment,
                 R.id.favoritesFragment,
-                R.id.loginFragment,
-                R.id.cartFragment,  // Sepet fragment'i eklendi
+                //R.id.loginFragment,
+                R.id.profileFragment,
+                R.id.cartFragment,
             )
         )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
@@ -51,7 +52,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.loginFragment, R.id.signUpFragment -> {
                     hideBottomNavigationView() // Login ve Signup ekranlarında Navbar'ı gizle
                 }
-                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment, R.id.loginFragment -> {
+                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment, R.id.profileFragment -> {
+                    //logini geçici olarak koymuştuk profile çektik
                     showBottomNavigationView() // Belirtilen fragment'lerde Navbar görünecek
                 }
                 else -> {
@@ -81,8 +83,13 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.cartFragment)
                     true
                 }
-                R.id.loginFragment -> {
-                    navController.navigate(R.id.loginFragment)
+//                R.id.loginFragment -> {
+//                    navController.navigate(R.id.loginFragment)
+//                    true
+//                }
+                //buradada login geçici olarak konmuştu profille revize ettik
+                R.id.profileFragment -> {
+                    navController.navigate(R.id.profileFragment)
                     true
                 }
                 else -> false

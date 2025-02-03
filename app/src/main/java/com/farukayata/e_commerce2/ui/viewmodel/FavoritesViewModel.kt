@@ -38,6 +38,7 @@ class FavoritesViewModel @Inject constructor(
     fun addFavorite(favorite: Product) {
         viewModelScope.launch {
             try {
+                favorite.isFavorite = true // **Favori durumu TRUE olarak güncelleniyor**
                 repository.addFavorite(favorite)
                 loadFavorites() // Favoriler güncellendiğinde yeniden yükle
                 Log.d("FavoritesViewModel", "Favorite added: ${favorite.title}")

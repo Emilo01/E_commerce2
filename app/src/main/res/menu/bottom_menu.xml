@@ -18,7 +18,7 @@
         android:icon="@drawable/favorite_navbar_icon"
         android:title="favori" />
     <item
-        android:id="@+id/loginFragment"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/profil_navbar_icon"
         android:title="profil" />
 </menu>
