@@ -11,19 +11,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         tools:context=".ui.fragment.DetailFragment">
 
-        <!-- Product Görseli -->
+        <!--Ana Ürün Bilgileri-->
         <ImageView
             android:id="@+id/imageViewProduct"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <!-- Product Kategorisi -->
         <TextView
             android:id="@+id/textViewProductCategory"
             android:layout_width="wrap_content"
@@ -31,64 +32,137 @@
             android:text='@{"Category: " + product.category}'
             android:textSize="14sp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/imageViewProduct"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Category: Electronics" />
 
-        <!-- Product Başlığı -->
         <TextView
             android:id="@+id/textViewProductTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text='@{product.title}'
-            android:textSize="18sp"
-            android:gravity="center"
+            android:textSize="22sp"
             android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/textViewProductCategory"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Product Title" />
 
-        <!-- Product Açıklaması -->
-        <TextView
-            android:id="@+id/textViewProductDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{product.description}'
-            android:textSize="16sp"
-            android:gravity="center"
-            android:paddingStart="16dp"
-            android:paddingEnd="16sp"
+        <!--Önerilen Ürünler RecyclerView-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewRecommended"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:clipToPadding="false"
+            android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/textViewProductTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Product Description" />
+            tools:listitem="@layout/card_design"/>
 
-        <!-- Product Fiyatı -->
-        <TextView
-            android:id="@+id/textViewProductPrice"
-            android:layout_width="wrap_content"
+        <!-- Sepete Ekle Alanı (FrameLayout)-->
+        <FrameLayout
+            android:id="@+id/frameLayoutPrice"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text='@{String.format("%.2f TL", product.price)}'
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/textViewProductDescription"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="100.0 TL" />
-
-        <!-- Sepete Ekle Butonu -->
-        <Button
-            android:id="@+id/buttonAddToCart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add to Cart"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/textViewProductPrice"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:background="@android:color/white"
+            android:elevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
+
+                <LinearLayout
+                    android:id="@+id/llCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <!-- Ürün Adet Azalt Butonu -->
+                    <Button
+                        android:id="@+id/buttonDecreaseQuantity"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:text="-"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/black"
+                        android:textColor="@android:color/white"/>
+
+                    <!-- Ürün Adet Bilgisi -->
+                    <TextView
+                        android:id="@+id/textViewProductQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/black"
+                        android:layout_marginHorizontal="12dp"/>
+
+                    <!-- Ürün Adet Arttır Butonu -->
+                    <Button
+                        android:id="@+id/buttonIncreaseQuantity"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:text="+"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:backgroundTint="@color/black"
+                        android:textColor="@android:color/white"/>
+
+
+                </LinearLayout>
+
+
+                <!-- Toplam Fiyat (Sepetteki tüm ürünlerin toplamı buraya yazılacak!) -->
+                <TextView
+                    android:id="@+id/textViewTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{String.format("%.2f TL", product.price)}'
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="toteltoteltotel"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/llCount"
+                    app:layout_constraintStart_toStartOf="@id/llCount"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@android:color/black"
+                    android:gravity="center"/>
+
+                <!-- Sepete Ekle Butonu -->
+                <Button
+                    android:id="@+id/buttonAddToCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add to Cart"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/llCount"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="@color/black"
+                    android:paddingHorizontal="16dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

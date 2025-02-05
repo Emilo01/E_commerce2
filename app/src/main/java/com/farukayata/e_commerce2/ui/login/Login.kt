@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -82,7 +83,8 @@ class LoginFragment : Fragment() {
                     }
                     is Response.Success -> {
                         Toast.makeText(requireContext(), state.data as String, Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        //findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                        navigateAfterLogin()
                     }
                     is Response.Error -> {
                         Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
@@ -97,6 +99,28 @@ class LoginFragment : Fragment() {
 
         return binding.root
     }
+
+    // Kullanıcının giriş yaptığını SharedPreferences'e kaydet
+    private fun saveUserLoginState() {
+        val sharedPreferences = requireActivity().getSharedPreferences("userSession", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+    }
+
+    // Kullanıcı giriş yaptıktan sonra yönlendirme
+    private fun navigateAfterLogin() {
+        if (!onBoardingFinished()) {
+            findNavController().navigate(R.id.action_loginFragment_to_viewPagerFragment)
+        } else {
+            findNavController().navigate(R.id.action_loginFragment_to_splashScreenFragment)
+        }
+    }
+
+    // Kullanıcının onboarding'i tamamlayıp tamamlamadığını kontrol eden fonksiyon
+    private fun onBoardingFinished(): Boolean {
+        val sharedPreferences = requireActivity().getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("Finished", false)
+    }
+
 }
 
 

@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import android.content.Context
 import com.farukayata.e_commerce2.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +31,16 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
 
+        // Kullanıcı giriş yaptı mı kontrol et
+        if (isUserLoggedIn()) {
+            // Kullanıcı giriş yaptıysa onboarding kontrol et
+            if (!onBoardingFinished()) {
+                navController.navigate(R.id.viewPagerFragment)
+            } else {
+                navController.navigate(R.id.splashScreenFragment)
+            }
+        }
+
         // BottomNavigationView'i NavController ile bağla
         setupBottomNavigationView()
 
@@ -49,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         // BottomNavigation görünürlüğünü kontrol et
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.loginFragment, R.id.signUpFragment -> {
+                R.id.loginFragment, R.id.signUpFragment, R.id.splashScreenFragment, R.id.viewPagerFragment -> {
                     hideBottomNavigationView() // Login ve Signup ekranlarında Navbar'ı gizle
                 }
                 R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment, R.id.profileFragment -> {
@@ -109,6 +120,19 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
+
+    // Kullanıcının giriş yapıp yapmadığını kontrol eden fonksiyon
+    private fun isUserLoggedIn(): Boolean {
+        val sharedPreferences = getSharedPreferences("userSession", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
+
+    // Kullanıcının onboarding'i tamamlayıp tamamlamadığını kontrol eden fonksiyon
+    private fun onBoardingFinished(): Boolean {
+        val sharedPreferences = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
+        return sharedPreferences.getBoolean("Finished", false)
+    }
+
 }
 
 

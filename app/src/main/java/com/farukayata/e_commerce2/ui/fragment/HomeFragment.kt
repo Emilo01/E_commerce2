@@ -14,6 +14,7 @@ import com.farukayata.e_commerce2.model.Product
 import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
 import com.farukayata.e_commerce2.ui.viewmodel.HomePageViewModel
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,8 +30,12 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        // Activity'nin toolbar başlığını değiştir
-        (activity as AppCompatActivity).supportActionBar?.title = "HomePage"
+        //Kullanıcı E-Postasını Aldık ve Toolbar Başlığına Atadık
+        val userEmail = FirebaseAuth.getInstance().currentUser?.email // Firebase'den e-posta aldık
+        val username = userEmail?.substringBefore("@") ?: "HomePage"
+        // "@" öncesini kadar olan kısımı aldık, null ise HomePage yazdırıyoruz
+
+        (activity as AppCompatActivity).supportActionBar?.title = "Hi ${username}"
         //sonrası için xml kodlarında da burayı değiştire biliriz bence
 
         // **Adapter Tanımlama**
