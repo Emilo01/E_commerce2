@@ -94,4 +94,16 @@ class CartViewModel @Inject constructor(
             }
         }
     }
+    //satın alınan ürünnleri sepetten kaldırcak
+    fun clearCart() {
+        viewModelScope.launch {
+            try {
+                repository.clearCart()
+                _cartItems.value = emptyList() //UI'yi güncellemek için
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 }

@@ -1,0 +1,44 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".ui.fragment.OrderConfirmationFragment">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            app:lottie_rawRes="@raw/green_tic"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="false"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ödemeniz alındı ve siparişiniz tamamlandı!"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btnBackToHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ana Sayfaya Dön"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btnViewReceipt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fişi Görüntüle"
+            android:layout_marginTop="8dp" />
+    </LinearLayout>
+</layout>

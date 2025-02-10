@@ -142,6 +142,13 @@
         android:label="Sepet"
         tools:layout="@layout/fragment_cart" />
 
+    <action
+        android:id="@+id/action_cartFragment_to_paymentSelectionFragment"
+        app:destination="@id/paymentSelectionFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="false"/>
+
+
     <!-- ProfileFragment -->
     <fragment
         android:id="@+id/profileFragment"
@@ -163,5 +170,56 @@
         android:label="Profil Detay"
         tools:layout="@layout/fragment_profile_detail">
     </fragment>
+
+    <!--PaymentSelectionFragment-->
+    <fragment
+        android:id="@+id/paymentSelectionFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.PaymentSelectionFragment"
+        android:label="Ödeme Seçimi"
+        tools:layout="@layout/fragment_payment_selection">
+        <action
+            android:id="@+id/action_paymentSelectionFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_paymentSelectionFragment_to_cardPaymentFragment"
+            app:destination="@id/cardPaymentFragment" />
+        <action
+            android:id="@+id/action_paymentSelectionFragment_to_orderConfirmationFragment"
+            app:destination="@id/orderConfirmationFragment" />
+    </fragment>
+
+    <!--CardPaymentFragment-->
+    <fragment
+        android:id="@+id/cardPaymentFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.CardPaymentFragment"
+        android:label="Kart Ödeme"
+        tools:layout="@layout/fragment_card_payment">
+        <action
+            android:id="@+id/action_cardPaymentFragment_to_orderConfirmationFragment"
+            app:destination="@id/orderConfirmationFragment" />
+    </fragment>
+
+    <!--OrderConfirmationFragment-->
+    <fragment
+        android:id="@+id/orderConfirmationFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.OrderConfirmationFragment"
+        android:label="Ödeme Tamamlandı"
+        tools:layout="@layout/fragment_order_confirmation">
+        <action
+            android:id="@+id/action_orderConfirmationFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_orderConfirmationFragment_to_receiptFragment"
+            app:destination="@id/receiptFragment" />
+    </fragment>
+
+    <!--ReceiptFragment-->
+    <fragment
+        android:id="@+id/receiptFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.ReceiptFragment"
+        android:label="Fiş"
+        tools:layout="@layout/fragment_receipt">
+    </fragment>
+
 
 </navigation>

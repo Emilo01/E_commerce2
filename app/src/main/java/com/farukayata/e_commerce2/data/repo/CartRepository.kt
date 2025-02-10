@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class CartRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore // Firestore bağlantısı
+    private val firestore: FirebaseFirestore
 ) {
     private val cartCollection
         get() = firestore.collection("users")   //-> sepettede bu şekilde yapı oluştur  /-> get kısmındaki senaryoyu öğren
@@ -75,4 +75,19 @@ class CartRepository @Inject constructor(
             e.printStackTrace()
         }
     }
+
+    //sepetteki ürünler alındıktan sonra tüm ürünleri silcek
+    suspend fun clearCart() {
+        try {
+            val cartItems = cartCollection.get().await()
+            for (document in cartItems.documents) {
+                document.reference.delete().await()
+            }
+            Log.d("Firestore", "Sepet başarıyla temizlendi")
+        } catch (e: Exception) {
+            Log.e("Firestore", "Sepeti temizlerken hata oluştu: ${e.localizedMessage}")
+            e.printStackTrace()
+        }
+    }
+
 }

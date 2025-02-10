@@ -29,8 +29,8 @@ class ProfileDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileDetailBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner  // ✅ LiveData değişikliklerini UI’ya yansıtmak için gerekli
-        binding.viewModel = viewModel  // ✅ Direkt bağlanıyor.
+        binding.lifecycleOwner = viewLifecycleOwner  // LiveData değişikliklerini UI’ya yansıtmak için gerekli
+        binding.viewModel = viewModel  // Direkt bağlanıyor.
 
         // Kullanıcı verilerini yükle
         viewModel.userProfile.observe(viewLifecycleOwner) { user ->

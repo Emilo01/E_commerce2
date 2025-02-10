@@ -1,0 +1,56 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        tools:context=".ui.fragment.CardPaymentFragment">
+
+        <EditText
+            android:id="@+id/etCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kart Numarası (16 Hane)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etExpiryMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Son Kullanma Ayı (MM)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etExpiryYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Son Kullanma Yılı (YYYY)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etCVV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="CVV (3 Hane)"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/etCardHolder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Kart Sahibinin Adı Soyadı"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btnPayNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ödemeyi Tamamla"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</layout>

@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentCartBinding
 import com.farukayata.e_commerce2.model.CartItem
 import com.farukayata.e_commerce2.ui.adapter.CartAdapter
@@ -22,6 +24,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class CartFragment : Fragment() {
 
+    private var _binding: FragmentCartBinding? = null
     private lateinit var binding: FragmentCartBinding
     private val viewModel: CartViewModel by viewModels()
     private lateinit var adapter: CartAdapter
@@ -63,6 +66,11 @@ class CartFragment : Fragment() {
             updateTotalPrice(cartList) // Toplam fiyatı güncelle
         }
 
+        // **Satın Al Butonu** - PaymentSelectionFragment'a yönlendirme
+        binding.btnCheckout.setOnClickListener {
+            findNavController().navigate(R.id.action_cartFragment_to_paymentSelectionFragment)
+        }
+
 
         // ItemTouchHelper ile kartı sağdan sola kaydırarak silme özelliği
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -84,6 +92,12 @@ class CartFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.recyclerViewCart)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        //Memory Leak Önleme: Fragment kapandığında UI referanslarını serbest bırakır.
+        super.onDestroyView()
+        _binding = null
     }
 
     // Toplam fiyatı güncelleme fonksiyonu

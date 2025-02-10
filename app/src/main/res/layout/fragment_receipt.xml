@@ -1,0 +1,77 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:orientation="vertical"
+        tools:context=".ui.fragment.ReceiptFragment">
+
+        <!-- Sipariş Tarihi -->
+        <TextView
+            android:id="@+id/tvOrderDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sipariş Tarihi: "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="Sipariş Tarihi: 01.02.2025" />
+
+        <!-- Müşteri Adı -->
+        <TextView
+            android:id="@+id/tvCustomerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Müşteri: "
+            android:textSize="14sp"
+            tools:text="Müşteri: Faruk Ayata" />
+
+        <!-- Müşteri Email -->
+        <TextView
+            android:id="@+id/tvCustomerEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="14sp"
+            tools:text="Email: faruk@example.com" />
+
+        <!-- Ürün Listesi -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewReceipt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_receipt" />
+
+        <!-- Toplam Fiyat -->
+        <TextView
+            android:id="@+id/tvTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Toplam Fiyat: "
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginTop="12dp"
+            tools:text="Toplam Fiyat: 299.99 TL" />
+
+        <!-- Eğer sipariş yoksa gösterilecek mesaj -->
+        <TextView
+            android:id="@+id/tvNoOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Henüz siparişiniz bulunmamaktadır."
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            tools:text="Henüz siparişiniz yok" />
+
+    </LinearLayout>
+</layout>

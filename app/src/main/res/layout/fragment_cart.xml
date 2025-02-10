@@ -29,5 +29,15 @@
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Total: 0.00 TL" />
+
+        <!-- Satın Al Butonu -->
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Satın Al"
+            android:backgroundTint="@color/purple"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 </layout>

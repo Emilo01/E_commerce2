@@ -40,7 +40,7 @@ class ProfileViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 repository.updateUserProfile(updatedData)
-                println("✅ Kullanıcı Profili Güncellendi: $updatedData") // Debug
+                println("Kullanıcı Profili Güncellendi: $updatedData") // Debug
                 loadUserProfile() // Güncellendikten sonra verileri tekrar çekiyor
             } catch (e: Exception) {
                 e.printStackTrace()
