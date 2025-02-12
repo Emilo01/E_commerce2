@@ -20,12 +20,13 @@ class OrderViewModel @Inject constructor(
     private val _orders = MutableLiveData<List<Order>>()
     val orders: LiveData<List<Order>> get() = _orders
 
-    // Firebase’den siparişleri çeker ve LiveData’ya aktarır.
+    // Firebase’den siparişleri çeker ve LiveData’ya(_orders) aktarır.
     fun fetchOrders() {
         viewModelScope.launch {
             try {
                 Log.d("OrderViewModel", "Firestore'dan siparişler çekiliyor...")
                 _orders.value = orderRepository.getOrdersFromFirebase()
+                Log.d("OrderViewModel", "Fetched orders: ${_orders.value}")
             } catch (e: Exception) {
                 Log.e("OrderViewModel", "Siparişleri alırken hata oluştu: ${e.localizedMessage}")
                 e.printStackTrace()

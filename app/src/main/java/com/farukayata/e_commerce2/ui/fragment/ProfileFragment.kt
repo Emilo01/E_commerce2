@@ -1,6 +1,7 @@
 package com.farukayata.e_commerce2.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +36,22 @@ class ProfileFragment : Fragment() {
             Glide.with(this).load(user.profileImageUrl).into(binding.imageViewUserProfile)
         }
 
-        // **MyAccount Butonuna Tıklanınca Profil Detayına Git**
+        //MyAccount Butonuna Tıklanınca Profil Detayına Git
         binding.buttonMyAccount.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_profileDetailFragment)
         }
 
-        // **Çıkış Butonu**
+        // Siparişlerim butonuna tıklanınca OrdersFragment'a geçiş
+        binding.buttonMyOrders.setOnClickListener {
+            try {
+                Log.d("ProfileFragment", "Navigating to OrdersFragment")
+                findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)
+            } catch (e: Exception) {
+                Log.e("ProfileFragment", "Error navigating to OrdersFragment: ${e.localizedMessage}")
+            }
+        }
+
+        //Çıkış Butonu
         binding.buttonLogout.setOnClickListener {
             viewModel.logout()
             findNavController().navigate(R.id.action_profileFragment_to_loginFragment)

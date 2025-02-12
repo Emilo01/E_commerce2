@@ -2,6 +2,7 @@ package com.farukayata.e_commerce2.di
 
 
 import com.farukayata.e_commerce2.data.datasource.ProductsDataSource
+import com.farukayata.e_commerce2.data.repo.OrderRepository
 import com.farukayata.e_commerce2.network.ApiClient
 import com.farukayata.e_commerce2.network.ApiService
 import com.farukayata.e_commerce2.data.repo.ProductsRepository
@@ -62,6 +63,14 @@ class AppModule {
         return FirebaseStorage.getInstance()
     }
 
+    @Provides
+    @Singleton
+    fun provideOrderRepository(
+        firestore: FirebaseFirestore,
+        auth: FirebaseAuth
+    ): OrderRepository {
+        return OrderRepository(firestore, auth)
+    }
 }
 
 

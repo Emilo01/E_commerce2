@@ -158,6 +158,11 @@
         <action
             android:id="@+id/action_profileFragment_to_profileDetailFragment"
             app:destination="@id/profileDetailFragment" />
+
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -212,6 +217,19 @@
             android:id="@+id/action_orderConfirmationFragment_to_receiptFragment"
             app:destination="@id/receiptFragment" />
     </fragment>
+
+    <!-- OrdersFragment -->
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.farukayata.e_commerce2.ui.fragment.OrdersFragment"
+        android:label="Orders"
+        tools:layout="@layout/fragment_orders" />
+
+    <!-- ProfileFragment'e Geri Dönüş ve Siparişlerim Butonu -->
+    <action
+        android:id="@+id/action_profileFragment_to_ordersFragment"
+        app:destination="@id/ordersFragment" />
+
 
     <!--ReceiptFragment-->
     <fragment

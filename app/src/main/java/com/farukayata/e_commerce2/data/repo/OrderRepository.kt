@@ -48,7 +48,7 @@ class OrderRepository @Inject constructor(
         }
     }
 
-    /** Firestore’dan siparişleri çekme */
+    //Firestore’dan siparişleri çekme
     suspend fun getOrdersFromFirebase(): List<Order> {
         return try {
             val userId = getCurrentUserId()
