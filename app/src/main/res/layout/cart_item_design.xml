@@ -55,10 +55,14 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <Button
+            <TextView
                 android:id="@+id/buttonIncrease"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/cart_button_inc_dec_bg"
+                android:gravity="center"
                 android:text="+" />
 
             <TextView

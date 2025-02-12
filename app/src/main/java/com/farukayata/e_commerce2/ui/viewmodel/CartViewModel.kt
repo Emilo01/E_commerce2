@@ -22,7 +22,7 @@ class CartViewModel @Inject constructor(
         loadCartItems() // ViewModel başlatıldığında sepeti yükle
     }
 
-    // **1. Firestore'dan Sepetteki Ürünleri Getir**
+    //Firestore'dan Sepetteki Ürünleri Getir
     fun loadCartItems() {
         viewModelScope.launch {
             _cartItems.value = repository.getCartItems()

@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
                 //text ve password metinlerinin metin tiplerini belirttik
             }
             binding.editTextPassword.inputType = inputType
-            binding.editTextPassword.setSelection(binding.editTextPassword.text.length)
+            binding.editTextPassword.text?.let { binding.editTextPassword.setSelection(it.length) }
             binding.imageViewTogglePasswordVisibility.setImageResource(
                 if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
             )

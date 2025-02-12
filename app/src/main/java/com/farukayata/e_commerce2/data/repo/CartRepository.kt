@@ -16,7 +16,7 @@ class CartRepository @Inject constructor(
             .document(firebaseAuth.currentUser?.uid ?: throw IllegalStateException("User not logged in"))
             .collection("cartItems") //->car
 
-    // **1. Firestore'dan Sepetteki Ürünleri Çek**
+    //Firestore'dan Sepetteki Ürünleri Çek
     suspend fun getCartItems(): List<CartItem> {
         return try {
             val snapshot = cartCollection.get().await()
@@ -26,7 +26,7 @@ class CartRepository @Inject constructor(
         }
     }
 
-    // **2. Firestore'a Ürün Ekle / Güncelle**
+    //Firestore'a Ürün Ekle / Güncelle
     suspend fun addToCart(cartItem: CartItem) {
         try {
             val documentRef = cartCollection.document(cartItem.id.toString()) // Ürün ID'sine göre doküman oluştur
@@ -53,7 +53,7 @@ class CartRepository @Inject constructor(
         }
     }
 
-    // **3. Sepetten Ürünü Sil**
+    //Sepetten Ürünü Sil
     suspend fun removeFromCart(productId: String) {
         try {
             cartCollection.document(productId).delete().await()
@@ -62,7 +62,7 @@ class CartRepository @Inject constructor(
         }
     }
 
-    // **4. Sepetteki Ürünün Adedini Güncelle**
+    //Sepetteki Ürünün Adedini Günceller
     suspend fun updateItemCount(productId: String, newCount: Int) {
         try {
             if (newCount > 0) {

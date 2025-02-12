@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +16,9 @@ import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentCartBinding
 import com.farukayata.e_commerce2.model.CartItem
 import com.farukayata.e_commerce2.ui.adapter.CartAdapter
+import com.farukayata.e_commerce2.ui.adapter.CouponAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.CartViewModel
+import com.farukayata.e_commerce2.ui.viewmodel.CouponViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -28,6 +31,11 @@ class CartFragment : Fragment() {
     private lateinit var binding: FragmentCartBinding
     private val viewModel: CartViewModel by viewModels()
     private lateinit var adapter: CartAdapter
+    private var discountPrice: Double? = null
+    private var finalPrice: Double? = null
+
+    private lateinit var couponAdapter: CouponAdapter //recycler view kullanmıcaz duruma göre kaldırıla bilir
+    private val couponViewModel: CouponViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,15 +68,45 @@ class CartFragment : Fragment() {
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCart.adapter = adapter
 
+        //burayı iptal ettik çünkü ödeme ekranında recycler view kullamaktan vaz geçtik
+//        // Kuponlar için adapter
+//        couponAdapter = CouponAdapter(coupons = listOf()) { coupon ->
+//            couponViewModel.applyCoupon(coupon.code, viewModel.cartItems.value ?: listOf())
+//        }
+//        binding.recyclerViewCoupons.layoutManager = LinearLayoutManager(requireContext())
+//        binding.recyclerViewCoupons.adapter = couponAdapter
+//
+//        // Kuponları al
+//        couponViewModel.fetchUserCoupons()
+//
+//        couponViewModel.coupons.observe(viewLifecycleOwner) { coupons ->
+//            couponAdapter.notifyDataSetChanged()
+//        }
+
         // Sepet verilerini gözlemle ve RecyclerView'a bağla
         viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
             adapter.submitList(cartList) // Adapter'e yeni listeyi ilet
             updateTotalPrice(cartList) // Toplam fiyatı güncelle
         }
 
-        // **Satın Al Butonu** - PaymentSelectionFragment'a yönlendirme
+        //Satın Al Butonu - PaymentSelectionFragment'a yönlendirme
         binding.btnCheckout.setOnClickListener {
             findNavController().navigate(R.id.action_cartFragment_to_paymentSelectionFragment)
+        }
+
+        // Kupon Uygula Butonu
+        binding.buttonApplyCoupon.setOnClickListener {
+            val couponCode = binding.editTextCouponCode.text.toString().trim()
+            if (couponCode.isNotEmpty()) {
+                couponViewModel.applyCoupon(couponCode, viewModel.cartItems.value ?: listOf())
+            } else {
+                // Kullanıcı kupon kodunu girmediyse bir uyarı gösterebiliriz.
+                Toast.makeText(context, "Kupon kodunu girin", Toast.LENGTH_SHORT).show()
+            }
+            //gereksiz ve sıkıtılı olabilir !!!!!!!
+            couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->
+                binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", discountedPrice)
+            }
         }
 
 
@@ -103,7 +141,19 @@ class CartFragment : Fragment() {
     // Toplam fiyatı güncelleme fonksiyonu
     private fun updateTotalPrice(cartList: List<CartItem>) {
         val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Null kontrolü eklendi
-        binding.textViewTotalPrice.text = String.format("Total: %.2f TL", totalPrice)
+        couponViewModel.totalPrice.observe(viewLifecycleOwner) { discounttPrice ->
+            discountPrice = discounttPrice
+        }
+
+        discountPrice?.let { discount ->
+            finalPrice = totalPrice - discount
+        } ?: run {
+            finalPrice = totalPrice
+        }
+        binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)
+        /*val finalPrice = discountPrice ?: totalPrice
+            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)*/
+
     }
 }
 

@@ -20,6 +20,32 @@
             android:padding="8dp"
             tools:listitem="@layout/cart_item_design" />
 
+        <!-- Kupon Kodu Giriş Alanı ve Uygula Butonu -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <EditText
+                android:id="@+id/editTextCouponCode"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/placeholder1"
+                android:drawablePadding="8dp"
+                android:hint="Kupon Kodu"
+                android:padding="10dp"
+                android:background="@drawable/edittext_background"/>
+
+            <Button
+                android:id="@+id/buttonApplyCoupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Uygula"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
         <TextView
             android:id="@+id/textViewTotalPrice"
             android:layout_width="wrap_content"
@@ -28,9 +54,9 @@
             android:layout_marginTop="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:visibility="visible"
             tools:text="Total: 0.00 TL" />
 
-        <!-- Satın Al Butonu -->
         <Button
             android:id="@+id/btnCheckout"
             android:layout_width="match_parent"
@@ -39,5 +65,7 @@
             android:text="Satın Al"
             android:backgroundTint="@color/purple"
             android:textColor="@android:color/white"/>
+
     </LinearLayout>
+
 </layout>

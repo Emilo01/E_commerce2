@@ -95,14 +95,17 @@
                     app:layout_constraintStart_toStartOf="parent">
 
                     <!-- Ürün Adet Azalt Butonu -->
-                    <Button
+                    <TextView
                         android:id="@+id/buttonDecreaseQuantity"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cart_button_inc_dec_bg"
+                        android:gravity="center"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="8dp"
                         android:text="-"
-                        android:textSize="23sp"
+                        android:textSize="25sp"
                         android:textStyle="bold"
-                        android:backgroundTint="@color/black"
                         android:textColor="@android:color/white"/>
 
                     <!-- Ürün Adet Bilgisi -->
