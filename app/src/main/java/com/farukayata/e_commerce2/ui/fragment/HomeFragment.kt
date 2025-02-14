@@ -93,8 +93,8 @@ class HomeFragment : Fragment() {
 //                favoritesViewModel.addFavorite(product)
 //            }
 
-            //ecommerce adapterımıza lamda ekleyerek bağımsız hale getirdik.
-            //ve ürünen tıklandığında geçiş mantığını artık ona ayit sayfannın fragmenttındna yöeticez
+        //ecommerce adapterımıza lamda ekleyerek bağımsız hale getirdik.
+        //ve ürünen tıklandığında geçiş mantığını artık ona ayit sayfannın fragmenttındna yöeticez
 //
 //            val adapter = EcommorceAdapter(
 //                context = requireContext(),

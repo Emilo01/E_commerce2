@@ -11,33 +11,32 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
         tools:context=".ui.fragment.DetailFragment">
 
-        <!--Ana Ürün Bilgileri-->
-        <ImageView
-            android:id="@+id/imageViewProduct"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:scaleType="centerCrop"
+        <!-- Ürün Resmi -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewImage"
+            android:layout_width="290dp"
+            android:layout_height="290dp"
+            android:padding="50dp"
+            android:elevation="8dp"
+            app:cardCornerRadius="10dp"
+            android:background="@color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/textViewProductCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{"Category: " + product.category}'
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/imageViewProduct"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="Category: Electronics" />
+            <ImageView
+                android:id="@+id/imageViewProduct"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:elevation="30dp"
+                android:layout_gravity="center"
+                tools:src="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
 
+        <!-- Ürün Başlığı -->
         <TextView
             android:id="@+id/textViewProductTitle"
             android:layout_width="match_parent"
@@ -47,125 +46,155 @@
             android:textStyle="bold"
             android:gravity="center"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/textViewProductCategory"
+            app:layout_constraintTop_toBottomOf="@id/cardViewImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Product Title" />
 
-        <!--Önerilen Ürünler RecyclerView-->
+        <!-- Kategori (Chip) -->
+        <com.google.android.material.chip.Chip
+            android:id="@+id/textViewProductCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{product.category}'
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewProductTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Electronics" />
+
+        <!-- Ürün Açıklaması -->
+        <TextView
+            android:id="@+id/textViewProductDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text='@{product.description}'
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="16dp"
+            android:maxLines="5"
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@id/textViewProductCategory"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="This is a sample description of the product." />
+
+        <!-- Önerilen Ürünler RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewRecommended"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:padding="8dp"
             android:clipToPadding="false"
             android:scrollbars="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/textViewProductTitle"
+            app:layout_constraintTop_toBottomOf="@id/textViewProductDescription"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/frameLayoutPrice"
             tools:listitem="@layout/card_design"/>
 
-        <!-- Sepete Ekle Alanı (FrameLayout)-->
-        <FrameLayout
+        <!-- Sepete Ekle Alanı -->
+        <androidx.cardview.widget.CardView
             android:id="@+id/frameLayoutPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:padding="8dp"
-            android:background="@android:color/white"
+            android:layout_marginTop="12dp"
+            android:padding="16dp"
+            android:background="@drawable/white_bg"
             android:elevation="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintStart_toStartOf="@id/recyclerViewRecommended"
+            app:layout_constraintEnd_toEndOf="@id/recyclerViewRecommended">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
                 android:gravity="center_vertical"
-                android:paddingHorizontal="16dp">
+                tools:ignore="ExtraText">
 
+                <!-- Ürün Adet Seçimi -->
                 <LinearLayout
                     android:id="@+id/llCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="MissingConstraints">
 
-                    <!-- Ürün Adet Azalt Butonu -->
                     <TextView
                         android:id="@+id/buttonDecreaseQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/cart_button_inc_dec_bg"
                         android:gravity="center"
-                        android:paddingHorizontal="20dp"
-                        android:paddingVertical="8dp"
+                        android:background="@drawable/cart_button_inc_dec_bg"
                         android:text="-"
-                        android:textSize="25sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"
-                        android:textColor="@android:color/white"/>
+                        android:textColor="@android:color/white"
+                        android:padding="8dp"/>
 
-                    <!-- Ürün Adet Bilgisi -->
+
                     <TextView
                         android:id="@+id/textViewProductQuantity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         android:textColor="@android:color/black"
                         android:layout_marginHorizontal="12dp"/>
 
-                    <!-- Ürün Adet Arttır Butonu -->
-                    <Button
+                    <TextView
                         android:id="@+id/buttonIncreaseQuantity"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:background="@drawable/incrase_button_bg"
                         android:text="+"
-                        android:textSize="18sp"
+                        android:textSize="22sp"
                         android:textStyle="bold"
-                        android:backgroundTint="@color/black"
-                        android:textColor="@android:color/white"/>
-
-
+                        android:textColor="@android:color/white"
+                        android:padding="8dp"/>
                 </LinearLayout>
 
-
-                <!-- Toplam Fiyat (Sepetteki tüm ürünlerin toplamı buraya yazılacak!) -->
+                <!-- Toplam Fiyat -->
                 <TextView
                     android:id="@+id/textViewTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text='@{String.format("%.2f TL", product.price)}'
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:text="toteltoteltotel"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@id/llCount"
-                    app:layout_constraintStart_toStartOf="@id/llCount"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text='@{String.format("Total Price : %.2f TL", product.price)}'
                     android:textColor="@android:color/black"
-                    android:gravity="center"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/buttonAddToCart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="0.0 TL" />
 
                 <!-- Sepete Ekle Butonu -->
                 <Button
                     android:id="@+id/buttonAddToCart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:text="Add to Cart"
-                    android:textSize="16sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/llCount"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:backgroundTint="@color/black"
-                    android:paddingHorizontal="16dp"/>
+                    android:backgroundTint="#0C8A7B"
+                    app:layout_constraintTop_toBottomOf="@id/llCount"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:drawableLeft="@drawable/sepet_icon_add_to_cart"
+                    android:drawablePadding="2dp" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </FrameLayout>
+        </androidx.cardview.widget.CardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

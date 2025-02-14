@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Köşeleri yuvarlak yap -->
+    <corners android:radius="20dp"/>
+
+    <!-- Butonun iç rengini belirle -->
+    <solid android:color="#0C8A7B"/>
+
+    <!-- Butona çerçeve ekleyerek görünürlüğü artır -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF"/>  <!-- Çerçeve rengi: Beyaz -->
+</shape>

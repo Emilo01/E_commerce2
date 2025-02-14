@@ -34,7 +34,7 @@ class CartAdapter(
             }
 
             // Adet azaltma
-            binding.buttonDecrease.setOnClickListener {
+            binding.buttonDecrase.setOnClickListener {
                 onDecreaseClick(cartItem)
             }
 

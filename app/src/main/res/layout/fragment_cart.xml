@@ -32,7 +32,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/placeholder1"
+                android:drawableLeft="@drawable/discountshape"
                 android:drawablePadding="8dp"
                 android:hint="Kupon Kodu"
                 android:padding="10dp"
@@ -42,6 +42,7 @@
                 android:id="@+id/buttonApplyCoupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#0C8A7B"
                 android:text="Uygula"
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
@@ -63,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Satın Al"
-            android:backgroundTint="@color/purple"
+            android:backgroundTint="#0C8A7B"
             android:textColor="@android:color/white"/>
 
     </LinearLayout>

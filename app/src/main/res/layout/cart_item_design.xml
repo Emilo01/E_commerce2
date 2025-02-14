@@ -63,7 +63,7 @@
                 android:paddingHorizontal="20dp"
                 android:background="@drawable/cart_button_inc_dec_bg"
                 android:gravity="center"
-                android:text="+" />
+                android:text="-" />
 
             <TextView
                 android:id="@+id/textViewCartCount"
@@ -73,17 +73,22 @@
                 android:gravity="center"
                 tools:text="1" />
 
-            <Button
-                android:id="@+id/buttonDecrease"
-                android:layout_width="60dp"
-                android:layout_height="40dp"
-                android:text="-" />
+            <TextView
+                android:id="@+id/buttonDecrase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="20dp"
+                android:background="@drawable/incrase_button_bg"
+                android:gravity="center"
+                android:text="+" />
         </LinearLayout>
 
         <!-- Silme Butonu -->
         <Button
             android:id="@+id/buttonRemove"
             android:layout_width="65dp"
+            android:backgroundTint="#0C8A7B"
             android:layout_height="wrap_content"
             android:text="Sil" />
     </LinearLayout>

@@ -79,6 +79,7 @@
                     android:text="Add to Cart"
                     android:textSize="10sp"
                     android:layout_marginStart="8dp"
+                    android:backgroundTint="#0C8A7B"
                     app:layout_constraintTop_toBottomOf="@id/imageViewProductCard"
                     app:layout_constraintStart_toEndOf="@id/textViewProductPrice"
                     app:layout_constraintEnd_toEndOf="parent"

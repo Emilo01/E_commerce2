@@ -32,12 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ana Sayfaya Dön"
+            android:backgroundTint="#0C8A7B"
             android:layout_marginTop="16dp" />
 
         <Button
             android:id="@+id/btnViewReceipt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="#0C8A7B"
             android:text="Fişi Görüntüle"
             android:layout_marginTop="8dp" />
     </LinearLayout>

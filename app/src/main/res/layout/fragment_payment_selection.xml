@@ -41,6 +41,7 @@
         <Button
             android:id="@+id/btnContinue"
             android:layout_width="match_parent"
+            android:backgroundTint="#0C8A7B"
             android:layout_height="wrap_content"
             android:text="Devam Et"
             android:layout_marginTop="16dp" />

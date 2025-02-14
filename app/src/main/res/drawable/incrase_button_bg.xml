@@ -3,10 +3,10 @@
     android:shape="rectangle">
 
     <!-- Daha yatay bir elips için köşe yuvarlama artırıldı -->
-    <corners android:radius="500dp"/>
+    <corners android:radius="80dp"/>
 
-    <!-- Butonun rengi (Aynı kaldı) -->
-    <solid android:color="#828A89" />
+    <!-- Butonun rengi -->
+    <solid android:color="#0C8A7B"/>
 
     <!-- Daha geniş ve alçak bir buton için boyut ayarı -->
     <size

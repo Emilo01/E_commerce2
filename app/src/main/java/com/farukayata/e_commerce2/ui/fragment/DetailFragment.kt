@@ -147,7 +147,7 @@ class DetailFragment : Fragment() {
     private fun updateTotalPrice() {
         val totalPrice = (unitPrice * quantity).coerceAtLeast(0.0) //fiyatı eksili gelemez artık min 0
         binding.textViewProductQuantity.text = quantity.toString()
-        binding.textViewTotalPrice.text = String.format("%.2f TL", totalPrice)
+        binding.textViewTotalPrice.text = String.format("Total Price : %.2f TL", totalPrice)
     }
 }
 
