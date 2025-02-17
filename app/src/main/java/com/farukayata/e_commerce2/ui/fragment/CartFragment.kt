@@ -49,18 +49,20 @@ class CartFragment : Fragment() {
                 viewModel.removeFromCart(productId) // Ürünü sepetten kaldır
             },
             onIncreaseClick = { cartItem ->
-                val newCount = (cartItem.count ?: 0) + 1 // Null kontrolü yapıldı
-                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti artır
-            },
-            onDecreaseClick = { cartItem ->
                 val newCount = (cartItem.count ?: 0) - 1 // Null kontrolü yapıldı
                 if (newCount > 0) {
                     viewModel.updateItemCount(cartItem.id.orEmpty(), newCount)
-                // Adeti azaltır
+                    // Adeti azaltır
                 } else {
                     viewModel.removeFromCart(cartItem.id.orEmpty())
-                // Adet 0 sa ürünü siler
+                    // Adet 0 sa ürünü siler
                 }
+
+
+            },
+            onDecreaseClick = { cartItem ->
+                val newCount = (cartItem.count ?: 0) + 1 // Null kontrolü yapıldı
+                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti artır
             }
         )
 
@@ -83,10 +85,29 @@ class CartFragment : Fragment() {
 //            couponAdapter.notifyDataSetChanged()
 //        }
 
+
+        //lotie ekledik ve sepet boş olma ve olmama durumu olucağı için artık aşağıdaki gibi değilde bi aşağıdaki gibi kullancaz
         // Sepet verilerini gözlemle ve RecyclerView'a bağla
+//        viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
+//            adapter.submitList(cartList) // Adapter'e yeni listeyi ilet
+//            updateTotalPrice(cartList) // Toplam fiyatı güncelle
+//        }
+
         viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
-            adapter.submitList(cartList) // Adapter'e yeni listeyi ilet
-            updateTotalPrice(cartList) // Toplam fiyatı güncelle
+            if (cartList.isEmpty()) {
+                // Eğer sepet boşsa ürünleri gizle ve boş sepet mesajını gösterir
+                binding.recyclerViewCart.visibility = View.GONE
+                binding.emptyCartLayout.visibility = View.VISIBLE
+            } else {
+                // Eğer sepet doluysa listeyi göster ve boş sepet mesajını gizler
+                binding.recyclerViewCart.visibility = View.VISIBLE
+                binding.emptyCartLayout.visibility = View.GONE
+            }
+            updateTotalPrice(cartList)
+        }
+
+        binding.buttonShopNow.setOnClickListener {
+            findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
         }
 
         //Satın Al Butonu - PaymentSelectionFragment'a yönlendirme
@@ -154,6 +175,11 @@ class CartFragment : Fragment() {
         /*val finalPrice = discountPrice ?: totalPrice
             binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)*/
 
+        //şu kısımı ekledik çünkü sepet boş sayfası özelliği eklediğmizde
+        //sepete eklene ürünler sepet sayfamızda görülmüyordu
+        //sepete ürün eklenince recycler view güncelleniyor kısaca
+        adapter.submitList(cartList)
+        adapter.notifyDataSetChanged()
     }
 }
 

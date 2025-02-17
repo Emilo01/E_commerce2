@@ -11,14 +11,20 @@
         android:padding="16dp"
         tools:context=".ui.auth.LoginFragment">
 
-        <!-- Email -->
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:hint="Email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <!-- Password -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -26,8 +32,9 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -35,20 +42,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Password"
-                    android:inputType="textPassword"
-                    android:layout_weight="1"/>
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/imageViewTogglePasswordVisibility"
                 android:src="@drawable/ic_visibility_off"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:padding="8dp" />
         </LinearLayout>
 
-        <!-- Login Button -->
         <Button
             android:id="@+id/buttonLogin"
             android:text="Login"
@@ -57,7 +62,6 @@
             android:backgroundTint="#0C8A7B"
             android:layout_marginTop="16dp" />
 
-        <!-- Sign Up Navigation -->
         <TextView
             android:id="@+id/textViewSignUp"
             android:text="Don't have an account? Sign up here."
@@ -66,5 +70,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:textAlignment="center" />
+
     </LinearLayout>
 </layout>

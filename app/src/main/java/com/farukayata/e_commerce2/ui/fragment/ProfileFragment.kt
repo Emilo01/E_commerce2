@@ -62,6 +62,9 @@ class ProfileFragment : Fragment() {
         //MyAccount Butonuna Tıklanınca Profil Detayına Git
         binding.buttonMyAccount.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_profileDetailFragment)
+
+            //kullanıcı profil detailden profil sayfasına dönünce veriler nında gelcek
+            viewModel.loadUserProfile()
         }
 
         binding.buttonMyCoupons.setOnClickListener {

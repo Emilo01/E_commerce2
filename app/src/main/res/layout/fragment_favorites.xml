@@ -9,12 +9,47 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragment.FavoritesFragment">
 
+        <!-- Boş Favoriler Görünümü -->
+        <LinearLayout
+            android:id="@+id/emptyFavoritesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieFavoriteAnimation"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:lottie_rawRes="@raw/green_loves"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Henüz favoriniz yok"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/buttonExploreProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ürünleri keşfedin ve yeni favorilerinizi bulun"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#0C8A7B"/>
+        </LinearLayout>
+
+        <!-- Favoriler RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFavorites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             tools:listitem="@layout/card_design" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -16,7 +16,7 @@ class UserRepository @Inject constructor(
 
     private val userCollection get() = firestore.collection("users").document(auth.currentUser?.uid ?: "")
 
-    // **1. Kullanıcı Bilgilerini Getir**
+    //Kullanıcı Bilgilerini Getir
     suspend fun getUserProfile(): UserProfile? {
         return try {
             val snapshot = userCollection.get().await()
@@ -26,7 +26,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    // **2. Kullanıcı Bilgilerini Güncelle**
+    //Kullanıcı Bilgilerini Güncelle
     suspend fun updateUserProfile(userProfile: UserProfile) {
         try {
             userCollection.set(userProfile).await()
@@ -35,7 +35,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    // **3. Firebase Storage’a Fotoğraf Yükle ve URL Döndür**
+    //Firebase Storage’a Fotoğraf Yükle ve URL Döndür
     suspend fun uploadProfileImage(imageUri: Uri): String? {
         return try {
             val userId = auth.currentUser?.uid ?: return null
@@ -56,7 +56,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    // **4. Kullanıcı Fotoğrafını Güncelle**
+    //Kullanıcı Fotoğrafını Güncelle
     suspend fun updateProfileImage(imageUrl: String) {
         try {
             userCollection.update("profileImageUrl", imageUrl).await()
@@ -66,7 +66,7 @@ class UserRepository @Inject constructor(
     }
 
 
-    // 5. Kullanıcıyı Çıkış Yaptır**
+    //Kullanıcıyı Çıkış Yaptır
     fun logoutUser() {
         auth.signOut()
     }

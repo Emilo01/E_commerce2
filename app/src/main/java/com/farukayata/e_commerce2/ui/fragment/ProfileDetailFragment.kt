@@ -42,13 +42,13 @@ class ProfileDetailFragment : Fragment() {
             Glide.with(this).load(user.profileImageUrl).into(binding.imageViewProfileDetail)
         }
 
-        // **Fotoğraf Seçme Butonu**
+        // Fotoğraf Seçme Butonu
         binding.imageViewProfileDetail.setOnClickListener {
             openGallery()
         }
 
 
-        // **Güncelle Butonu**
+        // Güncelle Butonu
         binding.buttonUpdate.setOnClickListener {
             val updatedProfile = UserProfile(
                 firstName = binding.editTextFirstName.text.toString(),
@@ -64,12 +64,15 @@ class ProfileDetailFragment : Fragment() {
             selectedImageUri?.let { uri ->
                 viewModel.uploadProfileImage(uri)
             }
+
+            //Profil güncellendiğinde anında livedata aktifleşcek
+            viewModel.loadUserProfile()
         }
 
         return binding.root
     }
 
-    // **Galeri Aç ve Fotoğraf Seç**
+    //Galeri Aç ve Fotoğraf Seç
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"

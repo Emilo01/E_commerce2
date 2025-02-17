@@ -85,11 +85,14 @@
         </LinearLayout>
 
         <!-- Silme Butonu -->
-        <Button
+        <ImageButton
             android:id="@+id/buttonRemove"
-            android:layout_width="65dp"
-            android:backgroundTint="#0C8A7B"
-            android:layout_height="wrap_content"
-            android:text="Sil" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:padding="4dp"
+            android:contentDescription="Ürünü Sil"
+            android:src="@drawable/delete_icon" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -11,44 +11,77 @@
         android:padding="16dp"
         tools:context=".ui.auth.SignUpFragment">
 
-        <!-- Email -->
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:hint="Email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <!-- Password -->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
 
-            <EditText
-                android:id="@+id/editTextPassword"
-                android:hint="Password"
-                android:inputType="textPassword"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/imageViewTogglePasswordVisibility"
                 android:src="@drawable/ic_visibility_off"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:padding="8dp" />
         </LinearLayout>
 
-        <!-- Confirm Password -->
-        <EditText
-            android:id="@+id/editTextConfirmPassword"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imageViewToggleConfirmPasswordVisibility"
+                android:src="@drawable/ic_visibility_off"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="8dp" />
+        </LinearLayout>
 
         <!-- ProgressBar
         <ProgressBar
@@ -59,11 +92,11 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp" />-->
 
-        <!-- Sign Up Button -->
         <Button
             android:id="@+id/buttonSignUp"
             android:text="Sign Up"
             android:layout_width="match_parent"
+            android:backgroundTint="#0C8A7B"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp" />
     </LinearLayout>

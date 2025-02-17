@@ -25,6 +25,7 @@ class SignUpFragment : Fragment() {
     private lateinit var binding: FragmentSignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
     private var isPasswordVisible = false
+    private var isConfirmPasswordVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,9 +43,22 @@ class SignUpFragment : Fragment() {
                 //text ve password metinlerinin metin tiplerini belirttik
             }
             binding.editTextPassword.inputType = inputType
-            binding.editTextPassword.setSelection(binding.editTextPassword.text.length)
+            binding.editTextPassword.setSelection(binding.editTextPassword.text?.length ?:0)
             binding.imageViewTogglePasswordVisibility.setImageResource(
                 if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
+            )
+        }
+        binding.imageViewToggleConfirmPasswordVisibility.setOnClickListener {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible
+            val inputType = if (isConfirmPasswordVisible) {
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            } else {
+                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            binding.editTextConfirmPassword.inputType = inputType
+            binding.editTextConfirmPassword.setSelection(binding.editTextConfirmPassword.text?.length ?: 0)
+            binding.imageViewToggleConfirmPasswordVisibility.setImageResource(
+                if (isConfirmPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
             )
         }
 

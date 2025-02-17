@@ -12,6 +12,41 @@
         android:padding="16dp"
         tools:context=".ui.fragment.CartFragment">
 
+        <LinearLayout
+            android:id="@+id/emptyCartLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Lottie Animasyonu -->
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottieCartAnimation"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                app:lottie_rawRes="@raw/green_cart"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sepetiniz boş"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp" />
+
+            <Button
+                android:id="@+id/buttonShopNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ürünleri Keşfet"
+                android:layout_marginTop="12dp"
+                android:backgroundTint="#0C8A7B"/>
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewCart"
             android:layout_width="match_parent"

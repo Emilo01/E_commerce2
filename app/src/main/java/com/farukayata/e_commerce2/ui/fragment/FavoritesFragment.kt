@@ -10,12 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentFavoritesBinding
 import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
 import com.farukayata.e_commerce2.ui.adapter.FavoritesAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class FavoritesFragment : Fragment() {
@@ -75,12 +77,24 @@ class FavoritesFragment : Fragment() {
 
         // Favori ürünleri gözlemleme
         lifecycleScope.launchWhenStarted {
-            viewModel.favorites.collect { favoriteList ->
-                adapter.submitList(favoriteList)
+            viewModel.favorites.collectLatest { favoriteList ->
+                if (favoriteList.isEmpty()) {
+                    binding.recyclerViewFavorites.visibility = View.GONE
+                    binding.emptyFavoritesLayout.visibility = View.VISIBLE
+                } else {
+                    binding.recyclerViewFavorites.visibility = View.VISIBLE
+                    binding.emptyFavoritesLayout.visibility = View.GONE
+                    adapter.submitList(favoriteList)
+                }
             }
         }
 
-        // Favori ürünleri yükleme
+        // Ürünleri keşfet butonu tıklanınca anasayfaya yönlendirme
+        binding.buttonExploreProducts.setOnClickListener {
+            findNavController().navigate(R.id.action_favoritesFragment_to_homeFragment)
+
+        }
+            // Favori ürünleri yükleme
         viewModel.loadFavorites()
 
         return binding.root

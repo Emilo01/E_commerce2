@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import android.content.Context
+import android.view.animation.AnimationUtils
 import com.farukayata.e_commerce2.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Toolbar'ı desteklenen ActionBar olarak ayarla
+        // Toolbar'ı desteklenen ActionBar olarak ayarladık
         setSupportActionBar(binding.toolbar)
 
         // NavHostFragment ve NavController'i bağla
@@ -71,42 +72,103 @@ class MainActivity : AppCompatActivity() {
                     hideBottomNavigationView() // Diğer fragment'lerde Navbar gizlenecek
                 }
             }
+
+            // Hangi fragment açıksa, nav bar'da seçili sekme onunla eşleşsin
+            binding.bottomNavigationView.menu.findItem(destination.id)?.isChecked = true
+
+
         }
     }
 
+    //navbarda gecikmeli sayfa geçişi oluyordu google önerisine göre alttaki gibi revize ettik
+//    private fun setupBottomNavigationView() {
+//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+//        bottomNavigationView.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.homeFragment -> {
+//                    navController.navigate(R.id.homeFragment)
+//                    true
+//                }
+//                R.id.categoryFragment -> {
+//                    navController.navigate(R.id.categoryFragment)
+//                    true
+//                }
+//                R.id.favoritesFragment -> {
+//                    navController.navigate(R.id.favoritesFragment)
+//                    true
+//                }
+//                R.id.cartFragment -> {
+//                    navController.navigate(R.id.cartFragment)
+//                    true
+//                }
+////                R.id.loginFragment -> {
+////                    navController.navigate(R.id.loginFragment)
+////                    true
+////                }
+//                //buradada login geçici olarak konmuştu profille revize ettik
+//                R.id.profileFragment -> {
+//                    navController.navigate(R.id.profileFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//    }
+
     private fun setupBottomNavigationView() {
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+        // Google'ın önerdiği gibi, doğrudan NavigationUI ile bağladık
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
         bottomNavigationView.setOnItemSelectedListener { item ->
+            val currentDestination = navController.currentDestination?.id
+
+            val selectedItemView = bottomNavigationView.findViewById<View>(item.itemId)
+            selectedItemView?.startAnimation(
+                AnimationUtils.loadAnimation(this, R.anim.item_animation)
+            )
+
+            bottomNavigationView.menu.findItem(item.itemId).icon?.setTint(
+                resources.getColor(R.color.teal_secondary, theme) // Yeni renk eklendi
+            )
+
             when (item.itemId) {
                 R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment)
+                    if (currentDestination != R.id.homeFragment) {
+                        navController.navigate(R.id.homeFragment)
+                    }
                     true
                 }
                 R.id.categoryFragment -> {
-                    navController.navigate(R.id.categoryFragment)
+                    if (currentDestination != R.id.categoryFragment) {
+                        navController.navigate(R.id.categoryFragment)
+                    }
                     true
                 }
                 R.id.favoritesFragment -> {
-                    navController.navigate(R.id.favoritesFragment)
+                    if (currentDestination != R.id.favoritesFragment) {
+                        navController.navigate(R.id.favoritesFragment)
+                    }
                     true
                 }
                 R.id.cartFragment -> {
-                    navController.navigate(R.id.cartFragment)
+                    if (currentDestination != R.id.cartFragment) {
+                        navController.navigate(R.id.cartFragment)
+                    }
                     true
                 }
-//                R.id.loginFragment -> {
-//                    navController.navigate(R.id.loginFragment)
-//                    true
-//                }
-                //buradada login geçici olarak konmuştu profille revize ettik
                 R.id.profileFragment -> {
-                    navController.navigate(R.id.profileFragment)
+                    if (currentDestination != R.id.profileFragment) {
+                        navController.navigate(R.id.profileFragment)
+                    }
                     true
                 }
                 else -> false
             }
         }
     }
+
 
     private fun showBottomNavigationView() {
         binding.bottomNavigationView.visibility = View.VISIBLE

@@ -11,46 +11,81 @@
         android:padding="16dp"
         tools:context=".ui.fragment.CardPaymentFragment">
 
-        <EditText
-            android:id="@+id/etCardNumber"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Kart Numarası (16 Hane)"
-            android:inputType="number" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
-            android:id="@+id/etExpiryMonth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Son Kullanma Ayı (MM)"
-            android:inputType="number" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kart Numarası (16 Hane)"
+                android:inputType="number"
+                android:maxLength="19" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etExpiryYear"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Son Kullanma Yılı (YYYY)"
-            android:inputType="number" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <EditText
-            android:id="@+id/etCVV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="CVV (3 Hane)"
-            android:inputType="number" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etExpiryMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Son Kullanma Ayı (MM)"
+                android:inputType="number"
+                android:maxLength="2" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/etCardHolder"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Kart Sahibinin Adı Soyadı"
-            android:inputType="text" />
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etExpiryYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Son Kullanma Yılı (YYYY)"
+                android:inputType="number"
+                android:maxLength="4" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCVV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CVV (3 Hane)"
+                android:inputType="number"
+                android:maxLength="3" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCardHolder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kart Sahibinin Adı Soyadı"
+                android:inputType="textCapWords" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnPayNow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Ödemeyi Tamamla"
+            android:backgroundTint="#0C8A7B"
             android:layout_marginTop="16dp" />
     </LinearLayout>
 </layout>

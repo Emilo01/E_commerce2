@@ -19,4 +19,18 @@
     <color name="orange">#ff8c42</color>
     <color name="light_gray">#e7ecef</color>
 
+
+    <!--#0C8A7B ile uyumlu tonlar-->
+
+    <color name="teal_primary">#0C8A7B</color> <!-- Ana renk -->
+    <color name="teal_secondary">#14A58C</color> <!-- Buton ve navbar vurgusu -->
+    <color name="mint_light">#A3DEC6</color> <!-- Arka plan destek rengi -->
+    <color name="petrol_dark">#095C4D</color> <!-- Başlıklar ve ana vurgu -->
+    <color name="soft_beige">#F5F5DC</color> <!-- Açık mod arka plan -->
+    <color name="text_gray">#333333</color> <!-- Metin rengi -->
+    <color name="accent_gold">#F4A261</color> <!-- Özel vurgular için -->
+    <color name="dark_black">#222222</color> <!-- Karanlık mod arka plan -->
+
+
+
 </resources>

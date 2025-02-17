@@ -32,7 +32,7 @@ class CartViewModel @Inject constructor(
     //burda try catch yapmadık çünkü burda hata alırsak zaten repository.getCartItems() içinde hata yönetimi var
     //repo kısmında
 
-    // **2. Ürünü Sepete Ekle**
+    //Ürünü Sepete Ekle
 //    fun addToCart(cartItem: CartItem) {
 //        viewModelScope.launch {
 //            repository.addToCart(cartItem)
@@ -54,7 +54,7 @@ class CartViewModel @Inject constructor(
         }
     }
 
-    // **3. Sepetten Ürünü Sil**
+    //Sepetten Ürünü Sil
 //    fun removeFromCart(productId: String) {
 //        viewModelScope.launch {
 //            repository.removeFromCart(productId)
@@ -76,7 +76,7 @@ class CartViewModel @Inject constructor(
     }
 
 
-    // **4. Ürün Adetini Güncelle (Artır / Azalt)**
+    //Ürün Adetini Güncelle (Artır / Azalt)
 //    fun updateItemCount(productId: String, newCount: Int) {
 //        viewModelScope.launch {
 //            repository.updateItemCount(productId, newCount)
