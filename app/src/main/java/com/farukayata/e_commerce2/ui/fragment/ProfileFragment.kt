@@ -1,10 +1,12 @@
 package com.farukayata.e_commerce2.ui.fragment
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -82,12 +84,53 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        //Çıkış Butonu
         binding.buttonLogout.setOnClickListener {
-            viewModel.logout()
-            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            showLogoutDialog()
+            //çıkış yap dediğindeki popup penceresi
+        }
+        //viewmodeldeki logout eventtimizi kontrol ediyoruz
+        viewModel.logoutEvent.observe(viewLifecycleOwner) { isLoggedOut ->
+            if (isLoggedOut) {
+                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            }
         }
 
+
         return binding.root
+    }
+//    private fun showLogoutDialog() {
+//        AlertDialog.Builder(requireContext())
+//            .setTitle("Çıkış Yap")
+//            .setMessage("Hesabınızdan çıkış yapmak istediğinize emin misiniz?")
+//            .setPositiveButton("Evet") { _, _ ->
+//                viewModel.logout()
+//            //düz logout
+//            }
+//            .setNegativeButton("İptal", null)
+//            .show()
+//    }
+
+    private fun showLogoutDialog() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_logout_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
+
+        // Butonları bul
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnLogout = dialogView.findViewById<Button>(R.id.btnLogout)
+
+        // Çıkış işlemi
+        btnLogout.setOnClickListener {
+            viewModel.logout() // **ViewModel'den çıkış işlemini çağır**
+            dialog.dismiss()
+        }
+
+        // İptal işlemi
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Arka planı şeffaf yap ve göster
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
     }
 }

@@ -19,6 +19,10 @@ class ProfileViewModel @Inject constructor(
     private val _userProfile = MutableLiveData<UserProfile>()
     val userProfile: LiveData<UserProfile> get() = _userProfile
 
+    private val _logoutEvent = MutableLiveData<Boolean>()
+    // Logout işlemi için event tetiklicek
+    val logoutEvent: LiveData<Boolean> get() = _logoutEvent
+
     init {
         loadUserProfile() // ViewModel başlatıldığında kullanıcı profilini çek
     }
@@ -53,6 +57,7 @@ class ProfileViewModel @Inject constructor(
         repository.logoutUser()
         _userProfile.value = UserProfile()
     // Çıkış yaptığında UI’ı temizlicek null yazınca hata veriyordu
+        _logoutEvent.value = true // Logout işlemi tamamlandığını tetikle
     }
 
     //Kullanıcı Fotoğrafını Firebase Storage a Yükle

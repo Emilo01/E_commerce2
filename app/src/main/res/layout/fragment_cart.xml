@@ -100,7 +100,9 @@
             android:layout_marginTop="16dp"
             android:text="Satın Al"
             android:backgroundTint="#0C8A7B"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:drawableLeft="@drawable/sepet_icon_add_to_cart"
+            android:drawablePadding="8dp"/>
 
     </LinearLayout>
 

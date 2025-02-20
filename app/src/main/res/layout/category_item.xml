@@ -16,6 +16,8 @@
             android:padding="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Category Name" />
+            tools:text="Category Name"
+            android:drawableEnd="@drawable/right_row"
+            android:drawablePadding="8dp"/>
     </androidx.cardview.widget.CardView>
 </layout>

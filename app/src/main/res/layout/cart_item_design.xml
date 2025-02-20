@@ -1,98 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <!--Arka Planda Kırmızı View -->
+    <RelativeLayout
+        android:id="@+id/swipeBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
+        android:layout_height="match_parent"
+        android:background="@color/red"
+        android:visibility="gone"
         android:gravity="center_vertical">
 
-        <!-- Ürün Resmi -->
         <ImageView
-            android:id="@+id/imageViewCartItem"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:scaleType="centerCrop"
-            tools:src="@tools:sample/avatars" />
-
-        <!-- Ürün Bilgileri -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="16dp">
-
-            <TextView
-                android:id="@+id/textViewCartTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="Ürün Adı" />
-
-            <TextView
-                android:id="@+id/textViewCartPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:textColor="@android:color/holo_red_dark"
-                tools:text="99.99 TL" />
-        </LinearLayout>
-
-        <!-- Adet Güncelleme -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/buttonIncrease"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:paddingHorizontal="20dp"
-                android:background="@drawable/cart_button_inc_dec_bg"
-                android:gravity="center"
-                android:text="-" />
-
-            <TextView
-                android:id="@+id/textViewCartCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:gravity="center"
-                tools:text="1" />
-
-            <TextView
-                android:id="@+id/buttonDecrase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingVertical="15dp"
-                android:paddingHorizontal="20dp"
-                android:background="@drawable/incrase_button_bg"
-                android:gravity="center"
-                android:text="+" />
-        </LinearLayout>
-
-        <!-- Silme Butonu -->
-        <ImageButton
-            android:id="@+id/buttonRemove"
+            android:id="@+id/deleteIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="fitCenter"
-            android:padding="4dp"
-            android:contentDescription="Ürünü Sil"
-            android:src="@drawable/delete_icon" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/delete_icon1"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <!--Orijinal Kart -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:gravity="center_vertical">
+
+            <!-- Ürün Resmi -->
+            <ImageView
+                android:id="@+id/imageViewCartItem"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars" />
+
+            <!-- Ürün Bilgileri -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="16dp">
+
+                <TextView
+                    android:id="@+id/textViewCartTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    tools:text="Ürün Adı" />
+
+                <TextView
+                    android:id="@+id/textViewCartPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    tools:text="99.99 TL" />
+            </LinearLayout>
+
+            <!-- Adet Güncelleme -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/buttonIncrease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="15dp"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/cart_button_inc_dec_bg"
+                    android:gravity="center"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/textViewCartCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    tools:text="1" />
+
+                <TextView
+                    android:id="@+id/buttonDecrase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="15dp"
+                    android:paddingHorizontal="20dp"
+                    android:background="@drawable/incrase_button_bg"
+                    android:gravity="center"
+                    android:text="+" />
+            </LinearLayout>
+
+            <!-- Silme Butonu -->
+            <ImageButton
+                android:id="@+id/buttonRemove"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:padding="4dp"
+                android:contentDescription="Ürünü Sil"
+                android:src="@drawable/delete_icon" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

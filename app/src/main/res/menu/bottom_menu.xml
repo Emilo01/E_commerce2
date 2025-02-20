@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/home_navbar_icon"
+        android:icon="@drawable/home_icon_1"
         android:title="Home"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
@@ -18,21 +18,21 @@
 
     <item
         android:id="@+id/cartFragment"
-        android:icon="@drawable/sepet_navbar_icon"
+        android:icon="@drawable/cart_icon_1"
         android:title="Sepet"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 
     <item
         android:id="@+id/favoritesFragment"
-        android:icon="@drawable/favorite_navbar_icon"
+        android:icon="@drawable/fav_icon_1"
         android:title="Favori"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 
     <item
         android:id="@+id/profileFragment"
-        android:icon="@drawable/profil_navbar_icon"
+        android:icon="@drawable/user_icon_1"
         android:title="Profil"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />

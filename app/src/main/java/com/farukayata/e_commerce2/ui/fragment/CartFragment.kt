@@ -1,9 +1,11 @@
 package com.farukayata.e_commerce2.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +23,8 @@ import com.farukayata.e_commerce2.ui.viewmodel.CartViewModel
 import com.farukayata.e_commerce2.ui.viewmodel.CouponViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 
 //nullable olabilirlik durumu için
 
@@ -45,8 +49,10 @@ class CartFragment : Fragment() {
 
         // Adapter'ı oluşturma ve lambda fonksiyonları tanımlama
         adapter = CartAdapter(
+            context = requireContext(),
             onRemoveClick = { productId ->
-                viewModel.removeFromCart(productId) // Ürünü sepetten kaldır
+                //viewModel.removeFromCart(productId) // Ürünü sepetten kaldırır
+                showDeleteDialog(productId) //Popup ile silme onayı için
             },
             onIncreaseClick = { cartItem ->
                 val newCount = (cartItem.count ?: 0) - 1 // Null kontrolü yapıldı
@@ -54,15 +60,21 @@ class CartFragment : Fragment() {
                     viewModel.updateItemCount(cartItem.id.orEmpty(), newCount)
                     // Adeti azaltır
                 } else {
-                    viewModel.removeFromCart(cartItem.id.orEmpty())
+                    //viewModel.removeFromCart(cartItem.id.orEmpty())
                     // Adet 0 sa ürünü siler
+                    showDeleteDialog(cartItem.id.orEmpty())
+                //Popup ile onay alarak silme için
                 }
 
 
             },
             onDecreaseClick = { cartItem ->
                 val newCount = (cartItem.count ?: 0) + 1 // Null kontrolü yapıldı
-                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti artır
+                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti artırır
+            },
+            onSwipedToDelete = { productId ->
+                //Kaydırarak silme burada popup ile yönetilecek
+                showDeleteDialog(productId)
             }
         )
 
@@ -70,20 +82,8 @@ class CartFragment : Fragment() {
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCart.adapter = adapter
 
-        //burayı iptal ettik çünkü ödeme ekranında recycler view kullamaktan vaz geçtik
-//        // Kuponlar için adapter
-//        couponAdapter = CouponAdapter(coupons = listOf()) { coupon ->
-//            couponViewModel.applyCoupon(coupon.code, viewModel.cartItems.value ?: listOf())
-//        }
-//        binding.recyclerViewCoupons.layoutManager = LinearLayoutManager(requireContext())
-//        binding.recyclerViewCoupons.adapter = couponAdapter
-//
-//        // Kuponları al
-//        couponViewModel.fetchUserCoupons()
-//
-//        couponViewModel.coupons.observe(viewLifecycleOwner) { coupons ->
-//            couponAdapter.notifyDataSetChanged()
-//        }
+        //RecyclerView'a kaydırarak silme özelliğini ekledik
+        adapter.attachSwipeToDelete(binding.recyclerViewCart)
 
 
         //lotie ekledik ve sepet boş olma ve olmama durumu olucağı için artık aşağıdaki gibi değilde bi aşağıdaki gibi kullancaz
@@ -95,14 +95,23 @@ class CartFragment : Fragment() {
 
         viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
             if (cartList.isEmpty()) {
-                // Eğer sepet boşsa ürünleri gizle ve boş sepet mesajını gösterir
                 binding.recyclerViewCart.visibility = View.GONE
                 binding.emptyCartLayout.visibility = View.VISIBLE
             } else {
-                // Eğer sepet doluysa listeyi göster ve boş sepet mesajını gizler
                 binding.recyclerViewCart.visibility = View.VISIBLE
                 binding.emptyCartLayout.visibility = View.GONE
             }
+
+            adapter.submitList(cartList)
+            adapter.notifyDataSetChanged()
+
+            if (cartList.isNotEmpty() && adapter.isPreviewSwipe) {
+                binding.recyclerViewCart.post {
+                    Log.d("CartFragment", "Sahte kaydırma animasyonu başlatılıyor")
+                    adapter.isPreviewSwipe = false // 🟢 Sadece bir kere çalışmasını sağla
+                }
+            }
+
             updateTotalPrice(cartList)
         }
 
@@ -130,25 +139,8 @@ class CartFragment : Fragment() {
             }
         }
 
-
-        // ItemTouchHelper ile kartı sağdan sola kaydırarak silme özelliği
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            //Kaydırma İşlemi: onSwiped ile kaydırılan öğe Firestore'dan ve UI'dan kaldırılıyor
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return true // Taşıma işlemi yok
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                val cartItem = adapter.currentList[position]
-                viewModel.removeFromCart(cartItem.id.orEmpty()) // Kaydırılan ürünü sil
-            }
-        })
-        itemTouchHelper.attachToRecyclerView(binding.recyclerViewCart)
+        //RecyclerView'a kaydırarak silme özelliğini ekliyoruz
+        adapter.attachSwipeToDelete(binding.recyclerViewCart)
 
         return binding.root
     }
@@ -180,6 +172,28 @@ class CartFragment : Fragment() {
         //sepete ürün eklenince recycler view güncelleniyor kısaca
         adapter.submitList(cartList)
         adapter.notifyDataSetChanged()
+    }
+
+    //popup ile silme gonksiyonnumuz
+    private fun showDeleteDialog(productId: String) {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_delete_dialog, null)
+        val dialog = AlertDialog.Builder(requireContext()).setView(dialogView).create()
+
+        val btnCancel: Button? = dialogView.findViewById<Button>(R.id.btnCancel)
+        val btnDelete: Button? = dialogView.findViewById<Button>(R.id.btnDelete)
+
+        btnDelete?.setOnClickListener {
+            viewModel.removeFromCart(productId) //ViewModel’den silme işlemi çağrıldı
+            dialog.dismiss()
+        }
+
+        btnCancel?.setOnClickListener {
+            adapter.notifyDataSetChanged() //Kaydırma işlemini geri almak içinn
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
     }
 }
 

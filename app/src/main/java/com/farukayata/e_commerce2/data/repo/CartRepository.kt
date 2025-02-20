@@ -68,7 +68,7 @@ class CartRepository @Inject constructor(
             if (newCount > 0) {
                 cartCollection.document(productId).update("count", newCount).await()
             } else {
-                // Eğer ürünün adedi 0'a düştüyse, sepetten tamamen sil
+                // Eğer ürünün adedi 0 a düştüyse, sepetten tamamen sil
                 removeFromCart(productId)
             }
         } catch (e: Exception) {
