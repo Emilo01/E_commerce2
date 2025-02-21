@@ -22,12 +22,13 @@ class CouponViewModel @Inject constructor(
     private val _totalPrice = MutableLiveData<Double>()
     val totalPrice: LiveData<Double> get() = _totalPrice
 
-    // Sepet fiyatını günceller
+    val isCouponApplied = MutableLiveData<Boolean>() //Kupon durumu için LiveData eklendik
+
+    // Sepet fiyatını günceller - cart fragmentta manuel yazdık
     fun updateTotalPrice(products: List<CartItem>, appliedCoupon: Coupon?) {
         val total = products.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
-        _totalPrice.value = appliedCoupon?.let {
-            total - (it.discountAmount ?: 0.0) // İndirimli fiyat
-        } ?: total
+        val discount = appliedCoupon?.discountAmount ?: 0.0
+        _totalPrice.value = (total - discount).coerceAtLeast(0.0) //Toplam fiyat negatif olamaz
     }
 
     // Kullanıcının kuponlarını getirir
@@ -53,12 +54,21 @@ class CouponViewModel @Inject constructor(
     fun applyCoupon(couponCode: String, cartItems: List<CartItem>) {
         viewModelScope.launch {
             val coupon = couponRepository.validateCoupon(couponCode)
-            coupon?.let {
+            if (coupon != null) {
                 val total = cartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
-                _totalPrice.value = total - it.discountAmount!!
-            } ?: run {
+                val discount = coupon.discountAmount ?: 0.0
+                _totalPrice.value = (total - discount).coerceAtLeast(0.0) //Fiyat sıfırın altına düşemez
+                isCouponApplied.postValue(true) //Kupon başarıyla uygulandı
+            } else {
                 _totalPrice.value = cartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
+                isCouponApplied.postValue(false) //Geçersiz kupon
             }
         }
+    }
+
+    fun removeCoupon(cartItems: List<CartItem>) {
+        val total = cartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
+        _totalPrice.postValue(total)
+        isCouponApplied.postValue(false) //Kupon kaldırıldı
     }
 }

@@ -79,7 +79,9 @@ class CouponRepository @Inject constructor(
     // Kuponu geçerli mi diye kontrol eder
     suspend fun validateCoupon(code: String): Coupon? {
         val coupons = getUserCoupons()
-        // Coupon kodu null olmamalıdır ve geçerli olmalıdır
-        return coupons.find { it.code == code && (it.isValid ?: false) && it.discountAmount != null }
+        return coupons.find { coupon ->
+            coupon.code == code && (coupon.isValid ?: false) && coupon.discountAmount != null
+        }
     }
+
 }

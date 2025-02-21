@@ -25,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 
 //nullable olabilirlik durumu için
 
@@ -40,6 +41,8 @@ class CartFragment : Fragment() {
 
     private lateinit var couponAdapter: CouponAdapter //recycler view kullanmıcaz duruma göre kaldırıla bilir
     private val couponViewModel: CouponViewModel by viewModels()
+
+    private var isCouponApplied = false //Kuponun durumunu takip eden değişken
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,17 +105,30 @@ class CartFragment : Fragment() {
                 binding.emptyCartLayout.visibility = View.GONE
             }
 
-            adapter.submitList(cartList)
-            adapter.notifyDataSetChanged()
+            // 🛑 **Sepet değiştiyse kuponu kaldır**
+            if (isCouponApplied) {
+                couponViewModel.removeCoupon(cartList)
+                isCouponApplied = false
 
-            if (cartList.isNotEmpty() && adapter.isPreviewSwipe) {
-                binding.recyclerViewCart.post {
-                    Log.d("CartFragment", "Sahte kaydırma animasyonu başlatılıyor")
-                    adapter.isPreviewSwipe = false // 🟢 Sadece bir kere çalışmasını sağla
-                }
+                // 📌 **Butonu eski haline getir**
+                binding.buttonApplyCoupon.text = "Uygula"
+                binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
+                binding.editTextCouponCode.isEnabled = true
             }
 
             updateTotalPrice(cartList)
+            adapter.submitList(cartList)
+        }
+
+
+        couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->
+            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", discountedPrice)
+        }
+
+        //Kupon uygulandığında toplam fiyatı dinle
+        couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->
+            Log.d("CartFragment", "Kupon uygulandı, toplam fiyat güncellendi: $discountedPrice")
+            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", discountedPrice)
         }
 
         binding.buttonShopNow.setOnClickListener {
@@ -127,17 +143,32 @@ class CartFragment : Fragment() {
         // Kupon Uygula Butonu
         binding.buttonApplyCoupon.setOnClickListener {
             val couponCode = binding.editTextCouponCode.text.toString().trim()
-            if (couponCode.isNotEmpty()) {
-                couponViewModel.applyCoupon(couponCode, viewModel.cartItems.value ?: listOf())
+
+            if (!isCouponApplied) {
+                if (couponCode.isNotEmpty()) {
+                    couponViewModel.applyCoupon(couponCode, viewModel.cartItems.value ?: listOf())
+
+                    //Kupon uygulandı, buton rengi değiştirildi
+                    isCouponApplied = true
+                    binding.buttonApplyCoupon.text = "Kaldır"
+                    binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+                    binding.editTextCouponCode.isEnabled = false
+                } else {
+                    Toast.makeText(requireContext(), "Kupon kodunu girin", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                // Kullanıcı kupon kodunu girmediyse bir uyarı gösterebiliriz.
-                Toast.makeText(context, "Kupon kodunu girin", Toast.LENGTH_SHORT).show()
-            }
-            //gereksiz ve sıkıtılı olabilir !!!!!!!
-            couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->
-                binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", discountedPrice)
+                couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
+
+                // 📌 **Kupon kaldırıldı, buton eski haline getirildi**
+                isCouponApplied = false
+                binding.buttonApplyCoupon.text = "Uygula"
+                binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
+                binding.editTextCouponCode.isEnabled = true
+
+                Toast.makeText(requireContext(), "Kupon kaldırıldı", Toast.LENGTH_SHORT).show()
             }
         }
+
 
         //RecyclerView'a kaydırarak silme özelliğini ekliyoruz
         adapter.attachSwipeToDelete(binding.recyclerViewCart)
@@ -197,100 +228,3 @@ class CartFragment : Fragment() {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-//null able olmaya durum için
-/*
-package com.farukayata.e_commerce2.ui.fragment
-
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.farukayata.e_commerce2.databinding.FragmentCartBinding
-import com.farukayata.e_commerce2.model.CartItem
-import com.farukayata.e_commerce2.ui.adapter.CartAdapter
-import com.farukayata.e_commerce2.ui.viewmodel.CartViewModel
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
-
-@AndroidEntryPoint
-class CartFragment : Fragment() {
-
-    private lateinit var binding: FragmentCartBinding
-    private val viewModel: CartViewModel by viewModels()
-    private lateinit var adapter: CartAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentCartBinding.inflate(inflater, container, false)
-
-        // Adapter'ı oluşturma ve lambda fonksiyonları tanımlama
-        adapter = CartAdapter(
-            onRemoveClick = { productId ->
-                viewModel.removeFromCart(productId) // Ürünü sepetten kaldır
-            },
-            onIncreaseClick = { cartItem ->
-                viewModel.updateItemCount(cartItem.id.toString(), cartItem.count + 1) // Adeti artır
-            },
-            onDecreaseClick = { cartItem ->
-                viewModel.updateItemCount(cartItem.id.toString(), cartItem.count - 1) // Adeti azalt
-            }
-        )
-
-        // RecyclerView ayarları
-        binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerViewCart.adapter = adapter
-
-        // Sepet verilerini gözlemle ve RecyclerView'a bağla
-        viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
-            adapter.submitList(cartList) // Adapter'e yeni listeyi ilet
-            updateTotalPrice(cartList) // Toplam fiyatı güncelle
-        }
-
-        // ItemTouchHelper ile kartı sağdan sola kaydırarak silme özelliği
-        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false // Taşıma işlemi yok
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
-                val cartItem = adapter.currentList[position]
-                viewModel.removeFromCart(cartItem.id.toString()) // Kaydırılan ürünü sil
-            }
-        })
-        itemTouchHelper.attachToRecyclerView(binding.recyclerViewCart)
-
-        return binding.root
-    }
-
-    // Toplam fiyatı güncelleme fonksiyonu
-    private fun updateTotalPrice(cartList: List<CartItem>) {
-        val totalPrice = cartList.sumOf { it.price * it.count }
-        binding.textViewTotalPrice.text = String.format("Total: %.2f TL", totalPrice)
-    }
-}
-
-
- */

@@ -23,6 +23,7 @@
     <!--#0C8A7B ile uyumlu tonlar-->
 
     <color name="teal_primary">#0C8A7B</color> <!-- Ana renk -->
+    <color name="main_green">#0C8A7B</color> <!-- Ana renk -->
     <color name="teal_secondary">#14A58C</color> <!-- Buton ve navbar vurgusu -->
     <color name="mint_light">#A3DEC6</color> <!-- Arka plan destek rengi -->
     <color name="petrol_dark">#095C4D</color> <!-- Başlıklar ve ana vurgu -->

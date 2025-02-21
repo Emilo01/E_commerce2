@@ -77,9 +77,13 @@
                 android:id="@+id/buttonApplyCoupon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#0C8A7B"
+                android:backgroundTint="@color/main_green"
                 android:text="Uygula"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:padding="10dp"
                 android:layout_marginStart="8dp"/>
+
         </LinearLayout>
 
         <TextView
