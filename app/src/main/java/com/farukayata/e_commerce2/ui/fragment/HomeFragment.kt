@@ -69,7 +69,7 @@ class HomeFragment : Fragment() {
             adapter.submitList(products)
         }
 
-        // **Arama Kutusunu Dinleme (Search Functionality)**
+        // Arama Kutusunu Dinleme (Search Functionality)
         binding.searchView.isIconified = false // Arama çubuğu her zaman açık
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

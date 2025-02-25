@@ -1,6 +1,8 @@
 package com.farukayata.e_commerce2.ui.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -105,12 +107,12 @@ class CartFragment : Fragment() {
                 binding.emptyCartLayout.visibility = View.GONE
             }
 
-            // 🛑 **Sepet değiştiyse kuponu kaldır**
+            //Sepet değiştiyse kuponu kaldırcak
             if (isCouponApplied) {
                 couponViewModel.removeCoupon(cartList)
                 isCouponApplied = false
 
-                // 📌 **Butonu eski haline getir**
+                //Butonu eski haline getir
                 binding.buttonApplyCoupon.text = "Uygula"
                 binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
                 binding.editTextCouponCode.isEnabled = true
@@ -135,39 +137,85 @@ class CartFragment : Fragment() {
             findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
         }
 
-        //Satın Al Butonu - PaymentSelectionFragment'a yönlendirme
+        //Satın Al Butonuile PaymentSelectionFragmenta yönlendirdik
         binding.btnCheckout.setOnClickListener {
             findNavController().navigate(R.id.action_cartFragment_to_paymentSelectionFragment)
         }
 
-        // Kupon Uygula Butonu
+        binding.editTextCouponCode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString().trim()
+
+                if (text.isNotEmpty()) {
+                    couponViewModel.validateCoupon(text)
+                //Kullanıcının girdiği her kodu dığruluğuna bakıyoruz
+                }
+
+                //Kuponun geçerli olup olmadığını dinledik
+                couponViewModel.isCouponValid.observe(viewLifecycleOwner) { isValid ->
+                    binding.buttonApplyCoupon.isEnabled = isValid
+                    binding.buttonApplyCoupon.setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            if (isValid) R.color.main_green else R.color.dim_gray
+                        )
+                    )
+
+                    //kupon kodu geçersizse
+                    if (!isValid && text.isNotEmpty()) {
+                        Toast.makeText(requireContext(), "Geçersiz kupon kodu!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+
+        //Kupon Uygula Butonu
         binding.buttonApplyCoupon.setOnClickListener {
             val couponCode = binding.editTextCouponCode.text.toString().trim()
 
             if (!isCouponApplied) {
                 if (couponCode.isNotEmpty()) {
-                    couponViewModel.applyCoupon(couponCode, viewModel.cartItems.value ?: listOf())
+                    //Sadece geçerli kuponlar için buton aktif olmasını burda kontrol edip sağlıyoruz
+                    couponViewModel.isCouponValid.observe(viewLifecycleOwner) { isValid ->
+                        if (isValid) {
+                            couponViewModel.applyCoupon(couponCode, viewModel.cartItems.value ?: listOf())
 
-                    //Kupon uygulandı, buton rengi değiştirildi
-                    isCouponApplied = true
-                    binding.buttonApplyCoupon.text = "Kaldır"
-                    binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
-                    binding.editTextCouponCode.isEnabled = false
+                            isCouponApplied = true
+                            binding.buttonApplyCoupon.text = "Kaldır"
+                            binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
+                            binding.editTextCouponCode.isEnabled = false
+
+                            //Kupon uygulandığında fiyatı güncelledik
+                            updateTotalPrice(viewModel.cartItems.value ?: listOf())
+
+                        } else {
+                            Toast.makeText(requireContext(), "Geçersiz kupon kodu!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 } else {
                     Toast.makeText(requireContext(), "Kupon kodunu girin", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
 
-                // 📌 **Kupon kaldırıldı, buton eski haline getirildi**
                 isCouponApplied = false
                 binding.buttonApplyCoupon.text = "Uygula"
                 binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
                 binding.editTextCouponCode.isEnabled = true
+                binding.buttonApplyCoupon.isEnabled = true
 
                 Toast.makeText(requireContext(), "Kupon kaldırıldı", Toast.LENGTH_SHORT).show()
+
+                //Kupon kaldırıldığında fiyatı hemen güncelliyoruz
+                updateTotalPrice(viewModel.cartItems.value ?: listOf())
             }
         }
+
+
 
 
         //RecyclerView'a kaydırarak silme özelliğini ekliyoruz
@@ -183,27 +231,62 @@ class CartFragment : Fragment() {
     }
 
     // Toplam fiyatı güncelleme fonksiyonu
+//    private fun updateTotalPrice(cartList: List<CartItem>) {
+//        val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Null kontrolü eklendi
+//        couponViewModel.totalPrice.observe(viewLifecycleOwner) { discounttPrice ->
+//            discountPrice = discounttPrice
+//        }
+//
+//        discountPrice?.let { discount ->
+//            finalPrice = totalPrice - discount
+//        } ?: run {
+//            finalPrice = totalPrice
+//        }
+//        binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)
+//        /*val finalPrice = discountPrice ?: totalPrice
+//            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)*/
+//
+//        //şu kısımı ekledik çünkü sepet boş sayfası özelliği eklediğmizde
+//        //sepete eklene ürünler sepet sayfamızda görülmüyordu
+//        //sepete ürün eklenince recycler view güncelleniyor kısaca
+//        adapter.submitList(cartList)
+//        adapter.notifyDataSetChanged()
+//    }
+
     private fun updateTotalPrice(cartList: List<CartItem>) {
-        val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Null kontrolü eklendi
-        couponViewModel.totalPrice.observe(viewLifecycleOwner) { discounttPrice ->
-            discountPrice = discounttPrice
+        val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Toplam fiyat hesaplandı
+        val discountAmount = couponViewModel.totalPrice.value ?: 0.0 // Kupon indirimini doğrudan al
+
+        // Yanlış hesaplamayı önlemek için doğrudan totalPrice üzerinden hesaplama yapıldı
+        val finalPrice = if (isCouponApplied) {
+            (totalPrice - discountAmount).coerceAtLeast(0.0) // Negatif değerleri engelle
+        } else {
+            totalPrice
         }
 
-        discountPrice?.let { discount ->
-            finalPrice = totalPrice - discount
-        } ?: run {
-            finalPrice = totalPrice
-        }
-        binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)
-        /*val finalPrice = discountPrice ?: totalPrice
-            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)*/
+        // isCouponApplied güncellendiğinde eski fiyatı hemen göster
+        //bunu eklemediğimizde kuponu uygula kaldır yapmadan düşülen indirim fiyaatını yazmıyordu
+        if (isCouponApplied) {
+            binding.textViewOldPrice.visibility = View.VISIBLE
+            binding.textViewOldPrice.text = String.format("%.2f TL", totalPrice)
+            binding.textViewOldPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+            binding.textViewOldPrice.paintFlags = binding.textViewOldPrice.paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 
-        //şu kısımı ekledik çünkü sepet boş sayfası özelliği eklediğmizde
-        //sepete eklene ürünler sepet sayfamızda görülmüyordu
-        //sepete ürün eklenince recycler view güncelleniyor kısaca
-        adapter.submitList(cartList)
-        adapter.notifyDataSetChanged()
+            // Yeni fiyatı yeşil yap
+            binding.textViewTotalPrice.text = String.format("%.2f TL", finalPrice)
+            binding.textViewTotalPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_green))
+        } else {
+            // Kupon kaldırılmışsa eski fiyatı gizle
+            binding.textViewOldPrice.visibility = View.GONE
+
+            // Toplam fiyatı normal göster
+            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", totalPrice)
+            binding.textViewTotalPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        }
     }
+
+
+
 
     //popup ile silme gonksiyonnumuz
     private fun showDeleteDialog(productId: String) {

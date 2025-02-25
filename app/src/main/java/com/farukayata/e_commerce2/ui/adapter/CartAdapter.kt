@@ -177,7 +177,7 @@ class CartAdapter(
 }
 
 
-//Bu sınıf, ListAdapter'in verileri daha verimli şekilde güncellemesini sağlar.
+//Bu sınıf ListAdapter in verileri daha verimli şekilde güncellemesini sağlar
 class CartDiffCallback : DiffUtil.ItemCallback<CartItem>() {
     override fun areItemsTheSame(oldItem: CartItem, newItem: CartItem): Boolean {
         return oldItem.id == newItem.id

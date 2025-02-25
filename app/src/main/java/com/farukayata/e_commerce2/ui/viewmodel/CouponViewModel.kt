@@ -22,7 +22,9 @@ class CouponViewModel @Inject constructor(
     private val _totalPrice = MutableLiveData<Double>()
     val totalPrice: LiveData<Double> get() = _totalPrice
 
-    val isCouponApplied = MutableLiveData<Boolean>() //Kupon durumu için LiveData eklendik
+    val isCouponApplied = MutableLiveData<Boolean>() //Kupon durumu için livedate eklendik
+    val isCouponValid = MutableLiveData<Boolean>() // Kuponun geçerli olup olmadığını kontrol eden livedatamız
+
 
     // Sepet fiyatını günceller - cart fragmentta manuel yazdık
     fun updateTotalPrice(products: List<CartItem>, appliedCoupon: Coupon?) {
@@ -54,21 +56,38 @@ class CouponViewModel @Inject constructor(
     fun applyCoupon(couponCode: String, cartItems: List<CartItem>) {
         viewModelScope.launch {
             val coupon = couponRepository.validateCoupon(couponCode)
+            val updatedCartItems = cartItems
+
             if (coupon != null) {
-                val total = cartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
+                val total = updatedCartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
                 val discount = coupon.discountAmount ?: 0.0
-                _totalPrice.value = (total - discount).coerceAtLeast(0.0) //Fiyat sıfırın altına düşemez
-                isCouponApplied.postValue(true) //Kupon başarıyla uygulandı
+
+                _totalPrice.postValue((total - discount).coerceAtLeast(0.0))
+                isCouponApplied.postValue(true)
+
+                //Eski fiyatı hemen göstermek için güncelleme çağrısı ekleniyor
+                _totalPrice.value = (total - discount).coerceAtLeast(0.0)
             } else {
-                _totalPrice.value = cartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
-                isCouponApplied.postValue(false) //Geçersiz kupon
+                _totalPrice.postValue(updatedCartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) })
+                isCouponApplied.postValue(false)
             }
+        }
+    }
+
+
+    fun validateCoupon(couponCode: String) {
+        viewModelScope.launch {
+            val coupon = couponRepository.validateCoupon(couponCode)
+            isCouponValid.postValue(coupon != null)
+        //eğer kupon varsa true dödürcek yoksa false döndürecek
         }
     }
 
     fun removeCoupon(cartItems: List<CartItem>) {
         val total = cartItems.sumOf { (it.price ?: 0.0) * (it.count ?: 0) }
-        _totalPrice.postValue(total)
-        isCouponApplied.postValue(false) //Kupon kaldırıldı
+
+        _totalPrice.postValue(total) //post value kullaıp uı ımızı anınnda yansıttık değişikliği
+        isCouponApplied.postValue(false)
     }
+
 }
