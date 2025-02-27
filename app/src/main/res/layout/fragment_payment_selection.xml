@@ -11,6 +11,7 @@
         android:padding="16dp"
         tools:context=".ui.fragment.PaymentSelectionFragment">
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,27 +24,140 @@
         <RadioGroup
             android:id="@+id/radioGroup"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/radio_cash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nakit" />
+                android:text="Kapıda Ödeme"
+                android:buttonTint="@drawable/radio_buttom_custom"/>
+
+            <RadioGroup
+                android:id="@+id/radioGroupCashOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp">
+
+                <RadioButton
+                    android:id="@+id/radio_cash_at_door"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kapıda Nakit Ödeme"
+                    android:buttonTint="@drawable/radio_buttom_custom1"/>
+
+                <RadioButton
+                    android:id="@+id/radio_card_at_door"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kapıda Kredi Kartı ile Online Ödeme"
+                    android:buttonTint="@drawable/radio_buttom_custom1"/>
+            </RadioGroup>
 
             <RadioButton
                 android:id="@+id/radio_credit_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kredi Kartı" />
+                android:text="Kredi Kartı"
+                android:buttonTint="@drawable/radio_buttom_custom"/>
         </RadioGroup>
+
+        <!--kredikart icons-->
+        <TextView
+            android:id="@+id/textViewSupportedCardsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mağazamızın anlaşmalı olduğu bankalar"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutSupportedCards"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:src="@drawable/paypal_icon"
+                android:contentDescription="PayPal" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:src="@drawable/visa_icon"
+                android:contentDescription="Visa Kartı" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:src="@drawable/mastercard_icon"
+                android:contentDescription="MasterCard" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:src="@drawable/alipay_icon"
+                android:contentDescription="Alipay" />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:background="@drawable/card_background"
+                android:padding="8dp"
+                android:src="@drawable/amex_icon"
+                android:contentDescription="American Express" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnContinue"
             android:layout_width="match_parent"
             android:backgroundTint="#0C8A7B"
             android:layout_height="wrap_content"
-            android:text="Devam Et"
-            android:layout_marginTop="16dp" />
+            android:text="Ödemeyi Tamamla"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/sepet_icon_add_to_cart"
+            android:drawablePadding="8dp"/>
+
+        <TextView
+            android:id="@+id/textViewCartItemsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sepetteki Ürünleriniz"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCartItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
     </LinearLayout>
 </layout>

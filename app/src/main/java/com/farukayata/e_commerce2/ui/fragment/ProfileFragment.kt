@@ -46,7 +46,7 @@ class ProfileFragment : Fragment() {
         }
 
 
-        //aşası gerekmeye bilir
+        //aşağısı gerekmeye bilir
         // Kuponları al
         couponViewModel.fetchUserCoupons()
 
@@ -120,7 +120,7 @@ class ProfileFragment : Fragment() {
 
         // Çıkış işlemi
         btnLogout.setOnClickListener {
-            viewModel.logout() // **ViewModel'den çıkış işlemini çağır**
+            viewModel.logout() //ViewModel'den çıkış işlemini çağırır
             dialog.dismiss()
         }
 

@@ -94,10 +94,11 @@
 
         <Button
             android:id="@+id/buttonSignUp"
-            android:text="Sign Up"
             android:layout_width="match_parent"
-            android:backgroundTint="#0C8A7B"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            android:backgroundTint="#0C8A7B"
+            android:textColor="@color/white"
+            android:text="Sign Up" />
     </LinearLayout>
 </layout>

@@ -12,17 +12,20 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val repository: ProductsRepository) : ViewModel() {
 
-    val recommendedProducts = MutableLiveData<List<Product>>() // Önerilen ürünler listesi
+    val recommendedProducts = MutableLiveData<List<Product>>() //önerilen ürünler listesi
 
-    fun loadRecommendedProducts(category: String) {
+    fun loadRecommendedProducts(category: String, currentProductId: Int) {
         viewModelScope.launch {
             try {
                 val products = repository.getProductsByCategory(category)
-                recommendedProducts.value = products
+                //şu anki detay sayfasındaki ürünü benzer ürünlerden kaldır
+                val filteredProducts = products.filter { it.id != currentProductId }
+                recommendedProducts.value = filteredProducts
             } catch (e: Exception) {
                 e.printStackTrace()
-                recommendedProducts.value = emptyList() // Hata olursa boş liste döndür
+                recommendedProducts.value = emptyList() //hata olursa boş liste döndürcek
             }
         }
     }
+
 }

@@ -3,7 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_activity_nav"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/splashScreenFragment">
+
+    <!-- SplashScreenFragment (Artık İlk Açılacak Sayfa) -->
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.farukayata.e_commerce2.ui.splash.SplashScreenFragment"
+        android:label="Splash Screen"
+        tools:layout="@layout/fragment_splash_screen">
+
+        <action
+            android:id="@+id/action_splashScreenFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_splashScreenFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
+
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 
     <!-- LoginFragment -->
     <fragment
@@ -11,12 +31,11 @@
         android:name="com.farukayata.e_commerce2.ui.auth.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_splashScreenFragment"
-            app:destination="@id/splashScreenFragment" />
+
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
+
         <action
             android:id="@+id/action_loginFragment_to_viewPagerFragment"
             app:destination="@id/viewPagerFragment" />
@@ -29,33 +48,11 @@
         android:name="com.farukayata.e_commerce2.ui.auth.SignUpFragment"
         android:label="Sign Up"
         tools:layout="@layout/fragment_sign_up">
+
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
-
-    <!-- SplashScreenFragment (Login sonrası açılacak) -->
-    <fragment
-        android:id="@+id/splashScreenFragment"
-        android:name="com.farukayata.e_commerce2.ui.splash.SplashScreenFragment"
-        android:label="Splash Screen"
-        tools:layout="@layout/fragment_splash_screen">
-        <action
-            android:id="@+id/action_splashScreenFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_splashScreenFragment_to_viewPagerFragment"
-            app:destination="@id/viewPagerFragment" />
-
-
-    </fragment>
-
-    <!--
-    <action
-            android:id="@+id/action_splashScreenFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-
-    -->
 
     <!-- ViewPagerFragment (Onboarding Ekranı) -->
     <fragment
@@ -63,6 +60,7 @@
         android:name="com.farukayata.e_commerce2.ui.onboarding.ViewPagerFragment"
         android:label="Onboarding"
         tools:layout="@layout/fragment_view_pager">
+
         <action
             android:id="@+id/action_viewPagerFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -74,13 +72,17 @@
         android:name="com.farukayata.e_commerce2.ui.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/action_homeFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
+
         <action
             android:id="@+id/detailGecis"
             app:destination="@id/detailFragment" />
     </fragment>
+
+    <!-- Diğer tüm fragment'ler aynen korunuyor -->
 
     <!-- DetailFragment -->
     <fragment
@@ -255,6 +257,5 @@
         android:label="Fiş"
         tools:layout="@layout/fragment_receipt">
     </fragment>
-
 
 </navigation>
