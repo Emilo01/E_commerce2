@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentHomeBinding
 import com.farukayata.e_commerce2.model.Product
 import com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter
+import com.farukayata.e_commerce2.ui.adapter.PopularProductsAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.FavoritesViewModel
 import com.farukayata.e_commerce2.ui.viewmodel.HomePageViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -51,6 +53,20 @@ class HomeFragment : Fragment() {
         )
         binding.commerceAdapter = adapter
 
+
+        val mostInterestedProducts = PopularProductsAdapter(
+            context = requireContext(),
+            onProductClick = { product ->
+                val action = HomeFragmentDirections.detailGecis(product)
+                findNavController().navigate(action)
+            }
+        )
+
+        binding.recyclerViewMostInterested.apply {
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        }
+        binding.mostPopularAdapter = mostInterestedProducts
+
         // Ürün listesini RecyclerView ile bağlama
 //        homeViewModel.productList.observe(viewLifecycleOwner) { products ->
 //            val adapter = EcommorceAdapter(requireContext(), products) { product ->
@@ -67,6 +83,10 @@ class HomeFragment : Fragment() {
 //        }
         homeViewModel.filteredProductList.observe(viewLifecycleOwner) { products ->
             adapter.submitList(products)
+        }
+
+        homeViewModel.mostInterestedProducts.observe(viewLifecycleOwner) { products ->
+            mostInterestedProducts.submitList(products)
         }
 
         // Arama Kutusunu Dinleme (Search Functionality)

@@ -7,6 +7,10 @@
         <variable
             name="commerceAdapter"
             type="com.farukayata.e_commerce2.ui.adapter.EcommorceAdapter" />
+
+        <variable
+            name="mostPopularAdapter"
+            type="com.farukayata.e_commerce2.ui.adapter.PopularProductsAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,6 +38,47 @@
         android:iconifiedByDefault="false" => kullanıcı büyüte tıklandıkta sonra search açılcak
         -->
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewMostInterested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <!-- Most Interested Products Başlığı -->
+                <TextView
+                    android:id="@+id/textViewMostInterested"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Most Interested Products"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@android:color/black"/>
+
+                <!-- (En Yüksek Puanlı Ürünler) -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewMostInterested"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:adapter="@{mostPopularAdapter}"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/card_design"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <!--  RecyclerView (Ürün Listesi) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/CommerceRecycleView"
@@ -45,7 +90,7 @@
             app:spanCount="2"
             android:adapter="@{commerceAdapter}"
             tools:listitem="@layout/card_design"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintTop_toBottomOf="@id/cardViewMostInterested"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

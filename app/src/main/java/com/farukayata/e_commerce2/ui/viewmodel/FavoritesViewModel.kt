@@ -29,6 +29,7 @@ class FavoritesViewModel @Inject constructor(
             try {
                 _favorites.value = repository.getFavorites()
             } catch (e: Exception) {
+                Log.e("FavoritesViewModel", "Error loading favorites", e)
                 _favorites.value = emptyList() // Hata durumunda boş liste döncek
             }
         }
@@ -64,52 +65,3 @@ class FavoritesViewModel @Inject constructor(
 }
 
 
-
-
-
-
-
-/*
-package com.farukayata.e_commerce2.ui.viewmodel
-
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.farukayata.e_commerce2.data.repo.FavoritesRepository
-import com.farukayata.e_commerce2.model.Favorite
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-
-@HiltViewModel
-class FavoritesViewModel @Inject constructor(
-    private val repository: FavoritesRepository
-) : ViewModel() {
-
-    private val _favoritesState = MutableStateFlow<List<Favorite>>(emptyList())
-    val favoritesState: StateFlow<List<Favorite>> = _favoritesState
-
-    fun loadFavorites() {
-        viewModelScope.launch {
-            _favoritesState.value = repository.getFavorites()
-        }
-    }
-
-    fun addFavorite(favorite: Favorite) {
-        viewModelScope.launch {
-            repository.addFavorite(favorite)
-            loadFavorites()
-        }
-    }
-
-    fun removeFavorite(productId: String) {
-        viewModelScope.launch {
-            repository.removeFavorite(productId)
-            loadFavorites()
-        }
-    }
-}
-
-
- */
