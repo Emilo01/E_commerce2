@@ -56,7 +56,7 @@ class HomeFragment : Fragment() {
         favoritesViewModel.loadFavorites()
 
         //Kategori Chip Seçimini Kur
-        //setupCategorySelection()
+        setupCategorySelection()
 
 
         //Adapter Tanımlama
@@ -125,7 +125,7 @@ class HomeFragment : Fragment() {
         }
 
         // Arama Kutusunu Dinleme (Search Functionality)
-        binding.searchView.isIconified = false // Arama çubuğu her zaman açık
+        binding.searchView.isIconified = true // Arama çubuğu her zaman açık
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 homeViewModel.filterProducts(query.orEmpty()) // Boş olursa hata almamak için
@@ -173,22 +173,36 @@ class HomeFragment : Fragment() {
 //        }
 
 
-        setupCategorySelection()
+        //setupCategorySelection()
     }
 
     //kategori Seçimi Chip için
-    private fun setupCategorySelection() {
+//    private fun setupCategorySelection() {
+//
+//        binding.chipGroupCategories.setOnCheckedChangeListener { esra, checkedId ->
+//                binding.chipGroupCategories.clearCheck()
+//            when (checkedId) {
+//                binding.chipElectronics.id -> navigateToCategory("electronics")
+//                binding.chipClothing.id -> navigateToCategory("jewelery")
+//                binding.chipHome.id -> navigateToCategory("men's clothing")
+//                binding.chipToys.id -> navigateToCategory("women's clothing")
+//            }
+//        }
+//    }
 
-        binding.chipGroupCategories.setOnCheckedChangeListener { esra, checkedId ->
-                binding.chipGroupCategories.clearCheck()
-            when (checkedId) {
-                binding.chipElectronics.id -> navigateToCategory("electronics")
-                binding.chipClothing.id -> navigateToCategory("jewelery")
-                binding.chipHome.id -> navigateToCategory("men's clothing")
-                binding.chipToys.id -> navigateToCategory("women's clothing")
-            }
+    private fun setupCategorySelection() {
+        val categoryItems = listOf("electronics", "jewelery", "men's clothing", "women's clothing")
+
+        // CustomChipGroup içindeki setChipItems fonksiyonunu çağırıyoruz
+        binding.customChipGroup.setChipItems(categoryItems)
+
+        // Seçilen kategoriye yönlendirme ekliyoruz
+        binding.customChipGroup.onChipSelected = { selectedCategory ->
+            navigateToCategory(selectedCategory)
+        //onChipselected ile ayrı ayrı her chip için setonclicklistener eklemekten nkurtulduk
+        //CustomChipGroup bileşeni sayesinde her sayfada tekrar tekrar aynı kodları yazmadan kullanabiliriz =>  Kod Tekrarını Önleme (Reusable Component)
         }
-}
+    }
 
     //kategoriye Gitme Fonksiyonu
     private fun navigateToCategory(category: String) {

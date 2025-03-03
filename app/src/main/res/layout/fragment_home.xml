@@ -87,59 +87,19 @@
                         tools:listitem="@layout/card_design"/>
                 </LinearLayout>
 
-                <!-- Chips -->
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chipGroupCategories"
+                <!-- Dinamik Chips - tek satır , kayabilir şekildee -->
+                <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:padding="8dp"
-                    app:singleSelection="true">
+                    android:fillViewport="true"
+                    android:scrollbars="none">
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipElectronics"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                    <com.farukayata.e_commerce2.ui.component.CustomChipGroup
+                        android:id="@+id/customChipGroup"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Electronics"
-                        app:chipBackgroundColor="@color/gray1"
-                        app:chipStrokeWidth="1dp"
-                        app:chipCornerRadius="8dp"
-                        app:chipStrokeColor="@color/main_green"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipClothing"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Jewelery"
-                        app:chipBackgroundColor="@color/gray1"
-                        app:chipStrokeWidth="1dp"
-                        app:chipCornerRadius="8dp"
-                        app:chipStrokeColor="@color/main_green"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipHome"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Men's Clothing"
-                        app:chipBackgroundColor="@color/gray1"
-                        app:chipStrokeWidth="1dp"
-                        app:chipCornerRadius="8dp"
-                        app:chipStrokeColor="@color/main_green"/>
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chipToys"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Women's Clothing"
-                        app:chipBackgroundColor="@color/gray1"
-                        app:chipStrokeWidth="1dp"
-                        app:chipCornerRadius="8dp"
-                        app:chipStrokeColor="@color/main_green"/>
-                </com.google.android.material.chip.ChipGroup>
+                        android:padding="8dp"/>
+                </HorizontalScrollView>
 
                 <!-- All Products -->
                 <androidx.cardview.widget.CardView
