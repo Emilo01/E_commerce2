@@ -42,12 +42,19 @@ class FavoritesAdapter(
             buttonShop.text = "Remove"
             buttonShop.setOnClickListener {
                 onRemoveClick(favorite.id.toString()) // Ürünü favorilerden kaldır
+                notifyDataSetChanged() // Listeyi Zorla Güncelledik -- çıkartıla bilir sanırım
             }
         }
     }
 
     // DiffUtil.ItemCallback implementasyonu
     //ListAdapter ile birlikte kullanılır. Amacı, iki liste arasındaki farkları optimize bir şekilde belirlemek ve yalnızca değişen öğeleri güncelleyerek performansı artırmaktır.
+
+    // favori Listesi Güncellendiğinde Listeyi Yeniledik
+    override fun submitList(list: List<Product>?) {
+        super.submitList(list?.toList()) // Listeyi güncellemek için
+        notifyDataSetChanged() // Listeyi zorla yenilemek için -- çıkartıla bilir sannırım
+    }
 
     class FavoriteDiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {

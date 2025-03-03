@@ -22,6 +22,8 @@
 
     <!--#0C8A7B ile uyumlu tonlar-->
 
+    <color name="gray1">#F0F0F2</color>
+
     <color name="teal_primary">#0C8A7B</color> <!-- Ana renk -->
     <color name="main_green">#0C8A7B</color> <!-- Ana renk -->
     <color name="teal_secondary">#14A58C</color> <!-- Buton ve navbar vurgusu -->

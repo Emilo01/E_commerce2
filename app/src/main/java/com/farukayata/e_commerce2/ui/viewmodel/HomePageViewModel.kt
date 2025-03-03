@@ -18,6 +18,8 @@ class HomePageViewModel @Inject constructor(private val repository: ProductsRepo
     val filteredProductList = MutableLiveData<List<Product>>() //  Filtrelenen ürünleri tutar
     val mostInterestedProducts =  MutableLiveData<List<Product>>()
 
+    private val favoriteProducts = MutableLiveData<List<Product>>() // Favori ürünleri saklayan liste
+
 
     //Mutable HomeFragment'teki ürün listesinin otomatik olarak güncellenmesini sağlar.
 
@@ -36,11 +38,28 @@ class HomePageViewModel @Inject constructor(private val repository: ProductsRepo
                     .sortedByDescending { it.rating?.rate }
                     .take(5)
                 mostInterestedProducts.value = sortedByRating
+
+                updateFavorites(favoriteProducts.value.orEmpty()) // Favorilerle senkronize ediyor
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
+    //firestore'dan Gelen Favorileri Güncelledik
+    fun updateFavorites(favorites: List<Product>) {
+        favoriteProducts.value = favorites
+        filteredProductList.value = allProducts.value?.map { product ->
+            product.copy(isFavorite = favorites.any { it.id == product.id })
+        }
+    }
+
+    fun updateMostInterestedFavorites(favorites: List<Product>) {
+        mostInterestedProducts.value = mostInterestedProducts.value?.map { product ->
+            product.copy(isFavorite = favorites.any { it.id == product.id })
+        }
+    }
+
 
     //Ürünleri Arama ve Filtreleme İşlemi
     fun filterProducts(query: String) {

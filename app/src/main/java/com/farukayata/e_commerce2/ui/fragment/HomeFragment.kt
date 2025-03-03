@@ -1,12 +1,15 @@
 package com.farukayata.e_commerce2.ui.fragment
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farukayata.e_commerce2.R
@@ -31,7 +34,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG, "onResume: Home OnResume" )
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //Kullanıcı E-Postasını Aldık ve Toolbar Başlığına Atadık
         val userEmail = FirebaseAuth.getInstance().currentUser?.email // Firebase'den e-posta aldık
         val username = userEmail?.substringBefore("@") ?: "HomePage"
@@ -39,6 +51,13 @@ class HomeFragment : Fragment() {
 
         (activity as AppCompatActivity).supportActionBar?.title = "Hi ${username}"
         //sonrası için xml kodlarında da burayı değiştire biliriz bence
+
+        //Favorileri Yükle - gereksiz olabilir amma ürünler de kalp yanıp sömesini etkiliyor da olabilir
+        favoritesViewModel.loadFavorites()
+
+        //Kategori Chip Seçimini Kur
+        //setupCategorySelection()
+
 
         //Adapter Tanımlama
         val adapter = EcommorceAdapter(
@@ -59,6 +78,9 @@ class HomeFragment : Fragment() {
             onProductClick = { product ->
                 val action = HomeFragmentDirections.detailGecis(product)
                 findNavController().navigate(action)
+            },
+            onFavoriteClick = { product ->
+                favoritesViewModel.addFavorite(product)
             }
         )
 
@@ -81,6 +103,19 @@ class HomeFragment : Fragment() {
 //            }
 //            binding.commerceAdapter = adapter
 //        }
+        //firestoredan Favoriler Güncellendiğinde tüm Ürün Listesini Güncelledik
+        lifecycleScope.launchWhenStarted {
+            favoritesViewModel.favorites.collect { favorites ->
+                homeViewModel.updateFavorites(favorites)
+                homeViewModel.updateMostInterestedFavorites(favorites)
+            }
+        }
+        /*
+        observe(viewLifecycleOwner) {...} yerine collect kullandık
+        çünkü favoritesViewModel.favorites muhtemelen bir StateFlow.
+         */
+
+
         homeViewModel.filteredProductList.observe(viewLifecycleOwner) { products ->
             adapter.submitList(products)
         }
@@ -137,6 +172,31 @@ class HomeFragment : Fragment() {
 //            findNavController().navigate(R.id.action_homeFragment_to_favoritesFragment)
 //        }
 
-        return binding.root
+
+        setupCategorySelection()
     }
+
+    //kategori Seçimi Chip için
+    private fun setupCategorySelection() {
+
+        binding.chipGroupCategories.setOnCheckedChangeListener { esra, checkedId ->
+                binding.chipGroupCategories.clearCheck()
+            when (checkedId) {
+                binding.chipElectronics.id -> navigateToCategory("electronics")
+                binding.chipClothing.id -> navigateToCategory("jewelery")
+                binding.chipHome.id -> navigateToCategory("men's clothing")
+                binding.chipToys.id -> navigateToCategory("women's clothing")
+            }
+        }
+}
+
+    //kategoriye Gitme Fonksiyonu
+    private fun navigateToCategory(category: String) {
+        Log.d("CategoryDebug", "Gönderilen kategori: $category")
+        val action = HomeFragmentDirections.actionHomeFragmentToCategorySpecialFragment(category)
+        findNavController().navigate(action)
+    }
+
+
+
 }

@@ -27,7 +27,9 @@ class FavoritesViewModel @Inject constructor(
     fun loadFavorites() {
         viewModelScope.launch {
             try {
+                val favList = repository.getFavorites()
                 _favorites.value = repository.getFavorites()
+                Log.d("FavoritesViewModel", "Favoriler Yüklendi: $favList")
             } catch (e: Exception) {
                 Log.e("FavoritesViewModel", "Error loading favorites", e)
                 _favorites.value = emptyList() // Hata durumunda boş liste döncek
@@ -39,7 +41,7 @@ class FavoritesViewModel @Inject constructor(
     fun addFavorite(favorite: Product) {
         viewModelScope.launch {
             try {
-                favorite.isFavorite = true // **Favori durumu TRUE olarak güncelleniyor**
+                favorite.isFavorite = true // Favori durumu TRUE olarak güncelleniyor
                 repository.addFavorite(favorite)
                 loadFavorites() // Favoriler güncellendiğinde yeniden yükle
                 Log.d("FavoritesViewModel", "Favorite added: ${favorite.title}")

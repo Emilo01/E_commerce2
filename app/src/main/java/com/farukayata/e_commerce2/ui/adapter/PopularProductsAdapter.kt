@@ -13,7 +13,8 @@ import com.farukayata.e_commerce2.model.Product
 
 class PopularProductsAdapter(
     private val context: Context,
-    private val onProductClick: (Product) -> Unit
+    private val onProductClick: (Product) -> Unit,
+    private val onFavoriteClick: (Product) -> Unit
 ) : ListAdapter<Product, PopularProductsAdapter.CardDesignViewHolder>(ProductDiffCallback()) {
 
     inner class CardDesignViewHolder(val binding: CardDesignBinding) :
@@ -38,7 +39,20 @@ class PopularProductsAdapter(
         holder.binding.cardViewEcommorceProduct.setOnClickListener {
             onProductClick(product)
         }
+
+        holder.binding.buttonShop.apply {
+            text = if (product.isFavorite) "Added to Favorites" else "Add to Favorites" // Eğer favoriye eklendiyse UI'da göster
+
+            setOnClickListener {
+                onFavoriteClick(product)
+                product.isFavorite = true // Güncellenen UI için
+                notifyItemChanged(position) // Güncelleme yaparak yeni favori durumunu göster
+            }
+        }
+
     }
+
+
 
     class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {
         override fun areItemsTheSame(oldItem: Product, newItem: Product): Boolean {

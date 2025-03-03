@@ -1,6 +1,7 @@
 package com.farukayata.e_commerce2.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,6 +79,7 @@ class FavoritesFragment : Fragment() {
         // Favori ürünleri gözlemleme
         lifecycleScope.launchWhenStarted {
             viewModel.favorites.collectLatest { favoriteList ->
+                Log.d("FavoritesFragment", "Favori Listesi: $favoriteList")
                 if (favoriteList.isEmpty()) {
                     binding.recyclerViewFavorites.visibility = View.GONE
                     binding.emptyFavoritesLayout.visibility = View.VISIBLE
