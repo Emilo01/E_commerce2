@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
                 try {
                     val account = task.getResult(ApiException::class.java)
                     if (account != null) {
-                        println("🔥 Google Hesabı Başarıyla Alındı: ${account.email}")
+                        println("Google Hesabı Başarıyla Alındı: ${account.email}")
                         viewModel.signInWithGoogle(account)
                     } else {
                         println("Google hesabı null döndü!")

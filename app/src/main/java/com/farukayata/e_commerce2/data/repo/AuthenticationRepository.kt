@@ -20,7 +20,7 @@ class AuthenticationRepository @Inject constructor(
 ) {
 
     private val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken("755896592492-v8upuudbkenrgb6v6pb9ebkkett2221a.apps.googleusercontent.com") // **Firebase projenin Web Client ID’sini buraya yaz!**
+        .requestIdToken("755896592492-v8upuudbkenrgb6v6pb9ebkkett2221a.apps.googleusercontent.com")
         .requestEmail()
         .build()
 
