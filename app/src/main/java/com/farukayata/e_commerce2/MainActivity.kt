@@ -63,13 +63,21 @@ class MainActivity : AppCompatActivity() {
         // BottomNavigation görünürlüğünü kontrol et
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.loginFragment, R.id.signUpFragment, R.id.splashScreenFragment, R.id.viewPagerFragment -> {
+                R.id.loginFragment, R.id.splashScreenFragment, R.id.viewPagerFragment -> {
                     hideBottomNavigationView() // Login ve Signup ekranlarında Navbar'ı gizle
                     hideToolbar() //Bu ekranlarda toolbarı da gizle
+                }
+                R.id.signUpFragment -> {
+                    hideBottomNavigationView() // Navbar'ı yine gizle
+                    showToolbar() // Ancak signUpFragment'te toolbar göster
+                    binding.customToolbar.hideCartIcon() //sepet ikonunu gizle
+                    binding.customToolbar.hideCartCard()
                 }
                 R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment, R.id.profileFragment -> {
                     showBottomNavigationView() // Ana sayfa ve ana bölümlerde Navbar görünür
                     showToolbar()
+                    binding.customToolbar.showCartIcon() //sepet ikonunu göster
+                    binding.customToolbar.showCartCard()
                 }
                 else -> {
                     hideBottomNavigationView() // Diğer fragmentlerde Navbar gizlenecek

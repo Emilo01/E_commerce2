@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <string name="app_name">E_Commerce2</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -13,4 +13,7 @@
     <string name="onboarding_third_screen_title">Fast Delivery</string>
     <string name="onboarding_third_screen_description">Enjoy quality service with\nfast and safe delivery!!!</string>
     <string name="onboarding_third_screen_button_text">Let\'s Shop</string>
+
+    <string name="signup_text">Don\'t have an account ? <font color='#0C8A7B'>Sign up here.</font></string>
+
 </resources>

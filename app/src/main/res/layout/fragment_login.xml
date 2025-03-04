@@ -11,6 +11,16 @@
         android:padding="16dp"
         tools:context=".ui.auth.LoginFragment">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimation"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:lottie_rawRes="@raw/welcome_login"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,9 +72,20 @@
             android:backgroundTint="#0C8A7B"
             android:layout_marginTop="16dp" />
 
+        <Button
+            android:id="@+id/buttonGoogleSignIn"
+            android:text="Sign in with Google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@android:color/white"
+            android:textColor="@color/black"
+            android:drawableLeft="@drawable/ic_google"
+            android:padding="12dp"/>
+
         <TextView
             android:id="@+id/textViewSignUp"
-            android:text="Don't have an account? Sign up here."
+            android:text="@string/signup_text"
             android:textSize="14sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

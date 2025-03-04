@@ -12,8 +12,10 @@ import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import android.content.Context
 
 @Module //bağımlılık sağlayıcı modülü
 @InstallIn(SingletonComponent::class)
@@ -63,6 +65,13 @@ class AppModule {
         return FirebaseStorage.getInstance()
     }
 
+    // Uygulama genelinde Context sağlama
+    @Provides
+    @Singleton
+    fun provideApplicationContext(@ApplicationContext context: Context): Context {
+        return context
+    }
+
     @Provides
     @Singleton
     fun provideOrderRepository(
@@ -72,42 +81,3 @@ class AppModule {
         return OrderRepository(firestore, auth)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-import com.farukayata.e_commerce2.data.datasource.ProductsDataSource
-import com.farukayata.e_commerce2.data.repo.ProductsRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
-
-@Module
-@InstallIn(SingletonComponent::class)
-class AppModule {
-    @Provides
-    @Singleton
-    fun provideProductsDataSource() : ProductsDataSource {
-        return ProductsDataSource()
-    }
-
-    @Provides
-    @Singleton
-    fun provideProductsRepository(pds : ProductsDataSource) : ProductsRepository {
-        return ProductsRepository(pds)
-    }
-}
-
- */

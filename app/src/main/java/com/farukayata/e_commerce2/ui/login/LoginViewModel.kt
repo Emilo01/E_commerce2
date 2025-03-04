@@ -1,10 +1,12 @@
 package com.farukayata.e_commerce2.ui.login
 //auth == login
 
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farukayata.e_commerce2.core.Response
 import com.farukayata.e_commerce2.data.repo.AuthenticationRepository
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 //import com.farukayata.e_commerce2.repository.AuthenticationRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,4 +30,18 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    fun getGoogleSignInIntent(): Intent {
+        return authRepository.getGoogleSignInIntent()
+    }
+
+    fun signInWithGoogle(account: GoogleSignInAccount) {
+        viewModelScope.launch {
+            _loginState.value = Response.Loading
+            authRepository.signInWithGoogle(account).collect { response ->
+                _loginState.value = response
+            }
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.farukayata.e_commerce2.ui.auth
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Html
 import android.text.InputType
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.content.Context
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +20,8 @@ import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.core.Response
 import com.farukayata.e_commerce2.databinding.FragmentLoginBinding
 import com.farukayata.e_commerce2.ui.login.LoginViewModel
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.AndroidEntryPoint
 //import kotlinx.coroutines.flow.collect => yalnızca Flow'dan veri toplamak için gereklidir.
 
@@ -27,6 +31,30 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private var isPasswordVisible = false
+
+    private val googleSignInLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                try {
+                    val account = task.getResult(ApiException::class.java)
+                    if (account != null) {
+                        println("🔥 Google Hesabı Başarıyla Alındı: ${account.email}")
+                        viewModel.signInWithGoogle(account)
+                    } else {
+                        println("Google hesabı null döndü!")
+                        Toast.makeText(requireContext(), "Google hesabı alınamadı!", Toast.LENGTH_SHORT).show()
+                    }
+                } catch (e: ApiException) {
+                    println("Google Sign-In başarısız! Hata: ${e.message}")
+                    Toast.makeText(requireContext(), "Google Sign-In başarısız: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                println("Google Sign-In işlemi iptal edildi!")
+                Toast.makeText(requireContext(), "Google Sign-In iptal edildi!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,6 +103,12 @@ class LoginFragment : Fragment() {
             }
 
             viewModel.login(email, password)
+        }
+
+        // Google ile giriş
+        binding.buttonGoogleSignIn.setOnClickListener {
+            val signInIntent = viewModel.getGoogleSignInIntent()
+            googleSignInLauncher.launch(signInIntent)
         }
 
         // ViewModel durumlarını gözlemleme
