@@ -111,16 +111,33 @@
                 tools:text="99.99 TL" />
         </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:id="@+id/btnCheckout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Satın Al"
-            android:backgroundTint="#0C8A7B"
-            android:textColor="@android:color/white"
-            android:drawableLeft="@drawable/sepet_icon_add_to_cart"
-            android:drawablePadding="8dp"/>
+            android:background="@drawable/checkout_button_bg"
+            android:padding="12dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/sepet_icon_add_to_cart"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Satın Al"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 

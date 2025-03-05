@@ -72,16 +72,33 @@
             android:backgroundTint="#0C8A7B"
             android:layout_marginTop="16dp" />
 
-        <Button
+        <LinearLayout
             android:id="@+id/buttonGoogleSignIn"
-            android:text="Sign in with Google"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:backgroundTint="@android:color/white"
-            android:textColor="@color/black"
-            android:drawableLeft="@drawable/ic_google"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_google"
+                android:layout_marginEnd="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in with Google"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textViewSignUp"
