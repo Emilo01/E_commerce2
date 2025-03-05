@@ -1,6 +1,8 @@
 package com.farukayata.e_commerce2.ui.viewmodel
 
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +22,9 @@ class HomePageViewModel @Inject constructor(private val repository: ProductsRepo
 
     private val favoriteProducts = MutableLiveData<List<Product>>() // Favori ürünleri saklayan liste
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
 
     //Mutable HomeFragment'teki ürün listesinin otomatik olarak güncellenmesini sağlar.
 
@@ -29,22 +34,36 @@ class HomePageViewModel @Inject constructor(private val repository: ProductsRepo
 
     private fun fetchProducts() {
         viewModelScope.launch {
+            _isLoading.value = true
             try {
                 val products = repository.productsYukle()
-                //productList.value = products
-                allProducts.value = products // Tüm ürünleri kaydet
-                filteredProductList.value = products //  Başlangıçta tüm ürünleri göster
-                val sortedByRating = products.filter { it.rating?.rate != null }
-                    .sortedByDescending { it.rating?.rate }
-                    .take(5)
-                mostInterestedProducts.value = sortedByRating
 
-                updateFavorites(favoriteProducts.value.orEmpty()) // Favorilerle senkronize ediyor
+                if (products.isNullOrEmpty()) {  // Eğer boş veri gelirse boş liste atayarak çökmeyi önle
+                    allProducts.value = emptyList()
+                    filteredProductList.value = emptyList()
+                    mostInterestedProducts.value = emptyList()
+                } else {
+                    allProducts.value = products
+                    filteredProductList.value = products
+                    //mostInterestedProducts.value = products.sortedByDescending { it.rating?.rate }.take(5)
+                    mostInterestedProducts.value = products
+                        .filter { it.rating?.rate != null }
+                        .sortedByDescending { it.rating?.rate }
+                        .take(5)
+
+                }
+
             } catch (e: Exception) {
-                e.printStackTrace()
+                Log.e("ERROR", "Ürünler yüklenirken hata oluştu: ${e.message}")
+                allProducts.value = emptyList()
+                filteredProductList.value = emptyList()
+                mostInterestedProducts.value = emptyList()
+            } finally {
+                _isLoading.value = false
             }
         }
     }
+
 
     //firestore'dan Gelen Favorileri Güncelledik
     fun updateFavorites(favorites: List<Product>) {

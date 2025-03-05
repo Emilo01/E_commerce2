@@ -37,10 +37,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.e(TAG, "onResume: Home OnResume" )
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -117,14 +113,42 @@ class HomeFragment : Fragment() {
 
 
         homeViewModel.filteredProductList.observe(viewLifecycleOwner) { products ->
-            adapter.submitList(products)
+            Log.d("DEBUG", "Yüklenen ürün sayısı: ${products?.size ?: 0}")
+
+            if (products.isNullOrEmpty()) {
+                Log.e("ERROR", "Ürün listesi boş, Home sayfasında çökme yaşanabilir!")
+                binding.emptyStateView.visibility = View.VISIBLE  //Boş durumu göster
+                adapter.submitList(emptyList()) //RecyclerView'i boş listeyle güncelle
+            } else {
+                binding.emptyStateView.visibility = View.GONE  //Eğer ürünler varsa gizle
+                adapter.submitList(products)
+            }
         }
+
 
         homeViewModel.mostInterestedProducts.observe(viewLifecycleOwner) { products ->
             mostInterestedProducts.submitList(products)
         }
 
-        // Arama Kutusunu Dinleme (Search Functionality)
+        homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            if (isLoading) {
+                binding.shimmerLayout.startShimmer()
+                binding.shimmerLayout.visibility = View.VISIBLE
+                binding.contentLayout.visibility = View.GONE
+                Log.d("DEBUG", "isLoading: $isLoading")
+
+            } else {
+                binding.shimmerLayout.stopShimmer()
+                binding.shimmerLayout.postDelayed({
+                    binding.shimmerLayout.visibility = View.GONE
+                    binding.contentLayout.visibility = View.VISIBLE
+                    binding.mostInterestedContainer.visibility = View.VISIBLE
+                    binding.cardViewAllProducts.visibility = View.VISIBLE
+                }, 500) //500ms gecikme ekledik
+            }
+        }
+
+        // Arama Kutusunu Dinleme
         binding.searchView.isIconified = true // Arama çubuğu her zaman açık
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {

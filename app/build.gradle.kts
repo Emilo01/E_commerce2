@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.credentials)
     implementation(libs.androidx.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(libs.androidx.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -110,5 +111,8 @@ dependencies {
 
     //google Sign-in
     implementation ("com.google.android.gms:play-services-auth:20.7.0")
+
+    //Shimmer effect(iskelet yükleme görünümü) - FacebookShimmerLibrary
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
 
 }
