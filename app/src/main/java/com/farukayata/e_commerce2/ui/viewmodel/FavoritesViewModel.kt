@@ -64,6 +64,24 @@ class FavoritesViewModel @Inject constructor(
             }
         }
     }
+
+    // Ürünün favori durumunu değiştirme (Yeni eklenen fonksiyon)
+    fun toggleFavorite(product: Product) {
+        viewModelScope.launch {
+            try {
+                if (product.isFavorite) {
+                    // Eğer favoriyse, kaldır
+                    repository.removeFavorite(product.id.toString())
+                } else {
+                    // Eğer favoride değilse, ekle
+                    repository.addFavorite(product)
+                }
+                loadFavorites() // Favori listesi güncellendiğinde tekrar yükle
+            } catch (e: Exception) {
+                Log.e("FavoritesViewModel", "Error toggling favorite status", e)
+            }
+        }
+    }
 }
 
 
