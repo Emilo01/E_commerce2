@@ -15,7 +15,8 @@ import com.farukayata.e_commerce2.model.Product
 class EcommorceAdapter(
     private val context: Context,
     private val onProductClick: (Product) -> Unit,
-    private val onFavoriteClick: (Product) -> Unit
+    private val onFavoriteClick: (Product) -> Unit,
+    private val onRemoveFavoriteClick: (Product) -> Unit
 ) : ListAdapter<Product, EcommorceAdapter.CardDesignViewHolder>(ProductDiffCallback()) {
 
     inner class CardDesignViewHolder(val binding: CardDesignBinding) :
@@ -46,10 +47,14 @@ class EcommorceAdapter(
         holder.binding.favicon1novisibility.visibility = if (product.isFavorite) View.GONE else View.VISIBLE
 
         holder.binding.favoriteContainer.setOnClickListener {
-            product.isFavorite = !product.isFavorite
-            onFavoriteClick(product)
-            notifyItemChanged(position)
+            if (product.isFavorite) {
+                onRemoveFavoriteClick(product) // Eğer favorideyse çıkart
+            } else {
+                onFavoriteClick(product) // Eğer favoride değilse ekle
+            }
+            notifyItemChanged(position) // UI'yi güncelle
         }
+
     }
 
     class ProductDiffCallback : DiffUtil.ItemCallback<Product>() {

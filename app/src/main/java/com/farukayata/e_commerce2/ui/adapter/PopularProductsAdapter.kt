@@ -15,7 +15,8 @@ import com.farukayata.e_commerce2.model.Product
 class PopularProductsAdapter(
     private val context: Context,
     private val onProductClick: (Product) -> Unit,
-    private val onFavoriteClick: (Product) -> Unit
+    private val onFavoriteClick: (Product) -> Unit,
+    private val onRemoveFavoriteClick: (Product) -> Unit
 ) : ListAdapter<Product, PopularProductsAdapter.CardDesignViewHolder>(ProductDiffCallback()) {
 
     inner class CardDesignViewHolder(val binding: CardDesignBinding) :
@@ -48,9 +49,12 @@ class PopularProductsAdapter(
 
         // Favori butonuna tıklanınca favoriye ekleme / çıkarma işlemi
         holder.binding.favoriteContainer.setOnClickListener {
-            product.isFavorite = !product.isFavorite
-            onFavoriteClick(product)
-            notifyItemChanged(position)
+            if (product.isFavorite) {
+                onRemoveFavoriteClick(product) // Eğer favorideyse çıkart
+            } else {
+                onFavoriteClick(product) // Eğer favoride değilse ekle
+            }
+            notifyItemChanged(position) // UI'yi güncelle
         }
     }
 

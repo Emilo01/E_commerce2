@@ -22,6 +22,7 @@ class HomePageViewModel @Inject constructor(private val repository: ProductsRepo
 
     private val favoriteProducts = MutableLiveData<List<Product>>() // Favori ürünleri saklayan liste
 
+    //shimmer kontrol ettiriyoruz
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 

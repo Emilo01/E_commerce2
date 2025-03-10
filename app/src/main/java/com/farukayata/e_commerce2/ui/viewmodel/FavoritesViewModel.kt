@@ -72,9 +72,11 @@ class FavoritesViewModel @Inject constructor(
                 if (product.isFavorite) {
                     // Eğer favoriyse, kaldır
                     repository.removeFavorite(product.id.toString())
+                    product.isFavorite = false
                 } else {
                     // Eğer favoride değilse, ekle
                     repository.addFavorite(product)
+                    product.isFavorite = true
                 }
                 loadFavorites() // Favori listesi güncellendiğinde tekrar yükle
             } catch (e: Exception) {

@@ -64,6 +64,9 @@ class HomeFragment : Fragment() {
             },
             onFavoriteClick = { product ->
                 favoritesViewModel.addFavorite(product)
+            },
+            onRemoveFavoriteClick = { product ->
+                favoritesViewModel.removeFavorite(product.id.toString()) // Ürünü favorilerden çıkar
             }
         )
         binding.commerceAdapter = adapter
@@ -77,6 +80,9 @@ class HomeFragment : Fragment() {
             },
             onFavoriteClick = { product ->
                 favoritesViewModel.addFavorite(product)
+            },
+            onRemoveFavoriteClick = { product ->
+                favoritesViewModel.removeFavorite(product.id.toString()) // Ürünü favorilerden çıkar
             }
         )
 

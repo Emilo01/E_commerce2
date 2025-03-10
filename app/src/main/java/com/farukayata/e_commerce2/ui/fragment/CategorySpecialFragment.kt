@@ -74,6 +74,9 @@ class CategorySpecialFragment : Fragment() {
             },
             onFavoriteClick = { product ->
                 favoritesViewModel.addFavorite(product)
+            },
+            onRemoveFavoriteClick = { product ->
+                favoritesViewModel.removeFavorite(product.id.toString()) // Ürünü favorilerden çıkar
             }
         )
 
