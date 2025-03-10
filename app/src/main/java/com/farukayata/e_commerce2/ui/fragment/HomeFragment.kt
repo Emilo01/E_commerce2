@@ -149,7 +149,7 @@ class HomeFragment : Fragment() {
         }
 
         // Arama Kutusunu Dinleme
-        binding.searchView.isIconified = true // Arama çubuğu her zaman açık
+        binding.searchView.isIconified = true // Arama çubuğu her zaman kapalı gelcek
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 homeViewModel.filterProducts(query.orEmpty()) // Boş olursa hata almamak için

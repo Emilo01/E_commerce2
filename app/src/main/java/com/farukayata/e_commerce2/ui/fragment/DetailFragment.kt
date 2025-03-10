@@ -1,6 +1,7 @@
 package com.farukayata.e_commerce2.ui.fragment
 
 import android.os.Bundle
+import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,8 @@ class DetailFragment : Fragment() {
 
     private var quantity = 1
     private var unitPrice: Double = 0.0
+    private var isExpanded = false // Açıklamanın açık/kapalı durumunu takip edicez
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +50,22 @@ class DetailFragment : Fragment() {
 
         //toolbar başlığını ayarla
         (activity as? MainActivity)?.supportActionBar?.title = product.title
+
+        //Read More / Read Less İşlevi
+        binding.buttonReadMore.setOnClickListener {
+            if (isExpanded) {
+                // Açıklama kapatılıyor
+                binding.textViewProductDescription.maxLines = 3
+                binding.textViewProductDescription.ellipsize = TextUtils.TruncateAt.END
+                binding.buttonReadMore.text = "Read More"
+            } else {
+                // Açıklama tamamen açılıyor
+                binding.textViewProductDescription.maxLines = Integer.MAX_VALUE
+                binding.textViewProductDescription.ellipsize = null
+                binding.buttonReadMore.text = "Read Less"
+            }
+            isExpanded = !isExpanded // Durumu tersine çevir
+        }
 
         //adet ve fiyat güncelleme
         updateTotalPrice()

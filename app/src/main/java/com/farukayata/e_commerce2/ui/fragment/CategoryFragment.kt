@@ -28,9 +28,8 @@ class CategoryFragment : Fragment() {
 
         // Adapter oluştur ve tıklama olayını bağla
         val adapter = CategoryAdapter { selectedCategory ->
-            val action = CategoryFragmentDirections
-                .actionCategoryFragmentToCategorySpecialFragment(selectedCategory)
-            findNavController().navigate(action) // Doğru aksiyonu tetikle
+            val action = CategoryFragmentDirections.actionCategoryFragmentToCategorySpecialFragment(selectedCategory)
+            findNavController().navigate(action)
         }
 
         binding.recyclerViewCategory.layoutManager = LinearLayoutManager(requireContext())

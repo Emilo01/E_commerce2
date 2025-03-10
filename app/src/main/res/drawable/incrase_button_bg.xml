@@ -2,14 +2,14 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <!-- Daha yatay bir elips için köşe yuvarlama artırıldı -->
-    <corners android:radius="80dp"/>
+    <!-- Daha yatay elips için köşe yarıçapı (Genişliğe bağlı) -->
+    <corners android:radius="30dp"/>
 
-    <!-- Butonun rengi -->
+    <!-- Butonun arkaplan rengi -->
     <solid android:color="#0C8A7B"/>
 
-    <!-- Daha geniş ve alçak bir buton için boyut ayarı -->
+    <!-- Daha yatay ve geniş buton -->
     <size
-        android:width="50dp"
-        android:height="15dp"/>
+        android:width="60dp"
+        android:height="30dp"/>
 </shape>

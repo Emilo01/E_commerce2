@@ -98,16 +98,27 @@
         android:name="com.farukayata.e_commerce2.ui.fragment.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
+
         <argument
             android:name="product"
             app:argType="com.farukayata.e_commerce2.model.Product" />
 
         <action
             android:id="@+id/action_detailFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:popUpTo="@id/detailFragment"
-            app:popUpToInclusive="false"/>
+            app:destination="@id/detailFragment">
+
+            <!-- Eksik olan 'product' argümanı ekleniyor -->
+            <argument
+                android:name="product"
+                app:argType="com.farukayata.e_commerce2.model.Product" />
+        </action>
     </fragment>
+
+
+    <!--
+    app:popUpTo="@id/detailFragment"
+            app:popUpToInclusive="false"
+    -->
 
     <!-- FavoritesFragment -->
     <fragment

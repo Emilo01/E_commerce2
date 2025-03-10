@@ -3,21 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewCategory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_margin="8dp"
         app:cardElevation="4dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="@color/card_default"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Kategori Görseli -->
+        <ImageView
+            android:id="@+id/imageViewCategory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/placeholder1" />
+
+        <!-- Saydam Katman -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom"
+            android:background="@color/semi_transparent_black" />
+
+        <!-- Kategori Adı -->
         <TextView
             android:id="@+id/textViewCategoryName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:layout_margin="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            tools:text="Category Name"
-            android:drawableEnd="@drawable/right_row"
-            android:drawablePadding="8dp"/>
-    </androidx.cardview.widget.CardView>
-</layout>
+            android:textColor="@android:color/white"
+            android:gravity="start"
+            android:layout_gravity="bottom|start"
+            tools:text="Category Name"/>
+
+        <!-- Ok İkonu -->
+        <ImageView
+            android:id="@+id/imageViewArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/right_row"
+            app:tint="@android:color/white" />
+
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>
+    </layout>

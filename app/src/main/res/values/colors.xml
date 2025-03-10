@@ -34,6 +34,13 @@
     <color name="accent_gold">#F4A261</color> <!-- Özel vurgular için -->
     <color name="dark_black">#222222</color> <!-- Karanlık mod arka plan -->
 
+    <color name="semi_transparent_black">#66000000</color>
+    <color name="card_default">#FFFFFF</color> <!-- Normalde beyaz -->
+    <color name="card_selected">#DDF0FF</color> <!-- Açık mavi parlama efekti -->
+    <color name="card_hover">#C0C0C0</color>  <!-- Üzerine Gelindiğinde Gri Parlama -->
+
+
+
 
 
 </resources>
