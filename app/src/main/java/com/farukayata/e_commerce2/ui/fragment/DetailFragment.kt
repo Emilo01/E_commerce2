@@ -144,6 +144,9 @@ class DetailFragment : Fragment() {
             cartViewModel.addToCart(cartItem)
 
             Toast.makeText(requireContext(), "${quantity} adet '${product.title}' sepete eklendi!", Toast.LENGTH_SHORT).show()
+
+            //firestoredan güncel sepet verisini tekrar çektik
+            cartViewModel.loadCartItems()
         }
     }
 

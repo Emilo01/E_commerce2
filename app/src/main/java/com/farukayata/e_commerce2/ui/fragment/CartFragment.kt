@@ -52,6 +52,8 @@ class CartFragment : Fragment() {
     ): View {
         binding = FragmentCartBinding.inflate(inflater, container, false)
 
+        viewModel.loadCartItems()
+
         // Adapter'ı oluşturma ve lambda fonksiyonları tanımlama
         adapter = CartAdapter(
             context = requireContext(),
@@ -107,6 +109,28 @@ class CartFragment : Fragment() {
                 binding.emptyCartLayout.visibility = View.GONE
             }
 
+            updateTotalPrice(cartList)
+            adapter.submitList(cartList)
+        }
+
+        /*
+        viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
+            if (cartList.isEmpty()) {
+                binding.recyclerViewCart.visibility = View.GONE
+                binding.emptyCartLayout.visibility = View.VISIBLE
+            } else {
+                binding.recyclerViewCart.visibility = View.VISIBLE
+                binding.emptyCartLayout.visibility = View.GONE
+            }
+
+            // UI güncellemesi
+            updateTotalPrice(cartList)
+
+            // Sepet güncellenirken öğe adetlerini doğrula
+            cartList.forEach { cartItem ->
+                viewModel.updateItemCount(cartItem.id.orEmpty(), cartItem.count ?: 0)
+            }
+
             //Sepet değiştiyse kuponu kaldırcak
             if (isCouponApplied) {
                 couponViewModel.removeCoupon(cartList)
@@ -121,6 +145,7 @@ class CartFragment : Fragment() {
             updateTotalPrice(cartList)
             adapter.submitList(cartList)
         }
+         */
 
 
         couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->

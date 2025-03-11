@@ -43,16 +43,46 @@ class CartViewModel @Inject constructor(
     //Try-catch ekleyerek interet bağlantısı kesildiğinde veya firestore'da hara olduğunda uygulamapatlamıcak
     //hata loglancak
 
-    fun addToCart(cartItem: CartItem) {
+//    fun addToCart(cartItem: CartItem) {
+//        viewModelScope.launch {
+//            try {
+//                repository.addToCart(cartItem)
+//                loadCartItems()
+//            } catch (e: Exception) {
+//                e.printStackTrace() // Hata loglama
+//            }
+//        }
+//    }
+
+    fun addToCart(newCartItem: CartItem) {
         viewModelScope.launch {
             try {
-                repository.addToCart(cartItem)
-                loadCartItems()
+                val currentCartItems = repository.getCartItems().toMutableList() // Firestore'dan güncel veriyi çekiyoruz
+                val existingItemIndex = currentCartItems.indexOfFirst { it.id == newCartItem.id.orEmpty() }
+
+                if (existingItemIndex != -1) {
+                    val existingItem = currentCartItems[existingItemIndex]
+                    val updatedCount = (existingItem.count ?: 0) + (newCartItem.count ?: 0)
+
+                    val updatedItem = existingItem.copy(count = updatedCount)
+                    currentCartItems[existingItemIndex] = updatedItem
+
+                    repository.updateItemCount(newCartItem.id.orEmpty(), updatedCount) // Firestore'da güncelle
+                } else {
+                    currentCartItems.add(newCartItem)
+                    repository.addToCart(newCartItem) // Firestore'a yeni ürün ekle
+                }
+
+                _cartItems.postValue(currentCartItems) // UI'yi güncelle
+                loadCartItems() // Firestore'dan tekrar veri çek
             } catch (e: Exception) {
-                e.printStackTrace() // Hata loglama
+                e.printStackTrace()
             }
         }
     }
+
+
+
 
     //Sepetten Ürünü Sil
 //    fun removeFromCart(productId: String) {
@@ -84,16 +114,33 @@ class CartViewModel @Inject constructor(
 //        }
 //    }
 
+//    fun updateItemCount(productId: String, newCount: Int) {
+//        viewModelScope.launch {
+//            try {
+//                repository.updateItemCount(productId, newCount)
+//                loadCartItems()
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//        }
+//    }
+
     fun updateItemCount(productId: String, newCount: Int) {
         viewModelScope.launch {
             try {
-                repository.updateItemCount(productId, newCount)
-                loadCartItems()
+                if (newCount > 0) {
+                    repository.updateItemCount(productId, newCount)
+                    loadCartItems() // UI'yi güncelle
+                } else {
+                    removeFromCart(productId) // Eğer 0 olursa ürünü sepetten kaldır
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
+
     //satın alınan ürünnleri sepetten kaldırcak
     fun clearCart() {
         viewModelScope.launch {
