@@ -45,6 +45,10 @@ class ProfileFragment : Fragment() {
             Glide.with(this).load(user.profileImageUrl).into(binding.imageViewUserProfile)
         }
 
+        viewModel.userEmail.observe(viewLifecycleOwner) { email ->
+            binding.textViewUserEmail.text = email
+        }
+
 
         //aşağısı gerekmeye bilir
         // Kuponları al
@@ -62,20 +66,20 @@ class ProfileFragment : Fragment() {
         }
 
         //MyAccount Butonuna Tıklanınca Profil Detayına Git
-        binding.buttonMyAccount.setOnClickListener {
+        binding.root.findViewById<View>(R.id.buttonMyAccount).setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_profileDetailFragment)
 
             //kullanıcı profil detailden profil sayfasına dönünce veriler nında gelcek
             viewModel.loadUserProfile()
         }
 
-        binding.buttonMyCoupons.setOnClickListener {
+        binding.root.findViewById<View>(R.id.buttonMyCoupons).setOnClickListener {
             // Kuponlar sayfasına yönlendiriyoruz
             findNavController().navigate(R.id.action_profileFragment_to_couponsFragment)
         }
 
         // Siparişlerim butonuna tıklanınca OrdersFragment'a geçiş
-        binding.buttonMyOrders.setOnClickListener {
+        binding.root.findViewById<View>(R.id.buttonMyOrders).setOnClickListener {
             try {
                 Log.d("ProfileFragment", "Navigating to OrdersFragment")
                 findNavController().navigate(R.id.action_profileFragment_to_ordersFragment)

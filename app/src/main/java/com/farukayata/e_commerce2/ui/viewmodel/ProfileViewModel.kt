@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farukayata.e_commerce2.data.repo.UserRepository
 import com.farukayata.e_commerce2.model.UserProfile
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,8 +24,13 @@ class ProfileViewModel @Inject constructor(
     // Logout işlemi için event tetiklicek
     val logoutEvent: LiveData<Boolean> get() = _logoutEvent
 
+    private val _userEmail = MutableLiveData<String>()
+    val userEmail: LiveData<String> get() = _userEmail
+
+
     init {
         loadUserProfile() // ViewModel başlatıldığında kullanıcı profilini çek
+        loadUserEmail()
     }
 
     //Kullanıcı Profilini Firestoredan Aldık
@@ -37,6 +43,11 @@ class ProfileViewModel @Inject constructor(
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun loadUserEmail() {
+        val email = FirebaseAuth.getInstance().currentUser?.email
+        _userEmail.value = email ?: "E-posta bulunamadı"
     }
 
     //Kullanıcı Bilgilerini Güncelledik

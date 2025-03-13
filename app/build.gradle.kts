@@ -115,4 +115,8 @@ dependencies {
     //Shimmer effect(iskelet yükleme görünümü) - FacebookShimmerLibrary
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
 
+
+    //CircleImageView kütüphanesi
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+
 }
