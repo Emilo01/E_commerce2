@@ -11,7 +11,6 @@
         <variable
             name="viewModel"
             type="com.farukayata.e_commerce2.ui.viewmodel.ProfileViewModel" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,100 +19,194 @@
         android:padding="16dp"
         tools:context=".ui.fragment.ProfileDetailFragment">
 
-        <!-- Profil Fotoğrafı
-        imagei tools yaptık revize gereke bilir
-        app:imageUrl="@{user.profileImageUrl}"
-        -->
-        <ImageView
+        <!-- Profil Fotoğrafı Çember İçinde -->
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imageViewProfileDetail"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="16dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/main_green"
             tools:src="@drawable/superman"
+            app:imageUrl="@{viewModel.userProfile.profileImageUrl}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:imageUrl="@{viewModel.userProfile.profileImageUrl}" />
-        <!--
-        Data Binding ile doğrudan ProfileViewModel’den resmi çekiyoruz.
-        -->
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Fotoğrafı Güncelle Butonu -->
-        <Button
+        <androidx.cardview.widget.CardView
             android:id="@+id/buttonChangeProfileImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Change Profile Picture"
-            android:backgroundTint="#0C8A7B"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             app:layout_constraintTop_toBottomOf="@id/imageViewProfileDetail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Kullanıcı Adı -->
-        <EditText
-            android:id="@+id/editTextFirstName"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/camera_icon1"
+                    app:tint="@color/black"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Picture"
+                    android:textSize="14sp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Kullanıcı Bilgileri (Material Design TextInputLayout Kullanımı) -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutFirstName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="First Name"
-            android:text='@{user.firstName}'
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/buttonChangeProfileImage"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Kullanıcı Soyadı -->
-        <EditText
-            android:id="@+id/editTextLastName"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextFirstName"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="16dp"
+                android:layout_height="wrap_content"
+                android:text='@{user.firstName}'
+                android:inputType="textCapWords"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutLastName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Last Name"
-            android:text='@{user.lastName}'
-            app:layout_constraintTop_toBottomOf="@id/editTextFirstName"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutFirstName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Cinsiyet -->
-        <EditText
-            android:id="@+id/editTextGender"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text='@{user.lastName}'
+                android:inputType="textCapWords"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Gender"
-            android:text='@{user.gender}'
-            app:layout_constraintTop_toBottomOf="@id/editTextLastName"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutLastName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Adres -->
-        <EditText
-            android:id="@+id/editTextAddress"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text='@{user.gender}'
+                android:inputType="textCapWords"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Address"
-            android:text='@{user.address}'
-            app:layout_constraintTop_toBottomOf="@id/editTextGender"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutGender"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Telefon Numarası -->
-        <EditText
-            android:id="@+id/editTextPhone"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text='@{user.address}'
+                android:inputType="textCapWords"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputLayoutPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:hint="Phone Number"
-            android:text='@{user.phoneNumber}'
-            app:layout_constraintTop_toBottomOf="@id/editTextAddress"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutAddress"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text='@{user.phoneNumber}'
+                android:inputType="phone"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Güncelle Butonu -->
-        <Button
+        <!-- Güncelle Butonu (Daha Küçük ve Ortalanmış) -->
+        <androidx.cardview.widget.CardView
             android:id="@+id/buttonUpdate"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Update Profile"
-            app:layout_constraintTop_toBottomOf="@id/editTextPhone"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@id/inputLayoutPhone"
             app:layout_constraintStart_toStartOf="parent"
-            android:backgroundTint="#0C8A7B"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/placeholder1"
+                    app:tint="@color/black"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Update The Profile Information"
+                    android:textSize="14sp"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

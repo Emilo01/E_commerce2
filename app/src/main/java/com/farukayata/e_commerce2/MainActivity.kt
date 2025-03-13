@@ -73,10 +73,16 @@ class MainActivity : AppCompatActivity() {
                     binding.customToolbar.hideCartIcon() //sepet ikonunu gizle
                     binding.customToolbar.hideCartCard()
                 }
-                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment, R.id.profileFragment -> {
+                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment -> {
                     showBottomNavigationView() // Ana sayfa ve ana bölümlerde Navbar görünür
                     showToolbar()
                     binding.customToolbar.showCartIcon() //sepet ikonunu göster
+                    binding.customToolbar.showCartCard()
+                }
+                R.id.profileDetailFragment, R.id.profileFragment -> {
+                    showBottomNavigationView()
+                    showToolbar()
+                    binding.customToolbar.hideCartIcon()
                     binding.customToolbar.showCartCard()
                 }
                 else -> {

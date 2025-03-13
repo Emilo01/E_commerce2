@@ -55,7 +55,8 @@ class ProfileDetailFragment : Fragment() {
                 lastName = binding.editTextLastName.text.toString(),
                 gender = binding.editTextGender.text.toString(),
                 address = binding.editTextAddress.text.toString(),
-                phoneNumber = binding.editTextPhone.text.toString()
+                phoneNumber = binding.editTextPhone.text.toString(),
+                profileImageUrl = viewModel.userProfile.value?.profileImageUrl ?: "" //eski foto url sini koruduk
             )
             println("Güncellenen Profili Firestore’a Gönderiyoruz: $updatedProfile")
             viewModel.updateUserProfile(updatedProfile)

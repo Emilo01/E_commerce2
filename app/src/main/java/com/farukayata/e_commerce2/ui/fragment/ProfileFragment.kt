@@ -29,6 +29,13 @@ class ProfileFragment : Fragment() {
 
     private lateinit var couponAdapter: CouponAdapter
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadUserProfile()
+    //güncellene profil fotosu anıda yansımıyordu onun için ekledik
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
