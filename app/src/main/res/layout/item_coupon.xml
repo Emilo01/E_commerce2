@@ -1,39 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="4dp"
-    android:layout_marginBottom="8dp">
+    android:layout_margin="8dp">
 
-    <LinearLayout
+    <!--Kuponun Kesik Kenarlı Görseli -->
+    <ImageView
+        android:id="@+id/couponBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/couponoutdor"
+        android:scaleType="fitXY" />
+
+    <!-- Kupon Bilgileri -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/textViewCouponCode"
+        <!-- Kupon Kodu ve İkon -->
+        <LinearLayout
+            android:id="@+id/linearLayoutHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Coupon Code"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp">
 
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/discountshape"
+                app:tint="@color/main_green" />
+
+            <TextView
+                android:id="@+id/textViewCouponCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DISCOUNT20"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/main_green"
+                android:paddingStart="8dp" />
+        </LinearLayout>
+
+        <!-- Valid Until-->
+        <TextView
+            android:id="@+id/textViewValidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valid Until 20.20.20"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_validity_label"
+            android:padding="4dp"
+            app:layout_constraintTop_toTopOf="@id/linearLayoutHeader"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="12dp" />
+
+        <!-- Kesik Çizgi -->
+        <View
+            android:id="@+id/dashedLine"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@drawable/bg_dashed_line"
+            app:layout_constraintTop_toBottomOf="@id/linearLayoutHeader"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="27dp"
+            android:layout_marginStart="4dp"/>
+
+        <!-- Kupon Açıklama  -->
         <TextView
             android:id="@+id/textViewDiscountAmount"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Discount Amount"
-            android:textSize="14sp"/>
+            android:text="Kupon indirim tutarı X TL'dir"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dashedLine"
+            app:layout_constraintEnd_toStartOf="@id/buttonCopyCoupon"
+            android:layout_marginStart="12dp" />
 
+        <!-- Copy Butonu -->
         <Button
-            android:id="@+id/buttonApplyCoupon"
+            android:id="@+id/buttonCopyCoupon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Apply Coupon"
-            android:backgroundTint="#0C8A7B"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            android:text="Copy"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/main_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textViewDiscountAmount"
+            android:layout_marginEnd="12dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

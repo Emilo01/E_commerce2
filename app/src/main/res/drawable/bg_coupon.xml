@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Kupon Arkaplanı -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white"/>
+            <stroke android:width="2dp" android:color="@color/main_green"/>
+            <corners android:radius="12dp"/>
+        </shape>
+    </item>
+
+    <!-- Sol Kenar Kesik -->
+    <item android:gravity="left|center_vertical">
+        <shape android:shape="oval">
+            <size android:width="32dp" android:height="32dp"/>
+            <solid android:color="@android:color/white"/>
+        </shape>
+    </item>
+
+    <!-- Sağ Kenar Kesik -->
+    <item android:gravity="right|center_vertical">
+        <shape android:shape="oval">
+            <size android:width="32dp" android:height="32dp"/>
+            <solid android:color="@android:color/white"/>
+        </shape>
+    </item>
+</layer-list>

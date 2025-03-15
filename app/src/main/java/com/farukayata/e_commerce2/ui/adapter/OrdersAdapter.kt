@@ -71,10 +71,20 @@ class OrdersAdapter(private val orders: List<Pair<String, List<CartItem>>>) : Re
             // Burada her siparişin ürünlerini ayrı bir CardView içinde göstereceğiz.
             // Ürünleri görsel olarak eklemek için bir layout yeniden kullanacağız (bunu LayoutInflater ile yapabiliriz)
 
+            binding.productContainer.removeAllViews()
+            //yukarıda ki yapıyı ekledik ve artık geçmiş siparişlerde scrool haraketi ile siparişler karışmıyor
+
             // Dinamik olarak ürünleri ekleme:
             items.forEachIndexed { index, item ->
                 val productView = LayoutInflater.from(binding.root.context)
+                    .inflate(R.layout.item_product, binding.productContainer, false)
+
+                /*
+                - yukarıdaki hali ile gereksiz hesaplamaları kaldırdık şimdi hangi viewgrouppa bağlaacağını biliyor
+                - Burada null olarak bırakman, layout’un hangi parent (ebeveyn) içine ekleneceğini belirtmediğin anlamına gelir
+                val productView = LayoutInflater.from(binding.root.context)
                     .inflate(R.layout.item_product, null)
+                 */
 
                 // Dinamik ürün verilerini bağlama
                 val productName = productView.findViewById<TextView>(R.id.textViewProductName)
