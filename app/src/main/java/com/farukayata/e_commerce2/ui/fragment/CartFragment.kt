@@ -125,6 +125,18 @@ class CartFragment : Fragment() {
                 binding.recyclerViewCart.visibility = View.GONE
                 binding.emptyCartLayout.visibility = View.VISIBLE
 
+                // 🔥 Kupon kodu giriş alanını temizle
+                binding.editTextCouponCode.text.clear()
+
+                isCouponApplied = false //kuponu tamamen resetledik
+                couponViewModel.removeCoupon(listOf())//kupon efekti gitti
+
+                //kırmızı yeşil fiyat efekti kısımlarını gizlicek sepet boşalınca, kupon aktif olsada
+                binding.textViewOldPrice.visibility = View.GONE
+                binding.textViewTotalPrice.text = "Toplam: 0 TL"
+                binding.textViewTotalPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+
+
                 //Eğer sepet boşsa kupon butonunu devre dışı bırakcak
                 binding.buttonApplyCoupon.isEnabled = false
                 binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dim_gray))
@@ -132,6 +144,10 @@ class CartFragment : Fragment() {
             } else {
                 binding.recyclerViewCart.visibility = View.VISIBLE
                 binding.emptyCartLayout.visibility = View.GONE
+
+                //kupon butonunu tekrar aktif et
+                binding.buttonApplyCoupon.isEnabled = true
+                binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
 
                 binding.buttonApplyCoupon.isEnabled = true
                 binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
