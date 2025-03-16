@@ -22,7 +22,7 @@
                 android:id="@+id/imageViewProduct"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 tools:src="@drawable/placeholder1" />
 
             <LinearLayout

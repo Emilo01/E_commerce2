@@ -45,7 +45,7 @@
                 android:id="@+id/imageViewCartItem"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitCenter"
                 tools:src="@tools:sample/avatars" />
 
             <!-- Ürün Bilgileri -->
