@@ -51,6 +51,27 @@ class CustomToolbar @JvmOverloads constructor(
         findViewById<View>(R.id.cartButtonContainer)?.visibility = View.VISIBLE
     }
 
+    fun hideBackCard() {
+        binding.backButtonContainer.visibility = View.GONE
+    }
+
+    fun showBackBack() {
+        findViewById<View>(R.id.backButtonContainer)?.visibility = View.VISIBLE
+    }
+
+    fun showBackCard() {
+        binding.backButtonContainer.visibility = View.VISIBLE
+    }
+
+    fun showBackIcon() {
+        binding.btnBack.visibility = View.VISIBLE
+    }
+
+
+    fun hideBackIcon() {
+        binding.btnBack.visibility = View.GONE
+    }
+
 
 }
 

@@ -73,13 +73,31 @@ class MainActivity : AppCompatActivity() {
                     binding.customToolbar.hideCartIcon() //sepet ikonunu gizle
                     binding.customToolbar.hideCartCard()
                 }
-                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment -> {
+                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment,R.id.categorySpecialFragment -> {
                     showBottomNavigationView() // Ana sayfa ve ana bölümlerde Navbar görünür
                     showToolbar()
                     binding.customToolbar.showCartIcon() //sepet ikonunu göster
                     binding.customToolbar.showCartCard()
+                    binding.customToolbar.hideBackCard()
+                    binding.customToolbar.hideBackIcon()
                 }
-                R.id.profileDetailFragment, R.id.profileFragment -> {
+                R.id.orderConfirmationFragment -> {
+                    binding.customToolbar.hideCartIcon()
+                    binding.customToolbar.hideCartCard()
+                    binding.customToolbar.hideBackCard()
+                    binding.customToolbar.hideBackIcon()
+                }
+
+                R.id.couponsFragment,R.id.profileDetailFragment,R.id.ordersFragment,R.id.paymentSelectionFragment -> {
+                    showBottomNavigationView()
+                    showToolbar()
+                    //binding.customToolbar.showBackBack()
+                    binding.customToolbar.showCartCard()
+                    binding.customToolbar.showBackCard()
+                    binding.customToolbar.showBackIcon()
+                }
+
+                R.id.profileFragment -> {
                     showBottomNavigationView()
                     showToolbar()
                     binding.customToolbar.hideCartIcon()
