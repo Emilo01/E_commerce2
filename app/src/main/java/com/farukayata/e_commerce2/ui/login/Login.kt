@@ -62,8 +62,14 @@ class LoginFragment : Fragment() {
     ): View {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
+        /*
         // Şifre görünürlüğünü değiştirme
         binding.imageViewTogglePasswordVisibility.setOnClickListener {
             isPasswordVisible = !isPasswordVisible
@@ -79,6 +85,8 @@ class LoginFragment : Fragment() {
                 if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
             )
         }
+
+         */
 
         //bu kısım strig.xml kısmınnda renk katmak için ekledim fakat olmuyor
 //        // "Don't have an account? Sign up here." metnini HTML formatlı şekilde ayarla
@@ -133,8 +141,6 @@ class LoginFragment : Fragment() {
         binding.textViewSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signUpFragment)
         }
-
-        return binding.root
     }
 
     // Kullanıcının giriş yaptığını SharedPreferences'e kaydet
@@ -145,11 +151,14 @@ class LoginFragment : Fragment() {
 
     // Kullanıcı giriş yaptıktan sonra yönlendirme
     private fun navigateAfterLogin() {
-        if (!onBoardingFinished()) {
+        /*if (!onBoardingFinished()) {
             findNavController().navigate(R.id.action_loginFragment_to_viewPagerFragment)
         } else {
             findNavController().navigate(R.id.action_loginFragment_to_viewPagerFragment)
         }
+        */
+        findNavController().navigate(R.id.action_loginFragment_to_viewPagerFragment)
+
     }
 
     //revize

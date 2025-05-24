@@ -67,7 +67,6 @@ class CustomToolbar @JvmOverloads constructor(
         binding.btnBack.visibility = View.VISIBLE
     }
 
-
     fun hideBackIcon() {
         binding.btnBack.visibility = View.GONE
     }

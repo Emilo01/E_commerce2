@@ -28,6 +28,8 @@ import kotlinx.coroutines.flow.collect
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.farukayata.e_commerce2.model.Product
+import android.widget.NumberPicker
 
 //nullable olabilirlik durumu için
 
@@ -54,7 +56,7 @@ class CartFragment : Fragment() {
 
         viewModel.loadCartItems()
 
-        // Adapter'ı oluşturma ve lambda fonksiyonları tanımlama
+        //lambda fonksiyonları tanımlama
         adapter = CartAdapter(
             context = requireContext(),
             onRemoveClick = { productId ->
@@ -73,19 +75,12 @@ class CartFragment : Fragment() {
                 //Popup ile onay alarak silme için
                 }
 
-                // 🔥 Eğer kupon uygulanmışsa, kaldır
+                //Eğer kupon uygulanmışsa, kaldır
                 if (isCouponApplied) {
                     couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
                     resetCouponUI()
                 }
 
-                /* -> yukarıdaki yapı yerine aşağıdaki gibi bir düzenn de kurula bilir
-                      ve viewmodeldeki updateitemcount fonnksiyonu buna göre revize edilmeli
-                 if (viewModel.isCouponApplied.value == true) {
-                    couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
-                    resetCouponUI()
-                }
-                 */
 
 
             },
@@ -93,7 +88,7 @@ class CartFragment : Fragment() {
                 val newCount = (cartItem.count ?: 0) + 1 // Null kontrolü yapıldı
                 viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti artırır
 
-                // 🔥 Eğer kupon uygulanmışsa, kaldır
+                //Eğer kupon uygulanmışsa kaldırdık
                 if (isCouponApplied) {
                     couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
                     resetCouponUI()
@@ -102,7 +97,24 @@ class CartFragment : Fragment() {
             onSwipedToDelete = { productId ->
                 //Kaydırarak silme burada popup ile yönetilecek
                 showDeleteDialog(productId)
+            },
+            onItemClick = { cartItem ->
+                // CartItem'dan Product nesnesine dönüşüm yap
+                val product = Product(
+                    id = cartItem.id?.toIntOrNull(),
+                    title = cartItem.title,
+                    price = cartItem.price,
+                    description = cartItem.description,
+                    category = cartItem.category,
+                    image = cartItem.image
+                )
+                val action = CartFragmentDirections.actionCartFragmentToDetailFragment(product)
+                findNavController().navigate(action)
+            },
+            onCountClick = { cartItem ->
+                showCountPickerDialog(cartItem)
             }
+
         )
 
         // RecyclerView ayarları
@@ -115,10 +127,6 @@ class CartFragment : Fragment() {
 
         //lotie ekledik ve sepet boş olma ve olmama durumu olucağı için artık aşağıdaki gibi değilde bi aşağıdaki gibi kullancaz
         // Sepet verilerini gözlemle ve RecyclerView'a bağla
-//        viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
-//            adapter.submitList(cartList) // Adapter'e yeni listeyi ilet
-//            updateTotalPrice(cartList) // Toplam fiyatı güncelle
-//        }
 
         viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
             if (cartList.isEmpty()) {
@@ -157,39 +165,6 @@ class CartFragment : Fragment() {
             adapter.submitList(cartList)
         }
 
-        /*
-        viewModel.cartItems.observe(viewLifecycleOwner) { cartList ->
-            if (cartList.isEmpty()) {
-                binding.recyclerViewCart.visibility = View.GONE
-                binding.emptyCartLayout.visibility = View.VISIBLE
-            } else {
-                binding.recyclerViewCart.visibility = View.VISIBLE
-                binding.emptyCartLayout.visibility = View.GONE
-            }
-
-            // UI güncellemesi
-            updateTotalPrice(cartList)
-
-            // Sepet güncellenirken öğe adetlerini doğrula
-            cartList.forEach { cartItem ->
-                viewModel.updateItemCount(cartItem.id.orEmpty(), cartItem.count ?: 0)
-            }
-
-            //Sepet değiştiyse kuponu kaldırcak
-            if (isCouponApplied) {
-                couponViewModel.removeCoupon(cartList)
-                isCouponApplied = false
-
-                //Butonu eski haline getir
-                binding.buttonApplyCoupon.text = "Uygula"
-                binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
-                binding.editTextCouponCode.isEnabled = true
-            }
-
-            updateTotalPrice(cartList)
-            adapter.submitList(cartList)
-        }
-         */
 
 
         couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->
@@ -307,28 +282,6 @@ class CartFragment : Fragment() {
         _binding = null
     }
 
-    // Toplam fiyatı güncelleme fonksiyonu
-//    private fun updateTotalPrice(cartList: List<CartItem>) {
-//        val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Null kontrolü eklendi
-//        couponViewModel.totalPrice.observe(viewLifecycleOwner) { discounttPrice ->
-//            discountPrice = discounttPrice
-//        }
-//
-//        discountPrice?.let { discount ->
-//            finalPrice = totalPrice - discount
-//        } ?: run {
-//            finalPrice = totalPrice
-//        }
-//        binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)
-//        /*val finalPrice = discountPrice ?: totalPrice
-//            binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", finalPrice)*/
-//
-//        //şu kısımı ekledik çünkü sepet boş sayfası özelliği eklediğmizde
-//        //sepete eklene ürünler sepet sayfamızda görülmüyordu
-//        //sepete ürün eklenince recycler view güncelleniyor kısaca
-//        adapter.submitList(cartList)
-//        adapter.notifyDataSetChanged()
-//    }
 
     private fun updateTotalPrice(cartList: List<CartItem>) {
         val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Toplam fiyat hesaplandı
@@ -397,6 +350,29 @@ class CartFragment : Fragment() {
 
         //Kupon kaldırıldığında fiyatı güncelledik
         updateTotalPrice(viewModel.cartItems.value ?: listOf())
+    }
+
+    private fun showCountPickerDialog(cartItem: CartItem) {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_number_picker, null)
+        val numberPicker = dialogView.findViewById<NumberPicker>(R.id.numberPicker)
+        numberPicker.minValue = 1
+        numberPicker.maxValue = 100 // veya stok adedine göre dinamik belirleyebilirsin
+        numberPicker.value = cartItem.count ?: 1
+
+        AlertDialog.Builder(requireContext())
+            .setTitle("Adet Seç")
+            .setView(dialogView)
+            .setPositiveButton("Tamam") { _, _ ->
+                val newCount = numberPicker.value
+                //sayı değişiminde kupon işlemlerini uygun düzelttik yukarıdaki gibi
+                if (isCouponApplied) {
+                    couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
+                    resetCouponUI()
+                }
+                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount)
+            }
+            .setNegativeButton("İptal", null)
+            .show()
     }
 
 }

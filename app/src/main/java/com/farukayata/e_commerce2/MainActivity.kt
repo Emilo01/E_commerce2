@@ -72,15 +72,18 @@ class MainActivity : AppCompatActivity() {
                     showToolbar() // Ancak signUpFragment'te toolbar göster
                     binding.customToolbar.hideCartIcon() //sepet ikonunu gizle
                     binding.customToolbar.hideCartCard()
+                    binding.customToolbar.showBackCard()
+                    binding.customToolbar.showBackIcon()
                 }
-                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment,R.id.categorySpecialFragment -> {
-                    showBottomNavigationView() // Ana sayfa ve ana bölümlerde Navbar görünür
+                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment -> {
+                    showBottomNavigationView()
                     showToolbar()
-                    binding.customToolbar.showCartIcon() //sepet ikonunu göster
+                    binding.customToolbar.showCartIcon()
                     binding.customToolbar.showCartCard()
                     binding.customToolbar.hideBackCard()
                     binding.customToolbar.hideBackIcon()
                 }
+
                 R.id.orderConfirmationFragment -> {
                     binding.customToolbar.hideCartIcon()
                     binding.customToolbar.hideCartCard()
@@ -88,8 +91,23 @@ class MainActivity : AppCompatActivity() {
                     binding.customToolbar.hideBackIcon()
                 }
 
-                R.id.couponsFragment,R.id.profileDetailFragment,R.id.ordersFragment,R.id.paymentSelectionFragment -> {
+                R.id.paymentSelectionFragment -> {
                     showBottomNavigationView()
+                    showToolbar()
+                    binding.customToolbar.showCartCard()
+                    binding.customToolbar.showBackCard()
+                    binding.customToolbar.showBackIcon()
+                }
+                R.id.couponsFragment,R.id.profileDetailFragment,R.id.ordersFragment -> {
+                    showToolbar()
+                    hideBottomNavigationView()
+                    binding.customToolbar.showCartCard()
+                    binding.customToolbar.showBackCard()
+                    binding.customToolbar.showBackIcon()
+                }
+
+                R.id.categorySpecialFragment,R.id.detailFragment,R.id.receiptFragment -> {
+                    hideBottomNavigationView()
                     showToolbar()
                     //binding.customToolbar.showBackBack()
                     binding.customToolbar.showCartCard()
@@ -131,12 +149,21 @@ class MainActivity : AppCompatActivity() {
     //toolbar Başlığını Güncelledik
     private fun updateToolbarTitle(destinationId: Int) {
         val title = when (destinationId) {
-            R.id.homeFragment -> "Home"
-            R.id.categoryFragment -> "Categories"
-            R.id.favoritesFragment -> "Favorites"
-            R.id.cartFragment -> "My Cart"
-            R.id.profileFragment -> "Profile"
-            else -> "E-Commerce"
+            R.id.homeFragment -> "Cepte Al"
+            R.id.categoryFragment -> "Katagoriler"
+            R.id.favoritesFragment -> "Favoriler"
+            R.id.cartFragment -> "Sepetim"
+            R.id.profileFragment -> "Profil"
+            R.id.detailFragment -> "Cepte Al"
+            R.id.categorySpecialFragment -> "Cepte Al"
+            R.id.profileDetailFragment -> "Profil Detay"
+            R.id.ordersFragment -> "Siparişlerim"
+            R.id.couponsFragment -> "Kuponlarım"
+            R.id.paymentSelectionFragment -> "Ödeme Yöntemi Seçimi"
+            R.id.cardPaymentFragment -> "Ödeme ekranı"
+            R.id.orderConfirmationFragment -> "Sipariş Onayı"
+            R.id.receiptFragment -> "Sipariş Fişi"
+            else -> "Cepte Al"
         }
         binding.customToolbar.setTitle(title)
     }
@@ -233,216 +260,3 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
-
-
-
-
-
-
-
-/*
-package com.farukayata.e_commerce2
-
-import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
-import android.content.Context
-import android.view.animation.AnimationUtils
-import com.farukayata.e_commerce2.databinding.ActivityMainBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import dagger.hilt.android.AndroidEntryPoint
-
-@AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        // Toolbar'ı desteklenen ActionBar olarak ayarladık
-        setSupportActionBar(binding.toolbar)
-
-        // NavHostFragment ve NavController'i bağla
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
-        navController = navHostFragment.navController
-
-        // Kullanıcı giriş yaptı mı kontrol et
-        if (isUserLoggedIn()) {
-            // Kullanıcı giriş yaptıysa onboarding kontrol et
-            if (!onBoardingFinished()) {
-                navController.navigate(R.id.viewPagerFragment)
-            } else {
-                navController.navigate(R.id.splashScreenFragment)
-            }
-        }
-
-        // BottomNavigationView'i NavController ile bağla
-        setupBottomNavigationView()
-
-        // AppBarConfiguration ayarla
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.homeFragment,
-                R.id.categoryFragment,
-                R.id.favoritesFragment,
-                //R.id.loginFragment,
-                R.id.profileFragment,
-                R.id.cartFragment,
-            )
-        )
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-
-        // BottomNavigation görünürlüğünü kontrol et
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            when (destination.id) {
-                R.id.loginFragment, R.id.signUpFragment, R.id.splashScreenFragment, R.id.viewPagerFragment -> {
-                    hideBottomNavigationView() // Login ve Signup ekranlarında Navbar'ı gizle
-                }
-                R.id.homeFragment, R.id.categoryFragment, R.id.favoritesFragment, R.id.cartFragment, R.id.profileFragment -> {
-                    //logini geçici olarak koymuştuk profile çektik
-                    showBottomNavigationView() // Belirtilen fragment'lerde Navbar görünecek
-                }
-                else -> {
-                    hideBottomNavigationView() // Diğer fragment'lerde Navbar gizlenecek
-                }
-            }
-
-            // Hangi fragment açıksa, nav bar'da seçili sekme onunla eşleşsin
-            binding.bottomNavigationView.menu.findItem(destination.id)?.isChecked = true
-
-
-        }
-    }
-
-    //navbarda gecikmeli sayfa geçişi oluyordu google önerisine göre alttaki gibi revize ettik
-//    private fun setupBottomNavigationView() {
-//        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-//        bottomNavigationView.setOnItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.homeFragment -> {
-//                    navController.navigate(R.id.homeFragment)
-//                    true
-//                }
-//                R.id.categoryFragment -> {
-//                    navController.navigate(R.id.categoryFragment)
-//                    true
-//                }
-//                R.id.favoritesFragment -> {
-//                    navController.navigate(R.id.favoritesFragment)
-//                    true
-//                }
-//                R.id.cartFragment -> {
-//                    navController.navigate(R.id.cartFragment)
-//                    true
-//                }
-////                R.id.loginFragment -> {
-////                    navController.navigate(R.id.loginFragment)
-////                    true
-////                }
-//                //buradada login geçici olarak konmuştu profille revize ettik
-//                R.id.profileFragment -> {
-//                    navController.navigate(R.id.profileFragment)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-//    }
-
-    private fun setupBottomNavigationView() {
-        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-
-        // Google'ın önerdiği gibi, doğrudan NavigationUI ile bağladık
-        NavigationUI.setupWithNavController(bottomNavigationView, navController)
-
-        bottomNavigationView.setOnItemSelectedListener { item ->
-            val currentDestination = navController.currentDestination?.id
-
-            val selectedItemView = bottomNavigationView.findViewById<View>(item.itemId)
-            selectedItemView?.startAnimation(
-                AnimationUtils.loadAnimation(this, R.anim.item_animation)
-            )
-
-            bottomNavigationView.menu.findItem(item.itemId).icon?.setTint(
-                resources.getColor(R.color.teal_secondary, theme) // Yeni renk eklendi
-            )
-
-            when (item.itemId) {
-                R.id.homeFragment -> {
-                    if (currentDestination != R.id.homeFragment) {
-                        navController.navigate(R.id.homeFragment)
-                    }
-                    true
-                }
-                R.id.categoryFragment -> {
-                    if (currentDestination != R.id.categoryFragment) {
-                        navController.navigate(R.id.categoryFragment)
-                    }
-                    true
-                }
-                R.id.favoritesFragment -> {
-                    if (currentDestination != R.id.favoritesFragment) {
-                        navController.navigate(R.id.favoritesFragment)
-                    }
-                    true
-                }
-                R.id.cartFragment -> {
-                    if (currentDestination != R.id.cartFragment) {
-                        navController.navigate(R.id.cartFragment)
-                    }
-                    true
-                }
-                R.id.profileFragment -> {
-                    if (currentDestination != R.id.profileFragment) {
-                        navController.navigate(R.id.profileFragment)
-                    }
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-
-
-    private fun showBottomNavigationView() {
-        binding.bottomNavigationView.visibility = View.VISIBLE
-    }
-
-    private fun hideBottomNavigationView() {
-        binding.bottomNavigationView.visibility = View.GONE
-    }
-
-    // Geri tuşuna basıldığında bir önceki fragment'e dönme işlemi
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    // Kullanıcının giriş yapıp yapmadığını kontrol eden fonksiyon
-    private fun isUserLoggedIn(): Boolean {
-        val sharedPreferences = getSharedPreferences("userSession", Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean("isLoggedIn", false)
-    }
-
-    // Kullanıcının onboarding'i tamamlayıp tamamlamadığını kontrol eden fonksiyon
-    private fun onBoardingFinished(): Boolean {
-        val sharedPreferences = getSharedPreferences("onBoarding", Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean("Finished", false)
-    }
-
-}
-
-
-
- */
-
-

@@ -42,10 +42,13 @@
             android:layout_marginTop="8dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
+                android:id="@+id/passwordInputLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:layout_marginTop="8dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/main_green">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextPassword"
@@ -56,12 +59,14 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!--
             <ImageView
                 android:id="@+id/imageViewTogglePasswordVisibility"
                 android:src="@drawable/ic_visibility_off"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:padding="8dp" />
+                -->
         </LinearLayout>
 
         <Button

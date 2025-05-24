@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -28,12 +31,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "EMAIL_USER", "\"${getLocalProperty("EMAIL_USER")}\"")
+            buildConfigField("String", "EMAIL_PASS", "\"${getLocalProperty("EMAIL_PASS")}\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "EMAIL_USER", "\"${getLocalProperty("EMAIL_USER")}\"")
+            buildConfigField("String", "EMAIL_PASS", "\"${getLocalProperty("EMAIL_PASS")}\"")
         }
     }
     compileOptions {
@@ -45,9 +54,30 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
         dataBinding = true
     }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "/META-INF/NOTICE.md"
+            excludes += "/META-INF/LICENSE.md"
+            excludes += "/META-INF/DEPENDENCIES"
+        }
+    }
+}
+
+
+// local.propertieste değer okuyan fonksiyon
+fun getLocalProperty(key: String): String {
+    val properties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        properties.load(FileInputStream(localPropertiesFile))
+    }
+    return properties.getProperty(key) ?: ""
 }
 
 //apply ("plugin:androidx.navigation.safeargs.kotlin")
@@ -118,5 +148,9 @@ dependencies {
 
     //CircleImageView kütüphanesi
     implementation ("de.hdodenhof:circleimageview:3.1.0")
+
+    //JavaMail api
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
 
 }

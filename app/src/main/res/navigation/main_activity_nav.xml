@@ -5,7 +5,7 @@
     android:id="@+id/main_activity_nav"
     app:startDestination="@id/splashScreenFragment">
 
-    <!-- SplashScreenFragment (Artık İlk Açılacak Sayfa) -->
+    <!-- SplashScreenFragment -->
     <fragment
         android:id="@+id/splashScreenFragment"
         android:name="com.farukayata.e_commerce2.ui.splash.SplashScreenFragment"
@@ -54,7 +54,7 @@
             app:destination="@id/loginFragment" />
     </fragment>
 
-    <!-- ViewPagerFragment (Onboarding Ekranı) -->
+    <!-- ViewPagerFragment -->
     <fragment
         android:id="@+id/viewPagerFragment"
         android:name="com.farukayata.e_commerce2.ui.onboarding.ViewPagerFragment"
@@ -63,7 +63,9 @@
 
         <action
             android:id="@+id/action_viewPagerFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/viewPagerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!-- HomeFragment -->
@@ -114,11 +116,6 @@
         </action>
     </fragment>
 
-
-    <!--
-    app:popUpTo="@id/detailFragment"
-            app:popUpToInclusive="false"
-    -->
 
     <!-- FavoritesFragment -->
     <fragment
@@ -182,6 +179,14 @@
         <action
             android:id="@+id/action_cartFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+
+    <action
+        android:id="@+id/action_cartFragment_to_detailFragment"
+        app:destination="@id/detailFragment">
+        <argument
+            android:name="product"
+            app:argType="com.farukayata.e_commerce2.model.Product" />
+    </action>
 
 
     <!-- ProfileFragment -->

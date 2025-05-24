@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -168,57 +169,13 @@ class HomeFragment : Fragment() {
             }
         })
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            //geri tuşu etkisizleşti home içinde
+        }
 
-
-//        binding.searchEditText.addTextChangedListener { text ->
-//            homeViewModel.filterProducts(text.toString()) // ViewModel'e yönlendir
-//        }
-//            val adapter = EcommorceAdapter(requireContext()) { product ->
-//                // Favorilere ekleme işlemi
-//                favoritesViewModel.addFavorite(product)
-//            }
-
-        //ecommerce adapterımıza lamda ekleyerek bağımsız hale getirdik.
-        //ve ürünen tıklandığında geçiş mantığını artık ona ayit sayfannın fragmenttındna yöeticez
-//
-//            val adapter = EcommorceAdapter(
-//                context = requireContext(),
-//                onProductClick = { product ->
-//                    // Ürün detayına geçiş
-//                    val action = HomeFragmentDirections.detailGecis(product)
-//                    findNavController().navigate(action)
-//                },
-//                onFavoriteClick = { product ->
-//                    // Favorilere ekleme işlemi
-//                    favoritesViewModel.addFavorite(product)
-//                }
-//            )
-//            binding.commerceAdapter = adapter
-//            adapter.submitList(products) // Listeyi adaptöre bağla
-//        }
-
-        // Favoriler sayfasına geçiş için butona tıklama
-//        binding.buttonFavorites.setOnClickListener {
-//            findNavController().navigate(R.id.action_homeFragment_to_favoritesFragment)
-//        }
-
-
-        //setupCategorySelection()
     }
 
-    //kategori Seçimi Chip için
-//    private fun setupCategorySelection() {
-//
-//        binding.chipGroupCategories.setOnCheckedChangeListener { esra, checkedId ->
-//                binding.chipGroupCategories.clearCheck()
-//            when (checkedId) {
-//                binding.chipElectronics.id -> navigateToCategory("electronics")
-//                binding.chipClothing.id -> navigateToCategory("jewelery")
-//                binding.chipHome.id -> navigateToCategory("men's clothing")
-//                binding.chipToys.id -> navigateToCategory("women's clothing")
-//            }
-//        }
-//    }
+
 
     private fun setupCategorySelection() {
         val categoryItems = listOf("electronics", "jewelery", "men's clothing", "women's clothing")

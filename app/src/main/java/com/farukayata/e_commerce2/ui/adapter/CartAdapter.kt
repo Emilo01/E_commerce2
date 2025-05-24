@@ -27,7 +27,9 @@ class CartAdapter(
     private val onRemoveClick: (String) -> Unit,
     private val onIncreaseClick: (CartItem) -> Unit,
     private val onDecreaseClick: (CartItem) -> Unit,
-    private val onSwipedToDelete: (String) -> Unit
+    private val onSwipedToDelete: (String) -> Unit,
+    private val onItemClick: (CartItem) -> Unit,
+    private val onCountClick: (CartItem) -> Unit
 ) : ListAdapter<CartItem, CartAdapter.CartViewHolder>(CartDiffCallback()) {//DiffUtil kullanılıyor
 
     var isPreviewSwipe = true //bir kez sahte kaydırma yapmak için
@@ -47,6 +49,8 @@ class CartAdapter(
             binding.buttonIncrease.setOnClickListener { onIncreaseClick(cartItem) }
             binding.buttonDecrase.setOnClickListener { onDecreaseClick(cartItem) }
             binding.buttonRemove.setOnClickListener { onRemoveClick(cartItem.id.toString()) }
+
+            binding.root.setOnClickListener { onItemClick(cartItem) }//ürün detay
 
             //ÖNCE Kırmızı Arka Planı Gizle
             binding.swipeBackground.visibility = View.GONE
@@ -74,6 +78,7 @@ class CartAdapter(
 
                 binding.root.startAnimation(slideOut)
             }
+            binding.textViewCartCount.setOnClickListener { onCountClick(cartItem) }
         }
 
     }
