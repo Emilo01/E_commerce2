@@ -13,7 +13,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class OrdersAdapter(private val orders: List<Pair<String, List<CartItem>>>) : RecyclerView.Adapter<OrdersAdapter.OrderViewHolder>() {
+class OrdersAdapter(
+    private val orders: List<Pair<String, List<CartItem>>>,
+    private val onProductClick: (CartItem) -> Unit
+) : RecyclerView.Adapter<OrdersAdapter.OrderViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val binding = ItemOrderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,25 +32,6 @@ class OrdersAdapter(private val orders: List<Pair<String, List<CartItem>>>) : Re
 
     inner class OrderViewHolder(private val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root) {
 
-//        fun bind(order: Pair<String, List<CartItem>>) {
-//            // Sipariş tarihini ve ürünleri bağlama
-//            val date = order.first
-//            val items = order.second
-//
-//            binding.textViewOrderDate.text = "Sipariş Tarihi: $date"
-//
-//            // Ürünleri birden fazla cardview içine yerleştirme
-//            items.forEach { item ->
-//                // Burada, her bir ürün için ayrı bir CardView oluşturabilirsiniz
-//                binding.textViewProductName.text = item.title
-//                binding.textViewProductQuantity.text = "Quantity: ${item.count}"
-//                binding.textViewProductPrice.text = "Price: ${item.price} TL"
-//
-//                Glide.with(binding.imageViewProduct.context)
-//                    .load(item.image)
-//                    .into(binding.imageViewProduct)
-//            }
-//        }
         fun bind(order: Pair<String, List<CartItem>>) {
             // Sipariş tarihini ve ürünleri bağlama
             val date = order.first
@@ -101,8 +85,12 @@ class OrdersAdapter(private val orders: List<Pair<String, List<CartItem>>>) : Re
                     .load(item.image)
                     .into(productImage)
 
-                // Ürünü mevcut cardview'a ekliyoruz
-                binding.productContainer.addView(productView) // `productContainer`, ürünlerin gösterileceği alan
+                // Ürün kartına tıklama listener'ı ekle
+                productView.setOnClickListener {
+                    onProductClick(item)
+                }
+
+                binding.productContainer.addView(productView)
             }
         }
     }

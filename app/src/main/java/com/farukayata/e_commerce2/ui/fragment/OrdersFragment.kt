@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farukayata.e_commerce2.databinding.FragmentOrdersBinding
 import com.farukayata.e_commerce2.model.CartItem
 import com.farukayata.e_commerce2.model.Order
+import com.farukayata.e_commerce2.model.Product
 import com.farukayata.e_commerce2.ui.adapter.OrdersAdapter
 import com.farukayata.e_commerce2.ui.viewmodel.OrderViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +44,19 @@ class OrdersFragment : Fragment() {
 
                 Log.d("OrdersFragment", "Displaying orders")
                 // Eğer sipariş varsa, RecyclerView'a verileri bağlıyoruz
-                val adapter = OrdersAdapter(groupedOrders)
+                val adapter = OrdersAdapter(groupedOrders) { cartItem ->
+                    // CartItem'dan Product oluştur
+                    val product = Product(
+                        id = cartItem.id?.toIntOrNull(),
+                        title = cartItem.title,
+                        price = cartItem.price,
+                        description = cartItem.description,
+                        image = cartItem.image,
+                        category = cartItem.category
+                    )
+                    val action = OrdersFragmentDirections.actionOrdersFragmentToDetailFragment(product)
+                    findNavController().navigate(action)
+                }
                 binding.recyclerViewOrders.layoutManager = LinearLayoutManager(requireContext())
                 binding.recyclerViewOrders.adapter = adapter
             }

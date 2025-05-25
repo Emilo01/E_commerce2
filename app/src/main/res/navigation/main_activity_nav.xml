@@ -274,6 +274,9 @@
         android:name="com.farukayata.e_commerce2.ui.fragment.OrdersFragment"
         android:label="Orders"
         tools:layout="@layout/fragment_orders" />
+    <action
+        android:id="@+id/action_ordersFragment_to_detailFragment"
+        app:destination="@id/detailFragment" />
 
     <!-- ProfileFragment'e Geri Dönüş ve Siparişlerim Butonu -->
     <action

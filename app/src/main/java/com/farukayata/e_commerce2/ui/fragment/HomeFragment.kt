@@ -173,6 +173,8 @@ class HomeFragment : Fragment() {
             //geri tuşu etkisizleşti home içinde
         }
 
+        val searchEditText = binding.searchView.findViewById<android.widget.EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText.background = null
     }
 
 
