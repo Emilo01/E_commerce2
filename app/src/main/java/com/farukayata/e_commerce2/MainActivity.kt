@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import android.content.Context
 import android.view.animation.AnimationUtils
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.farukayata.e_commerce2.databinding.ActivityMainBinding
 import com.farukayata.e_commerce2.ui.component.CustomToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
