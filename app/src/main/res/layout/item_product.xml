@@ -38,7 +38,7 @@
                     android:id="@+id/textViewProductName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ürün Adı"
+                    android:text="@string/item_product_item_name"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="Laptop Çantası" />
@@ -48,7 +48,7 @@
                     android:id="@+id/textViewProductQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adet: 2"
+                    android:text="@string/item_product_unit_2"
                     android:textSize="14sp"
                     tools:text="Adet: 3" />
 
@@ -57,7 +57,7 @@
                     android:id="@+id/textViewProductPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Birim Fiyatı: 150 TL"
+                    android:text="@string/item_product_unit_price_150_tl"
                     android:textSize="14sp"
                     android:textColor="@android:color/holo_red_dark"
                     tools:text="Fiyat: 450 TL" />

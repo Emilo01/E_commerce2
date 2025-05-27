@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ödeme Yöntemi Seçin"
+            android:text="@string/fragment_payment_choose_the_payment_method"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
@@ -31,7 +31,7 @@
                 android:id="@+id/radio_cash"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kapıda Ödeme"
+                android:text="@string/fragment_payment_selection_payment_of_the_door"
                 android:buttonTint="@drawable/radio_buttom_custom"/>
 
             <RadioGroup
@@ -47,14 +47,14 @@
                     android:id="@+id/radio_cash_at_door"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kapıda Nakit Ödeme"
+                    android:text="@string/fragment_payment_selection_payment_of_the_door_cash"
                     android:buttonTint="@drawable/radio_buttom_custom1"/>
 
                 <RadioButton
                     android:id="@+id/radio_card_at_door"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Kapıda Kredi Kartı ile Online Ödeme"
+                    android:text="@string/fragment_payment_selection_payment_of_the_credit_card"
                     android:buttonTint="@drawable/radio_buttom_custom1"/>
             </RadioGroup>
 
@@ -62,7 +62,7 @@
                 android:id="@+id/radio_credit_card"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kredi Kartı"
+                android:text="@string/fragment_payment_selection_credit_cart"
                 android:buttonTint="@drawable/radio_buttom_custom"/>
         </RadioGroup>
 
@@ -71,7 +71,7 @@
             android:id="@+id/textViewSupportedCardsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mağazamızın anlaşmalı olduğu bankalar"
+            android:text="@string/fragment_payment_selection_cart_types"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_gravity="center_horizontal"
@@ -93,7 +93,7 @@
                 android:background="@drawable/card_background"
                 android:padding="8dp"
                 android:src="@drawable/paypal_icon"
-                android:contentDescription="PayPal" />
+                android:contentDescription="@string/fragment_payment_selection_paypal" />
 
             <ImageView
                 android:layout_width="50dp"
@@ -102,7 +102,7 @@
                 android:background="@drawable/card_background"
                 android:padding="8dp"
                 android:src="@drawable/visa_icon"
-                android:contentDescription="Visa Kartı" />
+                android:contentDescription="@string/fragment_payment_selection_visa_kart" />
 
             <ImageView
                 android:layout_width="50dp"
@@ -111,7 +111,7 @@
                 android:background="@drawable/card_background"
                 android:padding="8dp"
                 android:src="@drawable/mastercard_icon"
-                android:contentDescription="MasterCard" />
+                android:contentDescription="@string/fragment_payment_selection_mastercard" />
 
             <ImageView
                 android:layout_width="50dp"
@@ -120,7 +120,7 @@
                 android:background="@drawable/card_background"
                 android:padding="8dp"
                 android:src="@drawable/alipay_icon"
-                android:contentDescription="Alipay" />
+                android:contentDescription="@string/fragment_payment_selection_alipay" />
 
             <ImageView
                 android:layout_width="50dp"
@@ -128,7 +128,7 @@
                 android:background="@drawable/card_background"
                 android:padding="8dp"
                 android:src="@drawable/amex_icon"
-                android:contentDescription="American Express" />
+                android:contentDescription="@string/fragment_payment_selection_american_express" />
         </LinearLayout>
 
         <Button
@@ -136,7 +136,7 @@
             android:layout_width="match_parent"
             android:backgroundTint="#0C8A7B"
             android:layout_height="wrap_content"
-            android:text="Ödemeyi Tamamla"
+            android:text="@string/fragment_payment_selection_ödemeyi_tamamla"
             android:layout_marginTop="16dp"
             android:drawableLeft="@drawable/sepet_icon_add_to_cart"
             android:drawablePadding="8dp"/>
@@ -145,7 +145,7 @@
             android:id="@+id/textViewCartItemsTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Satın Alınan Ürünleriniz"
+            android:text="@string/fragment_payment_selection_orders"
             android:textSize="16sp"
             android:textStyle="bold"
             android:layout_marginTop="24dp"

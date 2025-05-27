@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="appName">AppName</string>
+    <string name="appName">CEPTE AL</string>
     <string name="onboarding_button_text">Next</string>
     <string name="onboarding_iv_description">onboarding iv description</string>
     <string name="first_onboarding_screen_title">Easily Shop \nAnywhere, Anytime</string>
@@ -15,5 +15,144 @@
     <string name="onboarding_third_screen_button_text">Let\'s Shop</string>
 
     <string name="signup_text">Don\'t have an account ? <font color='#0C8A7B'>Sign up here.</font></string>
+    <string name="sing_up_email">Email</string>
+    <string name="sing_up_password">Password</string>
+    <string name="sing_up_password_confirm">Confirm Password</string>
+    <string name="sing_up_sing_up">Sign Up</string>
+
+
+    <string name="login_sign_google">Sign in with Google </string>
+    <string name="login_login">Login</string>
+    <string name="login_password">Password</string>
+    <string name="login_email">Email</string>
+
+    <!--cart item-->
+    <string name="cart_item_delete">-</string>
+    <string name="cart_item_add">+</string>
+    <string name="cart_item_remove">Ürünü Sil</string>
+
+    <!--custom delete dialog-->
+    <string name="custom_delete_dialog_title">Do you want to Delete products ?</string>
+    <string name="custom_delete_dialog_description">Are you sure you want to Delete the products ?</string>
+    <string name="custom_delete_dialog_cancel">Cancel</string>
+    <string name="custom_delete_dialog_delete">Delete</string>
+
+    <!--custom logout dialog-->
+    <string name="custom_logout_dialog_title">Do you want to log out ?</string>
+    <string name="custom_logout_dialog_description">Are you sure you want to log out of your account ?</string>
+    <string name="custom_logout_dialog_cancel">Cancel</string>
+    <string name="custom_logout_dialog_log_out">Log Out</string>
+
+    <!--favorites card design-->
+    <string name="add_to_cart">Add to Cart</string>
+
+    <!--fragment card payment-->
+    <string name="kart_numaras_16_hane">Kart Numarası (16 Hane)</string>
+    <string name="ay_mm">Ay (MM)</string>
+    <string name="y_l_yyyy">Yıl (YYYY)</string>
+    <string name="cvv_3_hane">CVV (3 Hane)</string>
+    <string name="kart_sahibinin_ad_soyad">Kart Sahibinin Adı Soyadı</string>
+    <string name="demeyi_tamamla">Ödemeyi Tamamla</string>
+
+
+    <!--fragment cart-->
+    <string name="sepetiniz_bos">Sepetiniz boş</string>
+    <string name="urunleri_kesfet">Ürünleri Keşfet</string>
+    <string name="kupon_kodu">Kupon Kodu</string>
+    <string name="uygula">Uygula</string>
+    <string name="satin_al">Satın Al</string>
+
+    <!--fragment detail-->
+    <string name="fragment_detail_read_more">Read More</string>
+    <string name="fragment_detail_remove">-</string>
+    <string name="fragment_detail_1">1</string>
+    <string name="fragment_detail_add">+</string>
+    <string name="fragment_detail_add_to_cart">Add to Cart</string>
+
+    <!--fragment favorites-->
+    <string name="fragment_favorites_favoriniz_yok">Henüz favoriniz yok</string>
+    <string name="fragment_favorites_add_the_favorite">Ürünleri keşfedin ve yeni favorilerinizi bulun</string>
+
+    <!--fragment home-->
+    <string name="fragment_home_most_interested_products">Most Interested Products</string>
+    <string name="fragment_home_all_products">All Products</string>
+    <string name="fragment_home_urun_bulunamadi">Üzgünüz, şu anda ürün bulunmamaktadır.</string>
+
+    <!--fragment order-->
+    <string name="fragment_order_odeme_alindi">Ödemeniz alındı ve siparişiniz tamamlandı!</string>
+    <string name="fragment_order_return_the_home_page">Ana Sayfaya Dön</string>
+    <string name="fragment_order_check_the_recipe">Fişi Görüntüle</string>
+    <string name="fragment_payment_choose_the_payment_method">Ödeme Yöntemi Seçin</string>
+
+    <!--fragment payment selection-->
+    <string name="fragment_payment_selection_payment_of_the_door">Kapıda Ödeme</string>
+    <string name="fragment_payment_selection_payment_of_the_door_cash">Kapıda Nakit Ödeme</string>
+    <string name="fragment_payment_selection_payment_of_the_credit_card">Kapıda Kredi Kartı ile Online Ödeme</string>
+    <string name="fragment_payment_selection_credit_cart">Kredi Kartı</string>
+    <string name="fragment_payment_selection_cart_types">Mağazamızın anlaşmalı olduğu bankalar</string>
+    <string name="fragment_payment_selection_paypal">PayPal</string>
+    <string name="fragment_payment_selection_visa_kart">Visa Kartı</string>
+    <string name="fragment_payment_selection_mastercard">MasterCard</string>
+    <string name="fragment_payment_selection_alipay">Alipay</string>
+    <string name="fragment_payment_selection_american_express">American Express</string>
+    <string name="fragment_payment_selection_ödemeyi_tamamla">Ödemeyi Tamamla</string>
+    <string name="fragment_payment_selection_orders">Satın Alınan Ürünleriniz</string>
+
+    <!--fragment profile-->
+    <string name="fragment_profile_my_account">My Account</string>
+    <string name="fragment_profile_my_orders">My Orders</string>
+    <string name="fragment_profile_my_coupons">My Coupons</string>
+    <string name="fragment_profile_log_out">Log Out</string>
+
+    <!--fragment profile detail-->
+    <string name="fragment_profile_detail_change_picture">Change Picture</string>
+    <string name="fragment_profile_detail_first_name">First Name</string>
+    <string name="fragment_profile_detail_last_name">Last Name</string>
+    <string name="fragment_profile_detail_gender">Gender</string>
+    <string name="fragment_profile_detail_address">Address</string>
+    <string name="fragment_profile_detail_phone_number">Phone Number</string>
+    <string name="fragment_profile_detail_update_the_profile_information">Update The Profile Information</string>
+
+    <!--fragment receipt-->
+    <string name="fragment_receipt_time_of_the_order">Sipariş Tarihi:</string>
+    <string name="fragment_receipt_costumer">Müşteri:</string>
+    <string name="fragment_receipt_email">Email:</string>
+    <string name="fragment_receipt_total_price">Toplam Fiyat:</string>
+    <string name="fragment_receipt_cant_find_order_yet">Henüz siparişiniz bulunmamaktadır.</string>
+
+    <!--fragment view pager-->
+    <string name="fragment_view_pager_skip">Skip</string>
+    <string name="fragment_view_pager_previous">Previous</string>
+    <string name="fragment_view_pager_next">Next</string>
+
+    <!--item coupon-->
+    <string name="item_coupon_discount20">DISCOUNT20</string>
+    <string name="item_coupon_valid_until_20_20_20">Valid Until 20.20.20</string>
+    <string name="item_coupon_kupon_indirim_tutar_x_tl_dir">Kupon indirim tutarı X TL\'dir</string>
+    <string name="item_coupon_copy">Copy</string>
+
+    <!--item order-->
+    <string name="item_order_order_time">Sipariş Tarihi</string>
+    <string name="item_order_total_price">Toplam Ücret :</string>
+
+    <!--item_payment_cart-->
+    <string name="item_payment_item_name">Ürün Adı</string>
+    <string name="item_paymet_unit_1">Adet: 1</string>
+    <string name="item_paymet_price_99_99_tl">Fiyat: 99.99 TL</string>
+
+    <!--item_product-->
+    <string name="item_product_item_name">Ürün Adı</string>
+    <string name="item_product_unit_2">Adet: 2</string>
+    <string name="item_product_unit_price_150_tl">Birim Fiyatı: 150 TL</string>
+
+    <!--item_receipt-->
+    <string name="item_receipt_item_name">Ürün Adı</string>
+    <string name="item_receipt_unit_2">Adet: 2</string>
+    <string name="item_receipt_unit_price_150_tl">Birim Fiyatı: 150 TL</string>
+
+    <!--toolbar custom-->
+    <string name="toolbar_custom_back">Back</string>
+    <string name="toolbar_custom_page_title">Page Title</string>
+    <string name="toolbar_custom_cart">Cart</string>
 
 </resources>

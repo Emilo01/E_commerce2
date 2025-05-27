@@ -16,7 +16,7 @@
             android:id="@+id/tvOrderDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sipariş Tarihi: "
+            android:text="@string/fragment_receipt_time_of_the_order"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Sipariş Tarihi: 01.02.2025" />
@@ -26,7 +26,7 @@
             android:id="@+id/tvCustomerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Müşteri: "
+            android:text="@string/fragment_receipt_costumer"
             android:textSize="14sp"
             tools:text="Müşteri: Faruk Ayata" />
 
@@ -35,7 +35,7 @@
             android:id="@+id/tvCustomerEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email: "
+            android:text="@string/fragment_receipt_email"
             android:textSize="14sp"
             tools:text="Email: faruk@example.com" />
 
@@ -53,7 +53,7 @@
             android:id="@+id/tvTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Toplam Fiyat: "
+            android:text="@string/fragment_receipt_total_price"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@android:color/holo_red_dark"
@@ -65,7 +65,7 @@
             android:id="@+id/tvNoOrders"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Henüz siparişiniz bulunmamaktadır."
+            android:text="@string/fragment_receipt_cant_find_order_yet"
             android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"

@@ -88,7 +88,7 @@
                     android:paddingHorizontal="20dp"
                     android:background="@drawable/cart_button_inc_dec_bg"
                     android:gravity="center"
-                    android:text="-" />
+                    android:text="@string/cart_item_delete" />
 
                 <TextView
                     android:id="@+id/textViewCartCount"
@@ -106,7 +106,7 @@
                     android:paddingHorizontal="20dp"
                     android:background="@drawable/incrase_button_bg"
                     android:gravity="center"
-                    android:text="+" />
+                    android:text="@string/cart_item_add" />
             </LinearLayout>
 
             <!-- Silme Butonu -->
@@ -117,7 +117,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:scaleType="fitCenter"
                 android:padding="4dp"
-                android:contentDescription="Ürünü Sil"
+                android:contentDescription="@string/cart_item_remove"
                 android:src="@drawable/delete_icon" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

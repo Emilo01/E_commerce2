@@ -182,7 +182,7 @@
                         android:id="@+id/textViewMostInterested"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Most Interested Products"
+                        android:text="@string/fragment_home_most_interested_products"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         android:layout_marginStart="8dp"
@@ -199,7 +199,7 @@
                         tools:listitem="@layout/card_design"/>
                 </LinearLayout>
 
-                <!-- Dinamik Chips - tek satır , kayabilir şekildee -->
+                <!-- Dinamik Chips - tek satır kayabilir şekildee -->
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -234,7 +234,7 @@
                             android:id="@+id/textViewAllProducts"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="All Products"
+                            android:text="@string/fragment_home_all_products"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             android:layout_marginStart="8dp"
@@ -244,7 +244,7 @@
                             android:id="@+id/emptyStateView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Üzgünüz, şu anda ürün bulunmamaktadır."
+                            android:text="@string/fragment_home_urun_bulunamadi"
                             android:textSize="16sp"
                             android:textColor="@color/black"
                             android:gravity="center"

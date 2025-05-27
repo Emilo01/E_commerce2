@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ödemeniz alındı ve siparişiniz tamamlandı!"
+            android:text="@string/fragment_order_odeme_alindi"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginTop="16dp" />
@@ -31,7 +31,7 @@
             android:id="@+id/btnBackToHome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ana Sayfaya Dön"
+            android:text="@string/fragment_order_return_the_home_page"
             android:backgroundTint="#0C8A7B"
             android:layout_marginTop="16dp" />
 
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0C8A7B"
-            android:text="Fişi Görüntüle"
+            android:text="@string/fragment_order_check_the_recipe"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 </layout>

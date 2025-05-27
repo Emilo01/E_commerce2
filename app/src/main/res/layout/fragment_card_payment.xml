@@ -28,7 +28,7 @@
                 android:id="@+id/etCardNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Kart Numarası (16 Hane)"
+                android:hint="@string/kart_numaras_16_hane"
                 android:inputType="number"
                 android:maxLength="19" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -52,7 +52,7 @@
                     android:id="@+id/etExpiryMonth"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ay (MM)"
+                    android:hint="@string/ay_mm"
                     android:inputType="number"
                     android:maxLength="2" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -69,7 +69,7 @@
                     android:id="@+id/etExpiryYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Yıl (YYYY)"
+                    android:hint="@string/y_l_yyyy"
                     android:inputType="number"
                     android:maxLength="4" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -87,7 +87,7 @@
                 android:id="@+id/etCVV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="CVV (3 Hane)"
+                android:hint="@string/cvv_3_hane"
                 android:inputType="numberPassword"
                 android:maxLength="3" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +103,7 @@
                 android:id="@+id/etCardHolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Kart Sahibinin Adı Soyadı"
+                android:hint="@string/kart_sahibinin_ad_soyad"
                 android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,7 +112,7 @@
             style="@style/Widget.Material3.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ödemeyi Tamamla"
+            android:text="@string/demeyi_tamamla"
             android:backgroundTint="@color/main_green"
             android:textColor="@color/white"
             app:cornerRadius="24dp"

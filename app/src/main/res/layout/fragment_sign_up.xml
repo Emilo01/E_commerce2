@@ -30,7 +30,7 @@
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/sing_up_email"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -54,19 +54,11 @@
                     android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/sing_up_password"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--
-            <ImageView
-                android:id="@+id/imageViewTogglePasswordVisibility"
-                android:src="@drawable/ic_visibility_off"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="8dp" />
-                -->
         </LinearLayout>
 
         <LinearLayout
@@ -88,29 +80,12 @@
                     android:id="@+id/editTextConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm Password"
+                    android:hint="@string/sing_up_password_confirm"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--
-            <ImageView
-                android:id="@+id/imageViewToggleConfirmPasswordVisibility"
-                android:src="@drawable/ic_visibility_off"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="8dp" />
-                -->
         </LinearLayout>
-
-        <!-- ProgressBar
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp" />-->
 
         <Button
             android:id="@+id/buttonSignUp"
@@ -119,6 +94,6 @@
             android:layout_marginTop="16dp"
             android:backgroundTint="#0C8A7B"
             android:textColor="@color/white"
-            android:text="Sign Up" />
+            android:text="@string/sing_up_sing_up" />
     </LinearLayout>
 </layout>

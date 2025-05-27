@@ -100,7 +100,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="My Account"
+                        android:text="@string/fragment_profile_my_account"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:paddingStart="12dp" />
@@ -139,7 +139,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="My Orders"
+                        android:text="@string/fragment_profile_my_orders"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:paddingStart="12dp" />
@@ -178,7 +178,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="My Coupons"
+                        android:text="@string/fragment_profile_my_coupons"
                         android:textSize="16sp"
                         android:textColor="@color/black"
                         android:paddingStart="12dp" />
@@ -197,7 +197,7 @@
             android:id="@+id/buttonLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Log Out"
+            android:text="@string/fragment_profile_log_out"
             android:textSize="16sp"
             android:textStyle="bold"
             android:textColor="@color/red"

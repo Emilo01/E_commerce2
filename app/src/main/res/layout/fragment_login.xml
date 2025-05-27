@@ -30,7 +30,7 @@
                 android:id="@+id/editTextEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/login_email"
                 android:inputType="textEmailAddress" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -54,24 +54,16 @@
                     android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/login_password"
                     android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--
-            <ImageView
-                android:id="@+id/imageViewTogglePasswordVisibility"
-                android:src="@drawable/ic_visibility_off"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:padding="8dp" />
-                -->
         </LinearLayout>
 
         <Button
             android:id="@+id/buttonLogin"
-            android:text="Login"
+            android:text="@string/login_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0C8A7B"
@@ -98,7 +90,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sign in with Google"
+                android:text="@string/login_sign_google"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"/>

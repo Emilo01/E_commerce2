@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sepetiniz boş"
+                android:text="@string/sepetiniz_bos"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:layout_marginTop="8dp" />
@@ -41,7 +41,7 @@
                 android:id="@+id/buttonShopNow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ürünleri Keşfet"
+                android:text="@string/urunleri_kesfet"
                 android:layout_marginTop="12dp"
                 android:backgroundTint="#0C8A7B"/>
         </LinearLayout>
@@ -67,7 +67,7 @@
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/discountshape"
                 android:drawablePadding="8dp"
-                android:hint="Kupon Kodu"
+                android:hint="@string/kupon_kodu"
                 android:padding="10dp"
                 android:background="@drawable/edittext_background"/>
 
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/main_green"
-                android:text="Uygula"
+                android:text="@string/uygula"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:padding="10dp"
@@ -132,7 +132,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Satın Al"
+                android:text="@string/satin_al"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"/>
