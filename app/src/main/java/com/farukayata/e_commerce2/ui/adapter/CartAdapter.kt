@@ -52,11 +52,11 @@ class CartAdapter(
 
             binding.root.setOnClickListener { onItemClick(cartItem) }//ürün detay
 
-            //ÖNCE Kırmızı Arka Planı Gizle
+            //kırmızı arka plan ilk başta gizli
             binding.swipeBackground.visibility = View.GONE
             binding.deleteIcon.visibility = View.GONE
 
-            //Eğer ilk öğeyse ve animasyon gösterilecekse
+            //ilk itemde animasyon gösterdik sadece
             if (animate) {
                 val slideOut = AnimationUtils.loadAnimation(binding.root.context, R.anim.slide_out_left)
                 val slideIn = AnimationUtils.loadAnimation(binding.root.context, R.anim.slide_in_right)
@@ -68,7 +68,7 @@ class CartAdapter(
                     }
 
                     override fun onAnimationEnd(animation: Animation?) {
-                        binding.root.startAnimation(slideIn) //Geri getir
+                        binding.root.startAnimation(slideIn) //Geri getirdik
                         binding.swipeBackground.visibility = View.GONE
                         binding.deleteIcon.visibility = View.GONE
                     }
@@ -89,16 +89,16 @@ class CartAdapter(
     }
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        val animate = (position == 0 && isPreviewSwipe) //ilk ürün için sahte kaydırma başlat
+        val animate = (position == 0 && isPreviewSwipe) //ilk ürün için sahte kaydırma başlattık
         holder.bind(getItem(position),animate)
 
         if (animate) {
-            isPreviewSwipe = false //Sadece bir kere çalışmasını sağla
+            isPreviewSwipe = false //Sadece bir kere çalışmasını sağladık
 
-            //Ürünü SAĞDAN SOLA kaydır
+            //sağdan sola kaycak
             holder.itemView.post {
                 val animator = ValueAnimator.ofFloat(0f, -holder.itemView.width * 0.5f).apply {
-                    duration = 500 //Kaydırma süresi
+                    duration = 500
                     addUpdateListener {
                         holder.itemView.translationX = it.animatedValue as Float
                         holder.itemView.invalidate()
@@ -106,10 +106,10 @@ class CartAdapter(
                     start()
                 }
 
-                //Eski yerine Geri Getirme
+                //eski konumuna getirdik
                 animator.doOnEnd {
                     val returnAnimator = ValueAnimator.ofFloat(-holder.itemView.width * 0.5f, 0f).apply {
-                        duration = 300 //Geri dönme süresi
+                        duration = 300
                         addUpdateListener {
                             holder.itemView.translationX = it.animatedValue as Float
                             holder.itemView.invalidate()
@@ -121,7 +121,7 @@ class CartAdapter(
         }
     }
 
-    //GERÇEK KAYDIRMA VE SİLME
+    //gerçek kaydırma ve silme efekti
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
         private val deleteIcon = ContextCompat.getDrawable(context, R.drawable.delete_icon1)
         private val backgroundPaint = Paint().apply { color = Color.parseColor("#E50D11") }
@@ -157,7 +157,7 @@ class CartAdapter(
                     itemView.right.toFloat(), itemView.bottom.toFloat(), backgroundPaint
                 )
 
-                //Çöp kutusu ikonunu yerleştir
+                //çöp kutusu ikonu
                 deleteIcon?.let {
                     val iconMargin = (itemView.height - it.intrinsicHeight) / 2
                     val iconLeft = itemView.right - iconMargin - it.intrinsicWidth
@@ -170,7 +170,7 @@ class CartAdapter(
                 }
             }
 
-            //Kaydırma efektini uygula
+            //Kaydırma efektini uyguladık
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
 

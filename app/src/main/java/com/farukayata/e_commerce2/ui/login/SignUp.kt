@@ -34,38 +34,6 @@ class SignUpFragment : Fragment() {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
 
 
-        /*
-        // Şifre görünürlüğünü değiştirme
-        binding.imageViewTogglePasswordVisibility.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            val inputType = if (isPasswordVisible) {
-                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD//şifre gizliliğini kaldırır
-            } else {
-                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                //text ve password metinlerinin metin tiplerini belirttik
-            }
-            binding.editTextPassword.inputType = inputType
-            binding.editTextPassword.setSelection(binding.editTextPassword.text?.length ?:0)
-            binding.imageViewTogglePasswordVisibility.setImageResource(
-                if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
-            )
-        }
-        binding.imageViewToggleConfirmPasswordVisibility.setOnClickListener {
-            isConfirmPasswordVisible = !isConfirmPasswordVisible
-            val inputType = if (isConfirmPasswordVisible) {
-                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-            } else {
-                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-            binding.editTextConfirmPassword.inputType = inputType
-            binding.editTextConfirmPassword.setSelection(binding.editTextConfirmPassword.text?.length ?: 0)
-            binding.imageViewToggleConfirmPasswordVisibility.setImageResource(
-                if (isConfirmPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
-            )
-        }
-
-         */
-
         // Kayıt ol butonunun başlangıçta devre dışı bırakılması
         binding.buttonSignUp.isEnabled = false
 
@@ -93,22 +61,22 @@ class SignUpFragment : Fragment() {
             val confirmPassword = binding.editTextConfirmPassword.text.toString()
 
             if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
-                Toast.makeText(requireContext(), "Please enter the email and password", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Please enter the email and password", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(requireContext(), "Check the email format type", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Check the email format type", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (password.length < 5) {
-                Toast.makeText(requireContext(), "Password must be at least five characters", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Password must be at least five characters", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (password != confirmPassword) {
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -129,14 +97,14 @@ class SignUpFragment : Fragment() {
                         //binding.progressBar.visibility = View.GONE//tekrar gone a çektik
                         binding.buttonSignUp.isEnabled = true// butonu enable yaptık
 
-                        Toast.makeText(requireContext(), state.data as String, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), state.data as String, Toast.LENGTH_SHORT).show()
                         findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
                     }
                     is Response.Error -> {
                         //binding.progressBar.visibility = View.GONE//tekrar gone a çektik
                         binding.buttonSignUp.isEnabled = true// butonu enable yaptık
 
-                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -17,17 +17,3 @@ class ProductsRepository @Inject constructor(private val pds: ProductsDataSource
     }
 
 }
-
-
-/*
-class ProductsRepository(var pds : ProductsDataSource) {
-    //hilt içi burdan viewmodel sayfasına gittik
-
-    //pds bağımlılık olduğu içi aşağıdaki gibi değil yukarıdaki gibi kullacaz
-    //var pds = ProductsDataSource()//bu bir bağımlılık
-    //datasource de değişken oluşturup aşağıda fonksiyonuna erişiyoruz
-
-    suspend fun productsYukle(): List<Commerce_Products> = pds.productsYukle()
-}
-
- */

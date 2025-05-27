@@ -73,7 +73,6 @@ class ProfileDetailFragment : Fragment() {
         return binding.root
     }
 
-    //Galeri Aç ve Fotoğraf Seç
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"

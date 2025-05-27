@@ -23,5 +23,5 @@ data class ProductRating(
     @SerializedName("rate") val rate: Double = 0.0,
     @SerializedName("count") val count: Int = 0
 ) : Parcelable {
-    constructor() : this(0.0, 0) // Firestore'un deserialize edebilmesi için parametresiz constructor eklendi
+    constructor() : this(0.0, 0) // Firestoreun deserialize edebilmesi için parametresiz constructor eklendi
 }

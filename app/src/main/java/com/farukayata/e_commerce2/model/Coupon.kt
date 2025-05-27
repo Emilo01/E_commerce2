@@ -6,9 +6,9 @@ import java.util.Date
 
 @Parcelize
 data class Coupon(
-    val id: String? = null, // Kuponun benzersiz ID'si
-    val code: String? = null, // Kupon kodu
-    val discountAmount: Double? = null, // İndirim tutarı
-    val isValid: Boolean? = true, // Geçerliliği kontrol etmek için
-    val issuedDate: Date? = null // Kuponun kazanılma tarihi
+    val id: String? = null,
+    val code: String? = null,
+    val discountAmount: Double? = null,
+    val isValid: Boolean? = true,
+    val issuedDate: Date? = null //kupon ekleme tarihi
 ) : Parcelable

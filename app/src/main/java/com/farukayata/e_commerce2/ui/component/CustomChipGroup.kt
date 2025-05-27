@@ -16,7 +16,7 @@ class CustomChipGroup @JvmOverloads constructor(
 
     private val chipGroup: ChipGroup
 
-    // Seçilen Chipi yakalamak için bir callback
+    //seçili chips için callback
     var onChipSelected: ((String) -> Unit)? = null
 
     init {
@@ -25,9 +25,10 @@ class CustomChipGroup @JvmOverloads constructor(
         //custom_chip_group.xml yükleerek içindeki chipgroupu chipgroup a atadık
     }
 
-    //Chipleri Dinamik Olarak Yükleme Fonksiyonu
+    //chipsleri dinnamik yükledik
     fun setChipItems(items: List<String>) {
-        chipGroup.removeAllViews() // Önceki Chipleri temizler
+        chipGroup.removeAllViews()
+        //tıklanınca takılı kalan chipleri temizler
 
         items.forEach { category ->
             val chip = Chip(context).apply {
@@ -36,9 +37,8 @@ class CustomChipGroup @JvmOverloads constructor(
                 isClickable = true
                 setChipBackgroundColorResource(R.color.gray1) // Chipin arka plan rengi
                 setTextColor(resources.getColor(R.color.main_green, null))
-                //Bir Chip tıklandığında, bu fonksiyon çağrılır ve seçilen Chip’in kategorisini döndürüyor
                 setOnClickListener {
-                    onChipSelected?.invoke(category) // Seçilen chip bilgisini geri döndür
+                    onChipSelected?.invoke(category)
                 }
             }
             chipGroup.addView(chip)

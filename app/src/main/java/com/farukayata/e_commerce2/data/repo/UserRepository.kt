@@ -11,12 +11,12 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val auth: FirebaseAuth,
-    private val storage: FirebaseStorage // kullanıcı resimi yüklemek için storage eklendi
+    private val storage: FirebaseStorage
 ) {
 
     private val userCollection get() = firestore.collection("users").document(auth.currentUser?.uid ?: "")
 
-    //Kullanıcı Bilgilerini Getir
+    //kullannıcı bilgisi
     suspend fun getUserProfile(): UserProfile? {
         return try {
             val snapshot = userCollection.get().await()
@@ -26,7 +26,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    //Kullanıcı Bilgilerini Güncelle
+    //kullanıcı bilgi güncelledik
     suspend fun updateUserProfile(userProfile: UserProfile) {
         try {
             userCollection.set(userProfile).await()
@@ -35,16 +35,15 @@ class UserRepository @Inject constructor(
         }
     }
 
-    //Firebase Storage’a Fotoğraf Yükle ve URL Döndür
+    //storage a foto yükledik ve url yi döndürdük
     suspend fun uploadProfileImage(imageUri: Uri): String? {
         return try {
             val userId = auth.currentUser?.uid ?: return null
             val storageRef = storage.reference.child("profile_images/$userId.jpg")
 
-            storageRef.putFile(imageUri).await() // Resmi Storage'a yükle
+            storageRef.putFile(imageUri).await()
 
-            val downloadUrl = storageRef.downloadUrl.await().toString() // Resmi indir
-            //storageRef.downloadUrl.await().toString() // URL'yi döndür
+            val downloadUrl = storageRef.downloadUrl.await().toString()
 
             println("Firebase Storage'a resim yüklendi: $downloadUrl")
             downloadUrl// başarılı olması durumunda URL ti bize dönndürcek
@@ -56,7 +55,7 @@ class UserRepository @Inject constructor(
         }
     }
 
-    //Kullanıcı Fotoğrafını Güncelle
+    //profil foto güncelledik
     suspend fun updateProfileImage(imageUrl: String) {
         try {
             userCollection.update("profileImageUrl", imageUrl).await()
@@ -65,8 +64,6 @@ class UserRepository @Inject constructor(
         }
     }
 
-
-    //Kullanıcıyı Çıkış Yaptır
     fun logoutUser() {
         auth.signOut()
     }

@@ -13,7 +13,6 @@ class CategoryAdapter(
     private val onCategoryClick: (String) -> Unit
 ) : ListAdapter<String, CategoryAdapter.CategoryViewHolder>(CategoryDiffCallback()) {
 
-    // Kategori isimleri ile drawable kaynaklarını eşleştiriyoruz
     private val categoryImageMap = mapOf(
         "electronics" to R.drawable.electronics,
         "jewelery" to R.drawable.jewelry,
@@ -27,23 +26,22 @@ class CategoryAdapter(
         fun bind(category: String) {
             binding.textViewCategoryName.text = category
 
-            // Eğer kategoriye ait bir resim varsa gösterdik
+            //uygun resmi id sine göre gösterdik
             categoryImageMap[category]?.let { imageResId ->
                 binding.imageViewCategory.setImageResource(imageResId)
             }
 
-            // Varsayılan olarak beyaz renk
             binding.cardViewCategory.setCardBackgroundColor(
                 ContextCompat.getColor(binding.root.context, R.color.card_default)
             )
 
             binding.root.setOnClickListener {
-                // Kategoriye tıklandığında rengi değiştirdik
+                // Kategoriye tıklandığında rengi değiştirdik - şu anlık çok belirgin değil ilerde revize et
                 binding.cardViewCategory.setCardBackgroundColor(
                     ContextCompat.getColor(binding.root.context, R.color.card_selected)
                 )
 
-                // 300ms sonra tekrar eski haline getir (parlama efekti gibi)
+                // 300ms sonra tekrar eski haline getir
                 //bu çok işe yaramıyor gibi geliyor
                 binding.cardViewCategory.postDelayed({
                     binding.cardViewCategory.setCardBackgroundColor(

@@ -41,7 +41,7 @@ class DetailFragment : Fragment() {
 
     private var quantity = 1
     private var unitPrice: Double = 0.0
-    private var isExpanded = false // Açıklama genişletme özelliği
+    private var isExpanded = false // açıklama genişletme
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,17 +61,16 @@ class DetailFragment : Fragment() {
         Glide.with(this).load(product.image).into(binding.imageViewProduct)
         (activity as? MainActivity)?.supportActionBar?.title = product.title
 
-        //Favorileri Firestore'dan yükle
+        //favorileri Firestoredan yükledik
         favoritesViewModel.loadFavorites()
 
         lifecycleScope.launchWhenStarted {
             favoritesViewModel.favorites.collect { favorites ->
-                //Favorileri güncelleyerek önerilen ürünleri yükledik
+                //favorileri güncelleyerek önerilen ürünleri yükledik
                 detailViewModel.loadRecommendedProducts(product.category ?: "", product.id ?: 0, favorites)
             }
         }
 
-        //RecyclerView Ayarları
         binding.recyclerViewRecommended.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             setHasFixedSize(true)
@@ -93,12 +92,12 @@ class DetailFragment : Fragment() {
 
         binding.recyclerViewRecommended.adapter = adapter
 
-        //Önerilen Ürünleri Güncelle
+        //önerilen ürünleri güncelle
         detailViewModel.recommendedProducts.observe(viewLifecycleOwner) { products ->
             adapter.submitList(products)
         }
 
-        //Read More / Read Less
+        //açıklama - +
         binding.buttonReadMore.setOnClickListener {
             if (isExpanded) {
                 binding.textViewProductDescription.maxLines = 3
@@ -112,7 +111,7 @@ class DetailFragment : Fragment() {
             isExpanded = !isExpanded
         }
 
-        //Adet ve fiyat güncelleme
+        //adet ve fiyat
         updateTotalPrice()
 
         binding.buttonIncreaseQuantity.setOnClickListener {
@@ -131,7 +130,7 @@ class DetailFragment : Fragment() {
             showQuantityPopup()
         }
 
-        //Sepete ekleme butonu işlevi
+        //sepete ekleme butonu işlevi
         binding.buttonAddToCart.setOnClickListener {
             val cartItem = CartItem(
                 id = product.id.toString(),
@@ -170,7 +169,7 @@ class DetailFragment : Fragment() {
         _binding = null
     }
 
-    // Kullanıcı Adet Seçimi Yapınca Açılan Popup Menü
+    //adet seçimi için popup
     private fun showQuantityPopup() {
         val popupMenu = PopupMenu(requireContext(), binding.textViewProductQuantity)
         for (i in 1..100) {
@@ -184,7 +183,7 @@ class DetailFragment : Fragment() {
         popupMenu.show()
     }
 
-    // Toplam fiyatı güncelleme
+    // toplam fiyatı güncelleme
     private fun updateTotalPrice() {
         val totalPrice = (unitPrice * quantity).coerceAtLeast(0.0)
         binding.textViewProductQuantity.text = quantity.toString()

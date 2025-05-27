@@ -43,15 +43,15 @@ class LoginFragment : Fragment() {
                         viewModel.signInWithGoogle(account)
                     } else {
                         println("Google hesabı null döndü!")
-                        Toast.makeText(requireContext(), "Google hesabı alınamadı!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), "Google hesabı alınamadı!", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: ApiException) {
                     println("Google Sign-In başarısız! Hata: ${e.message}")
-                    Toast.makeText(requireContext(), "Google Sign-In başarısız: ${e.message}", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Google Sign-In başarısız: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 println("Google Sign-In işlemi iptal edildi!")
-                Toast.makeText(requireContext(), "Google Sign-In iptal edildi!", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Google Sign-In iptal edildi!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -69,25 +69,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as? AppCompatActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
-        /*
-        // Şifre görünürlüğünü değiştirme
-        binding.imageViewTogglePasswordVisibility.setOnClickListener {
-            isPasswordVisible = !isPasswordVisible
-            val inputType = if (isPasswordVisible) {
-                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD//şifre gizliliğini kaldırır
-            } else {
-                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                //text ve password metinlerinin metin tiplerini belirttik
-            }
-            binding.editTextPassword.inputType = inputType
-            binding.editTextPassword.text?.let { binding.editTextPassword.setSelection(it.length) }
-            binding.imageViewTogglePasswordVisibility.setImageResource(
-                if (isPasswordVisible) R.drawable.ic_visibility else R.drawable.ic_visibility_off
-            )
-        }
-
-         */
-
         //bu kısım strig.xml kısmınnda renk katmak için ekledim fakat olmuyor
 //        // "Don't have an account? Sign up here." metnini HTML formatlı şekilde ayarla
 //        val signUpText = getString(R.string.sign_up_text)
@@ -101,12 +82,12 @@ class LoginFragment : Fragment() {
             val password = binding.editTextPassword.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Please fill all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Invalid email format", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -127,12 +108,12 @@ class LoginFragment : Fragment() {
                         // Progress bar gösterebilirsiniz
                     }
                     is Response.Success -> {
-                        Toast.makeText(requireContext(), state.data as String, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), state.data as String, Toast.LENGTH_SHORT).show()
                         //findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                         navigateAfterLogin()
                     }
                     is Response.Error -> {
-                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

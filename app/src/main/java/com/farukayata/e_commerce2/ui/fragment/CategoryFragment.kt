@@ -26,7 +26,7 @@ class CategoryFragment : Fragment() {
     ): View {
         binding = FragmentCategoryBinding.inflate(inflater, container, false)
 
-        // Adapter oluştur ve tıklama olayını bağla
+        // adapter oluştur ve tıklama olayını bağla
         val adapter = CategoryAdapter { selectedCategory ->
             val action = CategoryFragmentDirections.actionCategoryFragmentToCategorySpecialFragment(selectedCategory)
             findNavController().navigate(action)

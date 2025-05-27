@@ -17,7 +17,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import android.content.Context
 
-@Module //bağımlılık sağlayıcı modülü
+@Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
 
@@ -33,12 +33,6 @@ class AppModule {
         return ProductsDataSource(apiService)
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideProductsRepository(apiService: ApiService): ProductsRepository {
-//        return ProductsRepository(apiService)
-//    }
-
     @Provides
     @Singleton
     fun provideProductsRepository(pds: ProductsDataSource): ProductsRepository {
@@ -51,7 +45,6 @@ class AppModule {
         return FirebaseAuth.getInstance()
     }
 
-    // FirebaseFirestore sağlama
     @Provides
     @Singleton
     fun provideFirebaseFirestore(): FirebaseFirestore {
@@ -65,7 +58,7 @@ class AppModule {
         return FirebaseStorage.getInstance()
     }
 
-    // Uygulama genelinde Context sağlama
+    //uygulama geneline context bağlamak için
     @Provides
     @Singleton
     fun provideApplicationContext(@ApplicationContext context: Context): Context {

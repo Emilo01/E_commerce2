@@ -28,9 +28,8 @@ class PaymentCartAdapter(private val cartItems: List<CartItem>) :
         fun bind(item: CartItem) {
             val itemCount = item.count ?: 1
             val unitPrice = item.price ?: 0.0
-            val totalPrice = unitPrice * itemCount //Toplam fiyatı hesapla (Birim fiyat x Adet)
+            val totalPrice = unitPrice * itemCount //toplam fiyatı hesapla - birim fiyat x Adet
 
-            // 🔹 Güncellenen alanlar:
             binding.textViewProductName.text = item.title ?: "Ürün Adı Yok"
             binding.textViewProductQuantity.text = "Adet: $itemCount"
             binding.textViewProductPrice.text = "Toplam Fiyat: ${String.format("%.2f", totalPrice)} TL"

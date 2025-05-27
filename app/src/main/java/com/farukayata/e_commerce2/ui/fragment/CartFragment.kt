@@ -43,10 +43,11 @@ class CartFragment : Fragment() {
     private var discountPrice: Double? = null
     private var finalPrice: Double? = null
 
-    private lateinit var couponAdapter: CouponAdapter //recycler view kullanmıcaz duruma göre kaldırıla bilir
+    private lateinit var couponAdapter: CouponAdapter
+    //recycler view kullanmıcaz duruma göre kaldırıla bilir
     private val couponViewModel: CouponViewModel by viewModels()
 
-    private var isCouponApplied = false //Kuponun durumunu takip eden değişken
+    private var isCouponApplied = false //kupon aktifliğini check etmek için
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,22 +61,20 @@ class CartFragment : Fragment() {
         adapter = CartAdapter(
             context = requireContext(),
             onRemoveClick = { productId ->
-                //viewModel.removeFromCart(productId) // Ürünü sepetten kaldırır
-                showDeleteDialog(productId) //Popup ile silme onayı için
+                //viewModel.removeFromCart(productId)
+                showDeleteDialog(productId) //popup la silme
             },
             onIncreaseClick = { cartItem ->
-                val newCount = (cartItem.count ?: 0) - 1 // Null kontrolü yapıldı
+                val newCount = (cartItem.count ?: 0) - 1 // Null
                 if (newCount > 0) {
                     viewModel.updateItemCount(cartItem.id.orEmpty(), newCount)
-                    // Adeti azaltır
+                    // Adeti -
                 } else {
-                    //viewModel.removeFromCart(cartItem.id.orEmpty())
-                    // Adet 0 sa ürünü siler
                     showDeleteDialog(cartItem.id.orEmpty())
-                //Popup ile onay alarak silme için
+                    //popup ile onay alarak silme için
                 }
 
-                //Eğer kupon uygulanmışsa, kaldır
+                //sepetteki değişiklikte kuponun aktifliğini bozcak
                 if (isCouponApplied) {
                     couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
                     resetCouponUI()
@@ -85,21 +84,21 @@ class CartFragment : Fragment() {
 
             },
             onDecreaseClick = { cartItem ->
-                val newCount = (cartItem.count ?: 0) + 1 // Null kontrolü yapıldı
-                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti artırır
+                val newCount = (cartItem.count ?: 0) + 1 // Null =?
+                viewModel.updateItemCount(cartItem.id.orEmpty(), newCount) // Adeti +
 
-                //Eğer kupon uygulanmışsa kaldırdık
+                //kupon değişikliğinde kuponu kaldır
                 if (isCouponApplied) {
                     couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
                     resetCouponUI()
                 }
             },
             onSwipedToDelete = { productId ->
-                //Kaydırarak silme burada popup ile yönetilecek
+                //Kaydırarak silme burada popup ile yönettik
                 showDeleteDialog(productId)
             },
             onItemClick = { cartItem ->
-                // CartItem'dan Product nesnesine dönüşüm yap
+                // cart itemi product ta dönüştürdük
                 val product = Product(
                     id = cartItem.id?.toIntOrNull(),
                     title = cartItem.title,
@@ -117,11 +116,10 @@ class CartFragment : Fragment() {
 
         )
 
-        // RecyclerView ayarları
         binding.recyclerViewCart.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewCart.adapter = adapter
 
-        //RecyclerView'a kaydırarak silme özelliğini ekledik
+        //recycler viewda kaydırarak silme
         adapter.attachSwipeToDelete(binding.recyclerViewCart)
 
 
@@ -133,19 +131,19 @@ class CartFragment : Fragment() {
                 binding.recyclerViewCart.visibility = View.GONE
                 binding.emptyCartLayout.visibility = View.VISIBLE
 
-                // 🔥 Kupon kodu giriş alanını temizle
+                //kupon kodu giriş alanını temizledik
                 binding.editTextCouponCode.text.clear()
 
-                isCouponApplied = false //kuponu tamamen resetledik
+                isCouponApplied = false
                 couponViewModel.removeCoupon(listOf())//kupon efekti gitti
 
-                //kırmızı yeşil fiyat efekti kısımlarını gizlicek sepet boşalınca, kupon aktif olsada
+                //kırmızı yeşil fiyat efekti kısımlarını gizlicek sepet boşalınca kupon aktif olsada
                 binding.textViewOldPrice.visibility = View.GONE
                 binding.textViewTotalPrice.text = "Toplam: 0 TL"
                 binding.textViewTotalPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
 
 
-                //Eğer sepet boşsa kupon butonunu devre dışı bırakcak
+                //kupon devre dışı sepet boşsa
                 binding.buttonApplyCoupon.isEnabled = false
                 binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.dim_gray))
 
@@ -153,7 +151,7 @@ class CartFragment : Fragment() {
                 binding.recyclerViewCart.visibility = View.VISIBLE
                 binding.emptyCartLayout.visibility = View.GONE
 
-                //kupon butonunu tekrar aktif et
+                //kupon butonunu tekrar aktif
                 binding.buttonApplyCoupon.isEnabled = true
                 binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
 
@@ -171,7 +169,7 @@ class CartFragment : Fragment() {
             binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", discountedPrice)
         }
 
-        //Kupon uygulandığında toplam fiyatı dinle
+        //kupon uygulandığında toplam fiyatı dinler
         couponViewModel.totalPrice.observe(viewLifecycleOwner) { discountedPrice ->
             Log.d("CartFragment", "Kupon uygulandı, toplam fiyat güncellendi: $discountedPrice")
             binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", discountedPrice)
@@ -181,7 +179,7 @@ class CartFragment : Fragment() {
             findNavController().navigate(R.id.action_cartFragment_to_homeFragment)
         }
 
-        //Satın Al Butonuile PaymentSelectionFragmenta yönlendirdik
+        //satın al Butonuile PaymentSelectionFragmenta yönlendirdik
         binding.btnCheckout.setOnClickListener {
             findNavController().navigate(R.id.action_cartFragment_to_paymentSelectionFragment)
         }
@@ -192,10 +190,10 @@ class CartFragment : Fragment() {
 
                 if (text.isNotEmpty()) {
                     couponViewModel.validateCoupon(text)
-                //Kullanıcının girdiği her kodu dığruluğuna bakıyoruz
+                //kullanıcının girdiği her kodu dığruluğuna bakıyoruz
                 }
 
-                //Kuponun geçerli olup olmadığını dinledik
+                //kuponun geçerli olup olmadığını dinledik
                 couponViewModel.isCouponValid.observe(viewLifecycleOwner) { isValid ->
                     binding.buttonApplyCoupon.isEnabled = isValid
                     binding.buttonApplyCoupon.setBackgroundColor(
@@ -207,7 +205,7 @@ class CartFragment : Fragment() {
 
                     //kupon kodu geçersizse
                     if (!isValid && text.isNotEmpty()) {
-                        Toast.makeText(requireContext(), "Geçersiz kupon kodu!", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(requireContext(), "Geçersiz kupon kodu!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -217,13 +215,12 @@ class CartFragment : Fragment() {
         })
 
 
-        //Kupon Uygula Butonu
         binding.buttonApplyCoupon.setOnClickListener {
 
             //yukarıda yaptığımız işlemi ui gecikmesinden dolayı hata almamak adına
             //burdada sepet boşsa kuponu uygulatmamayı check ediyoruz-sepetin doluluğuna bakıyoruz
             if (viewModel.cartItems.value.isNullOrEmpty()) {
-                Toast.makeText(requireContext(), "Önce sepete ürün ekleyin!", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Önce sepete ürün ekleyin!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener // İşlem burada durcak
             }
 
@@ -231,7 +228,7 @@ class CartFragment : Fragment() {
 
             if (!isCouponApplied) {
                 if (couponCode.isNotEmpty()) {
-                    //Sadece geçerli kuponlar için buton aktif olmasını burda kontrol edip sağlıyoruz
+                    //sadece geçerli kuponlar için buton aktif olmasını burda kontrol edip sağlıyoruz
                     couponViewModel.isCouponValid.observe(viewLifecycleOwner) { isValid ->
                         if (isValid) {
                             couponViewModel.applyCoupon(couponCode, viewModel.cartItems.value ?: listOf())
@@ -241,15 +238,15 @@ class CartFragment : Fragment() {
                             binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.red))
                             binding.editTextCouponCode.isEnabled = false
 
-                            //Kupon uygulandığında fiyatı güncelledik
+                            //kupon uygulandığında fiyatı güncelledik
                             updateTotalPrice(viewModel.cartItems.value ?: listOf())
 
                         } else {
-                            Toast.makeText(requireContext(), "Geçersiz kupon kodu!", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(requireContext(), "Geçersiz kupon kodu!", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
-                    Toast.makeText(requireContext(), "Kupon kodunu girin", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(requireContext(), "Kupon kodunu girin", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 couponViewModel.removeCoupon(viewModel.cartItems.value ?: listOf())
@@ -260,9 +257,9 @@ class CartFragment : Fragment() {
                 binding.editTextCouponCode.isEnabled = true
                 binding.buttonApplyCoupon.isEnabled = true
 
-                Toast.makeText(requireContext(), "Kupon kaldırıldı", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(), "Kupon kaldırıldı", Toast.LENGTH_SHORT).show()
 
-                //Kupon kaldırıldığında fiyatı hemen güncelliyoruz
+                //kupon kaldırıldığında fiyatı hemen güncelliyoruz
                 updateTotalPrice(viewModel.cartItems.value ?: listOf())
             }
         }
@@ -270,26 +267,26 @@ class CartFragment : Fragment() {
 
 
 
-        //RecyclerView'a kaydırarak silme özelliğini ekliyoruz
+        //recyclerViewa kaydırarak silme özelliğini ekliyoruz
         adapter.attachSwipeToDelete(binding.recyclerViewCart)
 
         return binding.root
     }
 
     override fun onDestroyView() {
-        //Memory Leak Önleme: Fragment kapandığında UI referanslarını serbest bırakır.
+        //Memory Leak Önleme: Fragment kapandığında UI referanslarını serbest bırakır
         super.onDestroyView()
         _binding = null
     }
 
 
     private fun updateTotalPrice(cartList: List<CartItem>) {
-        val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // Toplam fiyat hesaplandı
-        val discountAmount = couponViewModel.totalPrice.value ?: 0.0 // Kupon indirimini doğrudan al
+        val totalPrice = cartList.sumOf { (it.price ?: 0.0) * (it.count ?: 0) } // toplam fiyat hesaplandı
+        val discountAmount = couponViewModel.totalPrice.value ?: 0.0 // kupon indirimini doğrudan al
 
-        // Yanlış hesaplamayı önlemek için doğrudan totalPrice üzerinden hesaplama yapıldı
+        // yanlış hesaplamayı önlemek için doğrudan totalPrice üzerinden hesaplama yapıldı
         val finalPrice = if (isCouponApplied) {
-            (totalPrice - discountAmount).coerceAtLeast(0.0) // Negatif değerleri engelle
+            (totalPrice - discountAmount).coerceAtLeast(0.0) // negatif değerler engelli
         } else {
             totalPrice
         }
@@ -302,14 +299,14 @@ class CartFragment : Fragment() {
             binding.textViewOldPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
             binding.textViewOldPrice.paintFlags = binding.textViewOldPrice.paintFlags or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG
 
-            // Yeni fiyatı yeşil yap
+            // yeni fiyatı yeşil yap
             binding.textViewTotalPrice.text = String.format("%.2f TL", finalPrice)
             binding.textViewTotalPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_green))
         } else {
-            // Kupon kaldırılmışsa eski fiyatı gizle
+            // kupon kaldırılmışsa eski fiyatı gizle
             binding.textViewOldPrice.visibility = View.GONE
 
-            // Toplam fiyatı normal göster
+            // toplam fiyatı normal göster
             binding.textViewTotalPrice.text = String.format("Toplam: %.2f TL", totalPrice)
             binding.textViewTotalPrice.setTextColor(ContextCompat.getColor(requireContext(), R.color.black))
         }
@@ -327,12 +324,12 @@ class CartFragment : Fragment() {
         val btnDelete: Button? = dialogView.findViewById<Button>(R.id.btnDelete)
 
         btnDelete?.setOnClickListener {
-            viewModel.removeFromCart(productId) //ViewModel’den silme işlemi çağrıldı
+            viewModel.removeFromCart(productId) //viewModelden silme işlemi çağrıldı
             dialog.dismiss()
         }
 
         btnCancel?.setOnClickListener {
-            adapter.notifyDataSetChanged() //Kaydırma işlemini geri almak içinn
+            adapter.notifyDataSetChanged() //kaydırma işlemini geri almak içinn
             dialog.dismiss()
         }
 
@@ -346,9 +343,9 @@ class CartFragment : Fragment() {
         binding.buttonApplyCoupon.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.main_green))
         binding.editTextCouponCode.isEnabled = true
         binding.buttonApplyCoupon.isEnabled = true
-        Toast.makeText(requireContext(), "Kupon kaldırıldı", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Kupon kaldırıldı", Toast.LENGTH_SHORT).show()
 
-        //Kupon kaldırıldığında fiyatı güncelledik
+        //kupon kaldırıldığında fiyatı güncelledik
         updateTotalPrice(viewModel.cartItems.value ?: listOf())
     }
 

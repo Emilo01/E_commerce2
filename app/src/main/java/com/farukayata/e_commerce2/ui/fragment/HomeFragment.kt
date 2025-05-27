@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Kullanıcı E-Postasını Aldık ve Toolbar Başlığına Atadık
+        //kullanıcı E Postasını Aldık ve Toolbar Başlığına Atadık
         val userEmail = FirebaseAuth.getInstance().currentUser?.email // Firebase'den e-posta aldık
         val username = userEmail?.substringBefore("@") ?: "HomePage"
         // "@" öncesini kadar olan kısımı aldık, null ise HomePage yazdırıyoruz
@@ -56,7 +56,6 @@ class HomeFragment : Fragment() {
         setupCategorySelection()
 
 
-        //Adapter Tanımlama
         val adapter = EcommorceAdapter(
             context = requireContext(),
             onProductClick = { product ->
@@ -67,7 +66,7 @@ class HomeFragment : Fragment() {
                 favoritesViewModel.addFavorite(product)
             },
             onRemoveFavoriteClick = { product ->
-                favoritesViewModel.removeFavorite(product.id.toString()) // Ürünü favorilerden çıkar
+                favoritesViewModel.removeFavorite(product.id.toString())
             }
         )
         binding.commerceAdapter = adapter
@@ -83,7 +82,7 @@ class HomeFragment : Fragment() {
                 favoritesViewModel.addFavorite(product)
             },
             onRemoveFavoriteClick = { product ->
-                favoritesViewModel.removeFavorite(product.id.toString()) // Ürünü favorilerden çıkar
+                favoritesViewModel.removeFavorite(product.id.toString())
             }
         )
 
@@ -92,21 +91,8 @@ class HomeFragment : Fragment() {
         }
         binding.mostPopularAdapter = mostInterestedProducts
 
-        // Ürün listesini RecyclerView ile bağlama
-//        homeViewModel.productList.observe(viewLifecycleOwner) { products ->
-//            val adapter = EcommorceAdapter(requireContext(), products) { product ->
-//                // Favorilere ekleme işlemi
-//                val favorite = Product(
-//                    id = product.id,
-//                    title = product.title,
-//                    price = product.price,
-//                    image = product.image
-//                )
-//                favoritesViewModel.addFavorite(favorite)
-//            }
-//            binding.commerceAdapter = adapter
-//        }
-        //firestoredan Favoriler Güncellendiğinde tüm Ürün Listesini Güncelledik
+
+        //favorileri güncelledik
         lifecycleScope.launchWhenStarted {
             favoritesViewModel.favorites.collect { favorites ->
                 homeViewModel.updateFavorites(favorites)
@@ -155,7 +141,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Arama Kutusunu Dinleme
+        //arama kutusu
         binding.searchView.isIconified = true // Arama çubuğu her zaman kapalı gelcek
         binding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -193,7 +179,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    //kategoriye Gitme Fonksiyonu
+    //katagoriye gittik
     private fun navigateToCategory(category: String) {
         Log.d("CategoryDebug", "Gönderilen kategori: $category")
         val action = HomeFragmentDirections.actionHomeFragmentToCategorySpecialFragment(category)

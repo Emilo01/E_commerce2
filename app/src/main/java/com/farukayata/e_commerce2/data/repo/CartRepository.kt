@@ -16,21 +16,21 @@ class CartRepository @Inject constructor(
             .document(firebaseAuth.currentUser?.uid ?: throw IllegalStateException("User not logged in"))
             .collection("cartItems") //->car
 
-    //Firestore'dan Sepetteki Ürünleri Çek
+    //firebasede sepetteki ürüleri çektik
     suspend fun getCartItems(): List<CartItem> {
         return try {
             val snapshot = cartCollection.get().await()
-            snapshot.documents.mapNotNull { it.toObject(CartItem::class.java) } // Firestore'dan gelen veriyi model'e çevir
+            snapshot.documents.mapNotNull { it.toObject(CartItem::class.java) } //gelen veriyi modelimize çevircez
         } catch (e: Exception) {
-            emptyList() // Hata olursa boş liste döndür
+            emptyList()
         }
     }
 
-    //Firestore'a Ürün Ekle / Güncelle
+    //firestore a ürü ekleyip güncelledik
     suspend fun addToCart(cartItem: CartItem) {
         try {
-            val documentRef = cartCollection.document(cartItem.id.toString()) // Ürün ID'sine göre doküman oluştur
-            val existingItem = documentRef.get().await() // Mevcut ürünü kontrol et
+            val documentRef = cartCollection.document(cartItem.id.toString()) //ürün id ye göre dükümatasyon oluşturcaz
+            val existingItem = documentRef.get().await() //mevcuttaki ürünü kontrrol ettik
 
             if (existingItem.exists()) {
                 // Ürün zaten sepette, sadece count artır
@@ -40,7 +40,7 @@ class CartRepository @Inject constructor(
                 val currentCount = existingItem.getLong("count") ?: 0
                 documentRef.update("count", currentCount + 1).await()
                 Log.d("Firestore", "Ürün zaten var, count artırıldı: ${cartItem.id}")
-                //Mevcut count değerini Firestore'dan çekerek artırırsak, yanlışlıkla null artırma riskini önlemiş olduk
+                //Mevcut count değerini Firestore'dan çekerek artırırsak yanlışlıkla null artırma riskini önlemiş olduk
 
             } else {
                 // Ürün sepette yoksa yeni ekle
@@ -68,7 +68,7 @@ class CartRepository @Inject constructor(
             if (newCount > 0) {
                 cartCollection.document(productId).update("count", newCount).await()
             } else {
-                // Eğer ürünün adedi 0 a düştüyse, sepetten tamamen sil
+                // Eğer ürünün adedi 0 a düştüyse sepetten tamamen sil dik
                 removeFromCart(productId)
             }
         } catch (e: Exception) {
@@ -76,7 +76,7 @@ class CartRepository @Inject constructor(
         }
     }
 
-    //sepetteki ürünler alındıktan sonra tüm ürünleri silcek
+    //alışveriş tamamlanınca sepeti rresetler
     suspend fun clearCart() {
         try {
             val cartItems = cartCollection.get().await()

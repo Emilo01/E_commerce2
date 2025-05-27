@@ -33,29 +33,26 @@ class RecommendedProductsAdapter(
         val product = getItem(position)
         holder.binding.product = product
 
-        // Ürün görselini yükleme
+        //ürün görselini yükleme
         Glide.with(holder.binding.imageViewProductCard.context)
             .load(product.image)
             .into(holder.binding.imageViewProductCard)
 
-        // Ürün kartına tıklama (detay sayfasına geçiş)
         holder.binding.imageViewProductCard.setOnClickListener {
             onProductClick(product)
         }
 
-        // Favori butonunun durumunu güncelleme
         holder.binding.favicon1visibility.visibility = if (product.isFavorite) View.VISIBLE else View.GONE
         holder.binding.favicon1novisibility.visibility = if (product.isFavorite) View.GONE else View.VISIBLE
 
-        // Favori butonuna tıklanınca ekleme veya çıkarma işlemi
         holder.binding.favoriteContainer.setOnClickListener {
             //burda ilk girerken true olan isfavorite true ttekrar false e düşüyor ????????????? sonra true oluyor
             if (product.isFavorite) {
-                onRemoveFavoriteClick(product) // Favorilerden çıkar
+                onRemoveFavoriteClick(product)
             } else {
-                onFavoriteClick(product) // Favorilere ekle
+                onFavoriteClick(product)
             }
-            notifyItemChanged(position) // UI güncelle
+            notifyItemChanged(position) // ui güncelle
         }
     }
 

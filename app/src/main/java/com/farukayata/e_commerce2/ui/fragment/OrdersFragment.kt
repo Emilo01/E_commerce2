@@ -36,16 +36,16 @@ class OrdersFragment : Fragment() {
             Log.d("OrdersFragment", "Received orders: $orders")
             if (orders.isNullOrEmpty()) {
                 Log.d("OrdersFragment", "No orders found")
-                // Eğer sipariş yoksa kullanıcıya bir Toast mesajı gösteriyoruz
-                Toast.makeText(requireContext(), "Siparişiniz bulunmamaktadır", Toast.LENGTH_SHORT).show()
+                // eğer sipariş yoksa kullanıcıya bir Toast mesajı gösteriyoruz
+                //Toast.makeText(requireContext(), "Siparişiniz bulunmamaktadır", Toast.LENGTH_SHORT).show()
             } else {
                 // Siparişleri tarihe göre grupla ve sırala
                 val groupedOrders = groupOrdersByDate(orders).sortedByDescending { it.first } // En yeni sipariş önce gelir.
 
                 Log.d("OrdersFragment", "Displaying orders")
-                // Eğer sipariş varsa, RecyclerView'a verileri bağlıyoruz
+                // eğer sipariş varsa, RecyclerViewa verileri bağlıyoruz
                 val adapter = OrdersAdapter(groupedOrders) { cartItem ->
-                    // CartItem'dan Product oluştur
+                    // cartItemden Product oluştur
                     val product = Product(
                         id = cartItem.id?.toIntOrNull(),
                         title = cartItem.title,
@@ -68,21 +68,21 @@ class OrdersFragment : Fragment() {
         return binding.root
     }
 
-    // Siparişleri tarihe göre gruplayan fonksiyon
+    // siparişleri tarihe göre gruplayan fonksiyon
     private fun groupOrdersByDate(orders: List<Order>): List<Pair<String, List<CartItem>>> {
         val dateMap = mutableMapOf<String, MutableList<CartItem>>()
 
-        // Her siparişi tarih bazında gruplama
+        // her siparişi tarih bazında gruplama
         orders.forEach { order ->
             val date = order.timestamp.toString() // Tarih bilgisini kullan
             if (!dateMap.containsKey(date)) {
                 dateMap[date] = mutableListOf()
             }
-            // Siparişteki ürünleri bu tarihe ekle
+            // siparişteki ürünleri bu tarihe ekle
             dateMap[date]?.addAll(order.items)
         }
 
-        // Gruplanan siparişleri döndür
+        // gruplanan siparişleri döndür
         return dateMap.entries.map { entry -> entry.key to entry.value }
     }
 }

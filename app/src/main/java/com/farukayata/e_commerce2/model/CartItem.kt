@@ -11,5 +11,5 @@ data class CartItem(
     val description: String? = null,
     val image: String? = null,
     val category: String? = null,
-    var count: Int? = 1            // Ürün Adedi (nullable) - Varsayılan 1
+    var count: Int? = 1
 ) : Parcelable

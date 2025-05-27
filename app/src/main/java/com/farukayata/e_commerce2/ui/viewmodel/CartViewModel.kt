@@ -32,27 +32,10 @@ class CartViewModel @Inject constructor(
     //burda try catch yapmadık çünkü burda hata alırsak zaten repository.getCartItems() içinde hata yönetimi var
     //repo kısmında
 
-    //Ürünü Sepete Ekle
-//    fun addToCart(cartItem: CartItem) {
-//        viewModelScope.launch {
-//            repository.addToCart(cartItem)
-//            loadCartItems() // Sepet güncellendiğinde yeniden yükle
-//        }
-//    }
 
     //Try-catch ekleyerek interet bağlantısı kesildiğinde veya firestore'da hara olduğunda uygulamapatlamıcak
     //hata loglancak
 
-//    fun addToCart(cartItem: CartItem) {
-//        viewModelScope.launch {
-//            try {
-//                repository.addToCart(cartItem)
-//                loadCartItems()
-//            } catch (e: Exception) {
-//                e.printStackTrace() // Hata loglama
-//            }
-//        }
-//    }
 
     fun addToCart(newCartItem: CartItem) {
         viewModelScope.launch {
@@ -83,17 +66,6 @@ class CartViewModel @Inject constructor(
 
 
 
-
-    //Sepetten Ürünü Sil
-//    fun removeFromCart(productId: String) {
-//        viewModelScope.launch {
-//            repository.removeFromCart(productId)
-//            loadCartItems() // Sepet güncellendiğinde yeniden yükle
-//        }
-//    }
-
-
-
     fun removeFromCart(productId: String) {
         viewModelScope.launch {
             try {
@@ -105,25 +77,6 @@ class CartViewModel @Inject constructor(
         }
     }
 
-
-    //Ürün Adetini Güncelle (Artır / Azalt)
-//    fun updateItemCount(productId: String, newCount: Int) {
-//        viewModelScope.launch {
-//            repository.updateItemCount(productId, newCount)
-//            loadCartItems() // Sepet güncellendiğinde yeniden yükle
-//        }
-//    }
-
-//    fun updateItemCount(productId: String, newCount: Int) {
-//        viewModelScope.launch {
-//            try {
-//                repository.updateItemCount(productId, newCount)
-//                loadCartItems()
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
-//    }
 
     fun updateItemCount(productId: String, newCount: Int) {
         viewModelScope.launch {
