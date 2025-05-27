@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentReceiptBinding
 import com.farukayata.e_commerce2.model.Order
 import com.farukayata.e_commerce2.ui.adapter.ReceiptAdapter
@@ -37,12 +38,12 @@ class ReceiptFragment : Fragment() {
         binding.recyclerViewReceipt.layoutManager = LinearLayoutManager(requireContext())
 
         //yalız son aldığımız ürünün fişi için
-        latestOrder = arguments?.getParcelable("latest_order")
+        latestOrder = arguments?.getParcelable(getString(R.string.receipt_fragment_latest_order))
 
         latestOrder?.let { order ->
             //parcelable sayesinde fragmentlar arası veri taşıdık
-            binding.tvOrderDate.text = "Sipariş Tarihi: ${formatTimestamp(order.timestamp)}"
-            binding.tvTotalPrice.text = "Toplam Fiyat: ${order.totalAmount} TL"
+            binding.tvOrderDate.text = "${getString(R.string.receipt_fragment_order_time)} ${formatTimestamp(order.timestamp)}"
+            binding.tvTotalPrice.text = "${getString(R.string.receipt_fragment_total_price)} ${order.totalAmount} ${getString(R.string.receipt_fragment_total_price)}"
             binding.recyclerViewReceipt.adapter = ReceiptAdapter(listOf(order))
             //Sadece latestOrder gönderildi--boş bir listede ekledik
 
@@ -61,20 +62,20 @@ class ReceiptFragment : Fragment() {
 
     private fun loadUserInfo() {
         val currentUser = firebaseAuth.currentUser
-        binding.tvCustomerEmail.text = "Email: ${currentUser?.email}"
+        binding.tvCustomerEmail.text = "${getString(R.string.receipt_fragment_Email)} ${currentUser?.email}"
 
         currentUser?.uid?.let { userId ->
             firestore.collection("users").document(userId).get()
                 .addOnSuccessListener { document ->
-                    val firstName = document.getString("firstName") ?: ""
+                    val firstName = document.getString(getString(R.string.receipt_fragment_firstName)) ?: ""
                     val lastName = document.getString("lastName") ?: ""
-                    binding.tvCustomerName.text = "Müşteri: $firstName $lastName"
+                    binding.tvCustomerName.text = "${getString(R.string.receipt_fragment_costumer)} $firstName $lastName"
                 }
         }
     }
 
     private fun formatTimestamp(timestamp: Long): String {
-        val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val sdf = SimpleDateFormat(getString(R.string.receipt_fragment_date_type), Locale.getDefault())
         return sdf.format(Date(timestamp))
     }
 
@@ -83,13 +84,13 @@ class ReceiptFragment : Fragment() {
         if (currentUser == null) return
 
         val userEmail = currentUser.email ?: return
-        val userName = "${currentUser.displayName ?: "Müşteri"}" //-> emailsenderdaki customerName burdan gitcek
+        val userName = currentUser.displayName ?: getString(R.string.receipt_fragment_costumer1) //-> emailsenderdaki customerName burdan gitcek
         val orderDate = formatTimestamp(order.timestamp)
-        val totalPrice = "${order.totalAmount} TL"
+        val totalPrice = "${order.totalAmount} ${getString(R.string.receipt_fragment_price_type)}"
 
         // Ürün detaylarını hazırla
         val itemDetails = order.items.map { item ->
-            "${item.title ?: "Ürün"} - ${item.price ?: 0.0} TL x ${item.count ?: 1}"
+            "${item.title ?: getString(R.string.receipt_fragment_product)} - ${item.price ?: 0.0} ${getString(R.string.receipt_fragment_price_type)} x ${item.count ?: 1}"
         }
 
         emailSender.sendReceiptEmail(

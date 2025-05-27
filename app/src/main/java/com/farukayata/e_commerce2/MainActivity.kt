@@ -151,21 +151,21 @@ class MainActivity : AppCompatActivity() {
     //toolbar Başlığını Güncelledik
     private fun updateToolbarTitle(destinationId: Int) {
         val title = when (destinationId) {
-            R.id.homeFragment -> "Cepte Al"
-            R.id.categoryFragment -> "Katagoriler"
-            R.id.favoritesFragment -> "Favoriler"
-            R.id.cartFragment -> "Sepetim"
-            R.id.profileFragment -> "Profil"
-            R.id.detailFragment -> "Cepte Al"
-            R.id.categorySpecialFragment -> "Cepte Al"
-            R.id.profileDetailFragment -> "Profil Detay"
-            R.id.ordersFragment -> "Siparişlerim"
-            R.id.couponsFragment -> "Kuponlarım"
-            R.id.paymentSelectionFragment -> "Ödeme Yöntemi Seçimi"
-            R.id.cardPaymentFragment -> "Ödeme ekranı"
-            R.id.orderConfirmationFragment -> "Sipariş Onayı"
-            R.id.receiptFragment -> "Sipariş Fişi"
-            else -> "Cepte Al"
+            R.id.homeFragment -> getString(R.string.title_home) //"Cepte Al"
+            R.id.categoryFragment -> getString(R.string.title_category)
+            R.id.favoritesFragment -> getString(R.string.title_favorites)
+            R.id.cartFragment -> getString(R.string.title_cart)
+            R.id.profileFragment -> getString(R.string.title_profile)
+            R.id.detailFragment -> getString(R.string.title_detail)
+            R.id.categorySpecialFragment -> getString(R.string.title_category_special)
+            R.id.profileDetailFragment -> getString(R.string.title_profile_detail)
+            R.id.ordersFragment -> getString(R.string.title_orders)
+            R.id.couponsFragment -> getString(R.string.title_coupons)
+            R.id.paymentSelectionFragment -> getString(R.string.title_payment_selection)
+            R.id.cardPaymentFragment -> getString(R.string.title_card_payment)
+            R.id.orderConfirmationFragment -> getString(R.string.title_order_confirmation)
+            R.id.receiptFragment -> getString(R.string.title_receipt)
+            else -> getString(R.string.title_default)
         }
         binding.customToolbar.setTitle(title)
     }

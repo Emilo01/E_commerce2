@@ -5,35 +5,35 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/home_icon_1"
-        android:title="Home"
+        android:title="@string/bottom_menu_home"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 
     <item
         android:id="@+id/categoryFragment"
         android:icon="@drawable/category_navbar_icon"
-        android:title="Category"
+        android:title="@string/bottom_menu_category"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 
     <item
         android:id="@+id/cartFragment"
         android:icon="@drawable/cart_icon_1"
-        android:title="Sepet"
+        android:title="@string/bottom_menu_cart"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 
     <item
         android:id="@+id/favoritesFragment"
         android:icon="@drawable/fav_icon_1"
-        android:title="Favori"
+        android:title="@string/bottom_menu_favori"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/user_icon_1"
-        android:title="Profil"
+        android:title="@string/bottom_menu_profil"
         app:iconTint="@color/selector_nav_icon"
         app:itemIconSize="24dp" />
 </menu>

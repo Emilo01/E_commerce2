@@ -13,6 +13,8 @@
     <string name="onboarding_third_screen_title">Fast Delivery</string>
     <string name="onboarding_third_screen_description">Enjoy quality service with\nfast and safe delivery!!!</string>
     <string name="onboarding_third_screen_button_text">Let\'s Shop</string>
+    <string name="view_pager_begin">Begin to Shoping</string>
+    <string name="view_pager_next">Next</string>
 
     <string name="signup_text">Don\'t have an account ? <font color='#0C8A7B'>Sign up here.</font></string>
     <string name="sing_up_email">Email</string>
@@ -154,5 +156,65 @@
     <string name="toolbar_custom_back">Back</string>
     <string name="toolbar_custom_page_title">Page Title</string>
     <string name="toolbar_custom_cart">Cart</string>
+
+    <!--
+    ***************
+    -->
+
+    <!--bottom menu-->
+    <string name="bottom_menu_home">Home</string>
+    <string name="bottom_menu_category">Category</string>
+    <string name="bottom_menu_cart">Sepet</string>
+    <string name="bottom_menu_favori">Favori</string>
+    <string name="bottom_menu_profil">Profil</string>
+
+
+    <!--
+    *****************
+    -->
+
+    <!--mainactivity.kt-->
+    <string name="title_home">Cepte Al</string>
+    <string name="title_category">Kategoriler</string>
+    <string name="title_favorites">Favoriler</string>
+    <string name="title_cart">Sepetim</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_detail">Cepte Al</string>
+    <string name="title_category_special">Cepte Al</string>
+    <string name="title_profile_detail">Profil Detay</string>
+    <string name="title_orders">Siparişlerim</string>
+    <string name="title_coupons">Kuponlarım</string>
+    <string name="title_payment_selection">Ödeme Yöntemi Seçimi</string>
+    <string name="title_card_payment">Ödeme ekranı</string>
+    <string name="title_order_confirmation">Sipariş Onayı</string>
+    <string name="title_receipt">Sipariş Fişi</string>
+    <string name="title_default">Cepte Al</string>
+    
+    <!--profileviewmodel-->
+    <string name="error_e_posta_bulunamadi">E-posta bulunamadı</string>"
+
+    <!--receiptfragment-->
+    <string name="receipt_fragment_latest_order">latest_order</string>
+    <string name="receipt_fragment_order_time">Sipariş Tarihi:</string>
+    <string name="receipt_fragment_total_price">Toplam Fiyat:</string>
+    <string name="receipt_fragment_price_type">TL</string>
+    <string name="receipt_fragment_Email">Email:</string>
+    <string name="receipt_fragment_costumer">Müşteri:</string>
+    <string name="receipt_fragment_costumer1">Müşteri:</string>
+    <string name="receipt_fragment_firstName">firstName:</string>
+    <string name="receipt_fragment_date_type">dd/MM/yyyy HH:mm</string>
+    <string name="receipt_fragment_product">Ürün</string>
+
+    <!--profile detail fragment-->
+    <string name="profile_detail_fragment_image_type">image/*</string>
+
+    <!--payment selection fragment-->
+    <string name="payment_selection_fragment_tag">PaymentSelectionFragment</string>
+    <string name="payment_selection_fragment_payment_method">Nakit</string>
+    <string name="payment_selection_fragment_payment_method_credit_cart">Kredi Kartı</string>
+    <string name="payment_selection_fragment_payment_method_door_of_cash">Kapıda Nakit Ödeme</string>
+    <string name="payment_selection_fragment_payment_method_door_of_credit_cart">Kapıda Kredi Kartı ile Ödeme</string>
+    <string name="payment_selection_fragment_payment_method_choosed">Ödeme Yöntemi Seçildi:</string>
+    <string name="payment_selection_fragment_latest_order">latest_order</string>
 
 </resources>

@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.farukayata.e_commerce2.R
 import com.farukayata.e_commerce2.databinding.FragmentProfileDetailBinding
 import com.farukayata.e_commerce2.model.UserProfile
 import com.farukayata.e_commerce2.ui.viewmodel.ProfileViewModel
@@ -75,7 +76,7 @@ class ProfileDetailFragment : Fragment() {
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
+        intent.type = getString(R.string.profile_detail_fragment_image_type)
         galleryLauncher.launch(intent)
     }
 

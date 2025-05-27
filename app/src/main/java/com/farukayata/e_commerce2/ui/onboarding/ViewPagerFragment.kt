@@ -35,13 +35,13 @@ class ViewPagerFragment : Fragment() {
 
                 //son ekranda next butonunu değiştir
                 if (position == 2) {  //eğer son ekrandaysa
-                    binding.firstOnBoardingButton.text = "Begin to Shoping"
+                    binding.firstOnBoardingButton.text = getString(R.string.view_pager_begin)
                     binding.firstOnBoardingButton.setOnClickListener {
                         onBoardingFinished()
                         findNavController().navigate(R.id.action_viewPagerFragment_to_homeFragment)
                     }
                 } else {
-                    binding.firstOnBoardingButton.text = "Next"
+                    binding.firstOnBoardingButton.text = getString(R.string.view_pager_next)
                     binding.firstOnBoardingButton.setOnClickListener {
                         binding.viewpager.currentItem++
                     }
